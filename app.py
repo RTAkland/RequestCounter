@@ -97,8 +97,10 @@ def arg_not_be_full() -> Response:
     参数不完整
     :return:
     """
-    response = make_response('<h2 style="text-align: center">参数填写不完整 -> name</h2>')
+    response = make_response({'code': 200,
+                              'message': 'Incomplete parameters'})
     response.status_code = 200
+    response.headers['Content-Type'] = 'application/json; charset=utf-8'
     return response
 
 
@@ -109,7 +111,15 @@ def api_page() -> Response or str:
     :return:
     """
     if 'name' in request.args:
-        return build_page(request.args['name'])
+        name = request.args['name']
+        if name != '':
+            resp = build_page(name)
+            response = make_response(resp)
+            response.headers['Content-Type'] = 'image/svg+xml; charset=utf-8'
+            return response
+
+        else:
+            return arg_not_be_full()
     else:
         return arg_not_be_full()
 

@@ -9,7 +9,7 @@
 # 计数器
 灵感: https://github.com/journey-ad/Moe-counter
 
-![LocalCounter](http://127.0.0.1:5000/API?owner=sdsdsdsdsdsdawioruvniovenyrui)
+![LocalCounter](http://127.0.0.1:5000/API?name=MarkusJoe)
 
 ![Moe-counter](https://count.getloli.com/get/@Moe-counter.github)
 
