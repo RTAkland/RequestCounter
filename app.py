@@ -6,7 +6,7 @@
 # @File Name: app.py
 
 
-import json
+import time
 from flask import Flask
 from flask import request
 from flask import Response
@@ -14,44 +14,35 @@ from flask import make_response
 from flask import render_template
 from flask import send_from_directory
 from bin.b64img import re_sort_number_image
+from db.db import (
+    fetch_data,
+    update_data
+)
 
 app = Flask(__name__)
 
 
-def is_new_user(name: str, reset: bool = False) -> int:
+def is_new_user(name: str):
     """
-    判断填入的参数是否为已有本地已有
-    如果有则该名称值加一
-    如果没有则新建一个
-    :param reset:
+    判断名称是否在数据库内
+    如果在则将该名称的值加1
+    如果不在数据库内则新加此名称到数据库
     :param name:
     :return:
     """
-    if not reset:
-        with open('./static/data.json', 'r', encoding='utf-8') as fp:
-            try:
-                data = json.load(fp)
-            except json.decoder.JSONDecodeError:
-                with open('./static/data.json', 'w', encoding='utf-8') as init_fp:
-                    json.dump({}, init_fp)
-            all_user = data.keys()
-            try:
-                if name in all_user:  # 加次数
-                    data[name] += 1
-                    return data[name]
-
-                else:
-                    data[name] = 0  # 新加名称
-                    return 0
-            finally:
-                with open('./static/data.json', 'w', encoding='utf-8') as dump:
-                    json.dump(data, dump)
+    """fetch_data 函数返回的是当前名称下访问次数的数值 为整型"""
+    count = fetch_data(name)
+    if count == 0:
+        return [True, 0]
+    elif len(str(count)) <= 10:
+        return [True, count]
     else:
-        with open('./static/data.json', 'r', encoding='utf-8') as reset_fp:
-            data = json.load(reset_fp)
-            data[name] = 0  # 重置该名称的值
-            with open('./static/data.json', 'w', encoding='utf-8') as reset_dump:  # 
-                json.dump(data, reset_dump)
+        update_data(name, 0)
+        response = make_response({'code': 200,
+                                  'message': '当前名称数值已经为最大, 已将数值重置',
+                                  'timestamp': time.time()})
+        response.headers['Content-Type'] = 'application/json'
+        return [False, response]
 
 
 def build_page(name: str) -> Response or str:
@@ -60,8 +51,8 @@ def build_page(name: str) -> Response or str:
     :param name:
     :return:
     """
-    count = is_new_user(name)
-    if len(str(count)) <= 10:
+    status, count = is_new_user(name)
+    if status:
         """
         计算出要在数字前加上几个0, 其实就是10减去数字位数
         假如当前访问数字是300, 先将整形转换为字符串, 再使用len()计算出长度
@@ -87,11 +78,19 @@ def build_page(name: str) -> Response or str:
                                svg_img_9=f'{sorted_image[9]}'
                                )  # 渲染模板
     else:
-        is_new_user(name, reset=True)
-        response = make_response({'code': 200,
-                                  'message': '当前名称数值已经为最大, 已将数值重置'})
-        response.headers['Content-Type'] = 'application/json'
-        return response
+        return 'LONG'
+
+
+def too_long_to_count() -> Response:
+    """
+    数值太长显示此页面
+    :return:
+    """
+    response = make_response({'code': 200,
+                              'message': '当前数值超过了最大可计数范围(10位)已将此名称的数据重置'})
+    response.status_code = 200
+    response.headers['Content-Type'] = 'application/json'
+    return response
 
 
 def arg_not_be_full() -> Response:
@@ -100,25 +99,29 @@ def arg_not_be_full() -> Response:
     :return:
     """
     response = make_response({'code': 200,
-                              'message': 'Incomplete parameters'})
+                              'message': '参数填写不完整',
+                              'timestamp': time.time()})
     response.status_code = 200
     response.headers['Content-Type'] = 'application/json; charset=utf-8'
     return response
 
 
-@app.route('/API', methods=['GET', 'POST'])
+@app.route('/API', methods=['GET', 'POST'])  # 允许 GET 和 POST 方法
 def api_page() -> Response or str:
     """
-     API页面主函数
+    API 页面函数
     :return:
     """
     if 'name' in request.args:
         name = request.args['name']
-        if name != '':
+        if name != '':  # 数据为空返回参数不完整界面
             resp = build_page(name)
-            response = make_response(resp)
-            response.headers['Content-Type'] = 'image/svg+xml; charset=utf-8'
-            return response
+            if resp != 'LONG':
+                response = make_response(resp)
+                response.headers['Content-Type'] = 'image/svg+xml; charset=utf-8'
+                return response
+            else:
+                return too_long_to_count()
         else:
             return arg_not_be_full()
     else:

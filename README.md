@@ -7,7 +7,7 @@
 </p>
 
 ## Python 版访问次数计数器使用了flask 作为服务端接收请求
-## 借鉴于: [Moe Counter](https://github.com/journey-ad/Moe-counter)  
+## 借鉴于(仿制): [Moe Counter](https://github.com/journey-ad/Moe-counter)  (应该算借鉴吧)
 作者:[journey-ad](https://github.com/journey-ad/Moe-counter/commits?author=journey-ad)
 
 ### 开源
@@ -25,7 +25,11 @@
 ## 调用须知
 - API支持`GET` 和 `POST` 方法请求
 - 最大可以计数`10`位数, 超过则重置
-- 
+
+
+# 一些信息
+- 使用了Python3.6 的标准库`Sqlite3`进行数据库操作
+- 开启时占用了`32Mb`的内存
 
 
 
