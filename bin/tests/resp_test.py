@@ -14,10 +14,9 @@ def request_test() -> None:
     请求测试
     :return:
     """
-    name_str = random.sample(range(1, 100), 30)
-    for i in name_str:
-        resp = requests.get(f'http://127.0.0.1:8000/API?owner={i}')
-        print(resp.content)
+    for i in range(100):
+        resp = requests.get(f'http://127.0.0.1:8000/API?name={i}')
+        print(resp)
 
 
 def download_test() -> None:
@@ -31,4 +30,4 @@ def download_test() -> None:
         fp.write(resp.content)
 
 
-download_test()
+request_test()
