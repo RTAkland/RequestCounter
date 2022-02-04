@@ -27,27 +27,26 @@ def re_sort_number_image(origin_number: str) -> list:
     final_b64_img_code = []
     if origin_number != '0000000000':
         for i in origin_number:
-            match i:
-                case '0':
-                    final_b64_img_code.append(origin_b64_img_code.get(str(i)))
-                case '1':
-                    final_b64_img_code.append(origin_b64_img_code.get(i))
-                case '2':
-                    final_b64_img_code.append(origin_b64_img_code.get(i))
-                case '3':
-                    final_b64_img_code.append(origin_b64_img_code.get(i))
-                case '4':
-                    final_b64_img_code.append(origin_b64_img_code.get(i))
-                case '5':
-                    final_b64_img_code.append(origin_b64_img_code.get(i))
-                case '6':
-                    final_b64_img_code.append(origin_b64_img_code.get(i))
-                case '7':
-                    final_b64_img_code.append(origin_b64_img_code.get(i))
-                case '8':
-                    final_b64_img_code.append(origin_b64_img_code.get(i))
-                case '9':
-                    final_b64_img_code.append(origin_b64_img_code.get(i))
+            if i == '0':
+                final_b64_img_code.append(origin_b64_img_code.get(str(i)))
+            elif i == '1':
+                final_b64_img_code.append(origin_b64_img_code.get(i))
+            elif i == '2':
+                final_b64_img_code.append(origin_b64_img_code.get(i))
+            elif i == '3':
+                final_b64_img_code.append(origin_b64_img_code.get(i))
+            elif i == '4':
+                final_b64_img_code.append(origin_b64_img_code.get(i))
+            elif i == '5':
+                final_b64_img_code.append(origin_b64_img_code.get(i))
+            elif i == '6':
+                final_b64_img_code.append(origin_b64_img_code.get(i))
+            elif i == '7':
+                final_b64_img_code.append(origin_b64_img_code.get(i))
+            elif i == '8':
+                final_b64_img_code.append(origin_b64_img_code.get(i))
+            elif i == '9':
+                final_b64_img_code.append(origin_b64_img_code.get(i))
 
         return final_b64_img_code
     else:
