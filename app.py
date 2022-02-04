@@ -14,6 +14,7 @@ from flask import make_response
 from flask import render_template
 from flask import send_from_directory
 from bin.b64img import re_sort_number_image
+from wsgiref.simple_server import make_server
 from db.db import (
     fetch_data,
     update_data
@@ -140,4 +141,5 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, threaded=True)
+    server = make_server('', 5000, app)
+    server.serve_forever()
