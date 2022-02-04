@@ -25,28 +25,32 @@ def re_sort_number_image(origin_number: str) -> list:
         '9': 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNjQzODg4NTE2OTM3IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjgxNzkiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNMjM5LjU2NjggNzA4LjUyODEgMzI1LjMyNjggNjc5LjkzNmMxOS4wNTU2IDk1LjI5NTUgNjkuNDI0MSAxNDEuNTg0NCAxNTEuMTE5OSAxMzguODYzNiAxMjcuOTUxOS01LjQzOTUgMTkzLjI5NTQtMTE4LjQzMTcgMTk2LjAzMTUtMzM4Ljk3NTctNDAuODQ4NCA3OC45NTk2LTEwOC45MTE2IDExOC40MzE3LTIwNC4yMDcxIDExOC40MzE3LTE1Mi40Nzk3LTEzLjU5OTctMjM1LjUyLTEwMy40NTU3LTI0OS4xMTk3LTI2OS41MzYzIDEwLjg4LTE3Ni45NTk1IDk5LjM3NjEtMjcyLjI1NiAyNjUuNDU1Ni0yODUuODg4NSAxOTAuNTkyLTIuNzE5NyAyODQuNTExMiAxMzIuMDY0MyAyODEuNzkxNSA0MDQuMzIwMyAwIDI4OC42MDgzLTk5LjM3NjEgNDM0LjI3MjMtMjk4LjEyNzQgNDM2Ljk5MkMzNDguNDYyMSA4NzguNzAzNiAyNzIuMjM4NiA4MjAuMTc1OSAyMzkuNTY2OCA3MDguNTI4MXpNNjcyLjQ3ODIgMzczLjY0ODRjMC0xNzEuNTItNjUuMzQzNS0yNTUuOTM2NS0xOTYuMDMxNS0yNTMuMjE1Ny0xMDMuNDcyMSA4LjE3NTYtMTU5LjI5NTUgNzQuODgtMTY3LjQ1NTcgMjAwLjExMjEgNS40Mzk1IDEyNS4yNDc1IDYxLjI2MzkgMTkxLjk2ODMgMTY3LjQ1NTcgMjAwLjEyODVDNTgyLjYyMjIgNTIwLjY3MjMgNjQ3Ljk2NTcgNDcxLjY2MzYgNjcyLjQ3ODIgMzczLjY0ODR6IiBwLWlkPSI4MTgwIj48L3BhdGg+PC9zdmc+'}
 
     final_b64_img_code = []
+    if origin_number != '0000000000':
+        for i in origin_number:
+            match i:
+                case '0':
+                    final_b64_img_code.append(origin_b64_img_code.get(str(i)))
+                case '1':
+                    final_b64_img_code.append(origin_b64_img_code.get(i))
+                case '2':
+                    final_b64_img_code.append(origin_b64_img_code.get(i))
+                case '3':
+                    final_b64_img_code.append(origin_b64_img_code.get(i))
+                case '4':
+                    final_b64_img_code.append(origin_b64_img_code.get(i))
+                case '5':
+                    final_b64_img_code.append(origin_b64_img_code.get(i))
+                case '6':
+                    final_b64_img_code.append(origin_b64_img_code.get(i))
+                case '7':
+                    final_b64_img_code.append(origin_b64_img_code.get(i))
+                case '8':
+                    final_b64_img_code.append(origin_b64_img_code.get(i))
+                case '9':
+                    final_b64_img_code.append(origin_b64_img_code.get(i))
 
-    for i in origin_number:
-        match i:
-            case '0':
-                final_b64_img_code.append(origin_b64_img_code.get(str(i)))
-            case '1':
-                final_b64_img_code.append(origin_b64_img_code.get(i))
-            case '2':
-                final_b64_img_code.append(origin_b64_img_code.get(i))
-            case '3':
-                final_b64_img_code.append(origin_b64_img_code.get(i))
-            case '4':
-                final_b64_img_code.append(origin_b64_img_code.get(i))
-            case '5':
-                final_b64_img_code.append(origin_b64_img_code.get(i))
-            case '6':
-                final_b64_img_code.append(origin_b64_img_code.get(i))
-            case '7':
-                final_b64_img_code.append(origin_b64_img_code.get(i))
-            case '8':
-                final_b64_img_code.append(origin_b64_img_code.get(i))
-            case '9':
-                final_b64_img_code.append(origin_b64_img_code.get(i))
-
-    return final_b64_img_code
+        return final_b64_img_code
+    else:
+        for i in range(10):
+            final_b64_img_code.append(origin_b64_img_code.get(str(0)))
+        return final_b64_img_code
