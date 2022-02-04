@@ -38,11 +38,7 @@ def is_new_user(name: str):
         return [True, count]
     else:
         update_data(name, 0)
-        response = make_response({'code': 200,
-                                  'message': '当前名称数值已经为最大, 已将数值重置',
-                                  'timestamp': time.time()})
-        response.headers['Content-Type'] = 'application/json'
-        return [False, response]
+        return [False, 0]
 
 
 def build_page(name: str) -> Response or str:
@@ -89,7 +85,9 @@ def too_long_to_count() -> Response:
     response = make_response({'code': 200,
                               'message': '当前数值超过了最大可计数范围(10位)已将此名称的数据重置'})
     response.status_code = 200
-    response.headers['Content-Type'] = 'application/json'
+    response.headers['Content-Type'] = 'application/json; charset=utf-8'
+    response.headers['cache-control'] = 'max-age=0, no-cache, no-store, must-revalidate'
+    response.headers['date'] = time.ctime()
     return response
 
 
@@ -103,6 +101,8 @@ def arg_not_be_full() -> Response:
                               'timestamp': time.time()})
     response.status_code = 200
     response.headers['Content-Type'] = 'application/json; charset=utf-8'
+    response.headers['cache-control'] = 'max-age=0, no-cache, no-store, must-revalidate'
+    response.headers['date'] = time.ctime()
     return response
 
 
@@ -119,6 +119,8 @@ def api_page() -> Response or str:
             if resp != 'LONG':
                 response = make_response(resp)
                 response.headers['Content-Type'] = 'image/svg+xml; charset=utf-8'
+                response.headers['cache-control'] = 'max-age=0, no-cache, no-store, must-revalidate'
+                response.headers['date'] = time.ctime()
                 return response
             else:
                 return too_long_to_count()
