@@ -13,6 +13,7 @@ from flask import Response
 from flask import make_response
 from flask import render_template
 from flask import send_from_directory
+from bin.b64img import re_sort_number_image
 
 app = Flask(__name__)
 
@@ -59,18 +60,19 @@ def build_page(name: str) -> str:
         if len(str(count)) <= 10:
             zero_counter = 10 - len(str(count))
             final_number = '0' * zero_counter + str(count)
+            sorted_image = re_sort_number_image(final_number)
             return render_template('index.html',
-                                   owner=name,
-                                   b64_0=f'./static/number/{final_number[0]}.svg',
-                                   b64_1=f'./static/number/{final_number[1]}.svg',
-                                   b64_2=f'./static/number/{final_number[2]}.svg',
-                                   b64_3=f'./static/number/{final_number[3]}.svg',
-                                   b64_4=f'./static/number/{final_number[4]}.svg',
-                                   b64_5=f'./static/number/{final_number[5]}.svg',
-                                   b64_6=f'./static/number/{final_number[6]}.svg',
-                                   b64_7=f'./static/number/{final_number[7]}.svg',
-                                   b64_8=f'./static/number/{final_number[8]}.svg',
-                                   b64_9=f'./static/number/{final_number[9]}.svg'
+                                   title=name,
+                                   svg_img_0=f'{sorted_image[0]}',
+                                   svg_img_1=f'{sorted_image[1]}',
+                                   svg_img_2=f'{sorted_image[2]}',
+                                   svg_img_3=f'{sorted_image[3]}',
+                                   svg_img_4=f'{sorted_image[4]}',
+                                   svg_img_5=f'{sorted_image[5]}',
+                                   svg_img_6=f'{sorted_image[6]}',
+                                   svg_img_7=f'{sorted_image[7]}',
+                                   svg_img_8=f'{sorted_image[8]}',
+                                   svg_img_9=f'{sorted_image[9]}'
                                    )
 
 
@@ -84,40 +86,34 @@ def arg_not_be_full() -> Response:
     return response
 
 
-@app.route('/API', methods=['GET'])
+@app.route('/API', methods=['GET', 'POST'])
 def api_page() -> Response or str:
     """
      API页面主函数
     :return:
     """
-    if request.method == 'GET':
-        if 'owner' in request.args.keys():
-            owner = request.args['owner']
-            if owner != '':
-                html_template = build_page(owner)
-                response = make_response(html_template)
-                response.headers['Content-Type'] = 'image/svg+xml; charset=utf-8'
-                return response
-            else:
-                return arg_not_be_full()
+    if 'owner' in request.args.keys():
+        owner = request.args['owner']
+        if owner != '':
+            html_template = build_page(owner)
+            response = make_response(html_template)
+            response.headers['Content-Type'] = 'image/svg+xml'
+            # response.headers['Content-Type'] = 'text/html'
+            return response
         else:
-            arg_not_be_full()
-
+            return arg_not_be_full()
     else:
-        return 'Method Not Allowed'
+        arg_not_be_full()
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     """
     索引页面
     :return:
     """
-    if request.method == 'GET':
-        return send_from_directory('./static', 'index.html')
-    else:
-        return 'Method Not Allowed'
+    return send_from_directory('./static', 'index.html')
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, threaded=True)

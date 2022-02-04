@@ -16,7 +16,7 @@ def convert() -> None:
     # image转base64
     lst = []
     for i in range(10):
-        with open(f'../../static/number/{i}.png', 'rb') as f:
+        with open(f'../../static/theme/t2/{i}.svg', 'rb') as f:
             base64_data = base64.b64encode(f.read())
             base64_code = 'data:image/jpeg;base64,' + base64_data.decode('utf-8')
             lst.append(base64_code)
