@@ -7,8 +7,7 @@
 </p>
 
 ## Python 版访问次数计数器使用了flask 作为服务端接收请求
-## 借鉴于(仿制): [Moe Counter](https://github.com/journey-ad/Moe-counter)  (应该算借鉴吧)
-作者:[journey-ad](https://github.com/journey-ad/Moe-counter/commits?author=journey-ad)
+## 借鉴于(仿制): [Moe Counter](https://github.com/journey-ad/Moe-counter)  (应该算借鉴吧) 作者:[journey-ad](https://github.com/journey-ad/Moe-counter/commits?author=journey-ad)
 
 ### 开源
 - 本项目以[Apache-2.0](./LICENSE)许可开源, 即:
