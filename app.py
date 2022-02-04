@@ -50,11 +50,11 @@ def is_new_user(name: str, reset: bool = False) -> int:
         with open('./static/data.json', 'r', encoding='utf-8') as reset_fp:
             data = json.load(reset_fp)
             data[name] = 0  # 重置该名称的值
-            with open('./static/data.json', 'w', encoding='utf-8') as reset_dump:
+            with open('./static/data.json', 'w', encoding='utf-8') as reset_dump:  # 
                 json.dump(data, reset_dump)
 
 
-def build_page(name: str) -> str:
+def build_page(name: str) -> Response or str:
     """
     渲染最终的页面
     :param name:
@@ -68,9 +68,9 @@ def build_page(name: str) -> str:
         使用10 - 去长度, 剩下的结果就是要在前面加上几个0
         """
         zero_counter = 10 - len(str(count))
-        if count != 0:
+        if count != 0:  # 不是新名称时直接计算要添加几个零
             final_number = '0' * zero_counter + str(count)  # 拼接
-        else:
+        else:  # 是新名称直接设置为10个零
             final_number = '0000000000'
         sorted_image = re_sort_number_image(final_number)
         return render_template('index.html',
@@ -88,8 +88,10 @@ def build_page(name: str) -> str:
                                )  # 渲染模板
     else:
         is_new_user(name, reset=True)
-        return render_template('long.html',
-                               title=name)
+        response = make_response({'code': 200,
+                                  'message': '当前名称数值已经为最大, 已将数值重置'})
+        response.headers['Content-Type'] = 'application/json'
+        return response
 
 
 def arg_not_be_full() -> Response:
@@ -117,7 +119,6 @@ def api_page() -> Response or str:
             response = make_response(resp)
             response.headers['Content-Type'] = 'image/svg+xml; charset=utf-8'
             return response
-
         else:
             return arg_not_be_full()
     else:
