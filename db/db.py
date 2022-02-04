@@ -18,7 +18,7 @@ def insert_data(name: str):
     :param name:
     :return:
     """
-    cursor.execute('insert into ReqCount values(?, ?)', (name, 0))
+    cursor.execute('insert into ReqCount values(?, ?)', (name, 1))
     conn.commit()
 
 
