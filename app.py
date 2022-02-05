@@ -127,11 +127,11 @@ def index():
 
 
 if __name__ == '__main__':
-    # app.run(threaded=True)
+    app.run(threaded=True)
     print('服务器已在http://127.0.0.1:5000 运行')
-    try:
-        server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
-        server.serve_forever()
-    except OSError:
-        print('5000 端口被占用')
+    # try:
+    #     server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
+    #     server.serve_forever()
+    # except OSError:
+    #     print('5000 端口被占用')
 
