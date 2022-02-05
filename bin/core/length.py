@@ -6,7 +6,7 @@
 # @File Name: length.py
 
 
-def make_html(length: int, svg_width: int = 45, svg_height: int = 70) -> None:
+def make_html(length: int, svg_width: int = 45, svg_height: int = 50) -> None:
     """
     生成html
     :param svg_height:
@@ -17,7 +17,7 @@ def make_html(length: int, svg_width: int = 45, svg_height: int = 70) -> None:
 
     html_head = """<?xml version="1.0" encoding="UTF-8"?>
 <svg width="%(w)s" height="%(h)s" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<title>{{ title }}</title>
+<title>Flask Counter - {{ title }}</title>
 <g>\n"""
     svg_tag = """   <image x="%(x)s" y="0" width="%(w)s" height="%(h)s" xlink:href="{{ svg_img_%(i)s }}"></image>\n"""
     html_feet = """</g></svg>"""
