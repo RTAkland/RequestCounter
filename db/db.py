@@ -22,7 +22,7 @@ def insert_data(name: str):
     conn.commit()
 
 
-def fetch_data(name: str, mode: bool = False) -> int:
+def fetch_data(name: str) -> int:
     """
     获取数据
     :param name:
@@ -43,8 +43,9 @@ def fetch_data(name: str, mode: bool = False) -> int:
     if name in temp_dict.keys():
         count = temp_dict[name]  # 获取原数字 为 整型
         update_data(name, count)
-        return temp_dict[name]
+        return count
     else:
+        # 新建用户数据
         insert_data(name)
         return 0
 
