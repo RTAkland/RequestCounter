@@ -7,19 +7,16 @@
 
 
 import time
+from gevent import pywsgi
 from flask import Flask
 from flask import request
 from flask import Response
 from flask import make_response
 from flask import send_from_directory
-from bin.render_ import render_temp_
-from bin.b64img import re_sort_number_image
-from bin.length import make_html
-from wsgiref.simple_server import make_server
-from db.db import (
-    fetch_data,
-    update_data
-)
+from bin.core.render_ import render_temp_
+from bin.core.b64img import re_sort_number_image
+from bin.core.length import make_html
+from db.db import (fetch_data, update_data)
 
 app = Flask(__name__)
 
@@ -39,13 +36,15 @@ def error_length(length: int) -> Response:
     return response
 
 
-def too_lang_to_count() -> Response:
+def too_lang_to_count(name: str) -> Response:
     """
     数据过长重置数据
+    :param name:
     :return:
     """
+    update_data(name, 0)
     response = make_response({'code': 200,
-                              'message': f'当前长度超过了预设的值'})
+                              'message': f'当前长度超过了最大可计数长度:10. 已将重置该名称的计数器'})
     response.headers['Content-Type'] = 'application/json; charset=utf-8'
     response.headers['cache-control'] = 'max-age=0, no-cache, no-store, must-revalidate'
     response.headers['date'] = time.ctime()
@@ -66,7 +65,7 @@ def arg_not_be_full() -> Response:
     return response
 
 
-def build_page(name: str, length: int) -> Response | str | bool:
+def build_page(name: str, length: int) -> list[Response] | list[bool | str] | list[bool]:
     """
     渲染最终的页面
     :param name:
@@ -75,14 +74,14 @@ def build_page(name: str, length: int) -> Response | str | bool:
     """
     count = fetch_data(name)
     if len(str(count)) > length:
-        return too_lang_to_count()
+        return [False, too_lang_to_count(name)]
     if 7 <= length <= 10:
         make_html(length)
         zero_count = '0' * (length - len(str(count))) + str(count)
         sorted_image = re_sort_number_image(zero_count)
-        return render_temp_(length, name, sorted_image)
+        return [True, render_temp_(length, name, sorted_image)]
     else:
-        return False
+        return [False, 'BadLength']
 
 
 @app.route('/API', methods=['GET', 'POST'])  # 允许 GET 和 POST 方法
@@ -102,14 +101,16 @@ def api_page() -> Response | str:
         name = request.args['name']
         if name != '':  # 数据为空返回参数不完整界面
             resp = build_page(name, length)
-            if resp:
-                response = make_response(resp)
+            if resp[0]:
+                response = make_response(resp[1])
                 response.headers['Content-Type'] = 'image/svg+xml; charset=utf-8'
                 response.headers['cache-control'] = 'max-age=0, no-cache, no-store, must-revalidate'
                 response.headers['date'] = time.ctime()
                 return response
-            else:
+            elif resp[1] == 'BadLength':
                 return error_length(length)
+            else:
+                return resp[1]
         else:
             return arg_not_be_full()
     else:
@@ -126,5 +127,10 @@ def index():
 
 
 if __name__ == '__main__':
-    server = make_server('', 5000, app)
-    server.serve_forever()
+    # app.run(threaded=True)
+    print('服务器已在http://127.0.0.1:5000 运行. \n除了请求次数和名称会被保存到本地数据库中其余任何数据都不会被保存')
+    try:
+        server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
+        server.serve_forever()
+    except OSError:
+        print('5000 端口被占用')
