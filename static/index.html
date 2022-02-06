@@ -7,17 +7,20 @@
         .intro{
             text-align: center;
         }
+        a{
+            color: green;
+        }
     </style>
 </head>
 <body>
 <div class="intro">
-    <i>看到这句话就说明程序正常运行啦!!</i>
+    <br>
+    <br>
+    <i>看到这句话就说明程序正常运行啦!! <a href="https://markusjoe.github.io/counterdocs/">文档</a></i>
     <br>
     <i>本服务使用Python-Flask开发(Flask 官方地址:<a href="https://flask.palletsprojects.com/en/2.0.x/">Flask</a> )</i>
     <br>
     <i>调用示例: <a href="http://127.0.0.1:5000/API?name=main">127.0.0.1:5000/API?name=main</a> 注: 调用支持POST 和 GET 方法请求</i>
-    <br>
-    <i>已经搭建好的私人服务器调用地址:<a href="http://geminitay.pythonanywhere.com/API?name=main">PythonAnyWhere</a></i>
     <br>
     <i>数字图片作者: <a href="https://www.iconfont.cn/user/detail?uid=363&nid=8RbLpoB8S23K">碎蜂</a></i>
     <br>
@@ -27,6 +30,12 @@
         <br>
         你可以在注明来源版权信息的情况下对源代码进行任意分发和修改以及衍生
     </i>
+    <br>
+    <p>效果应该是这样的:</p>
+    <img src="data:image/jpeg;base64,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" alt="example">
+    <br>
+    (这只是一张图片)
+    <br>
 </div>
 </body>
 </html>
