@@ -12,6 +12,7 @@ from flask import request
 from flask import Response
 from flask import make_response
 from flask import send_from_directory
+from gevent import pywsgi
 from bin.core.render_ import render_temp_
 from bin.core.b64img import re_sort_number_image
 from bin.core.length import make_html
@@ -26,7 +27,7 @@ def error_length(length: int) -> Response:
     :param length:
     :return:
     """
-    response = make_response({'code': 200,
+    response = make_response({'code': -2,
                               'message': f'错误的长度: {length}'})
     response.status_code = 200
     response.headers['Content-Type'] = 'application/json; charset=utf-8'
@@ -42,7 +43,7 @@ def too_lang_to_count(name: str) -> Response:
     :return:
     """
     update_data(name, 0)
-    response = make_response({'code': 200,
+    response = make_response({'code': -2,
                               'message': f'当前长度超过了最大可计数长度:10. 已将重置该名称的计数器'})
     response.headers['Content-Type'] = 'application/json; charset=utf-8'
     response.headers['cache-control'] = 'max-age=0, no-cache, no-store, must-revalidate'
@@ -55,7 +56,7 @@ def arg_not_be_full() -> Response:
     参数不完整
     :return:
     """
-    response = make_response({'code': 200,
+    response = make_response({'code': -2,
                               'message': '参数填写不完整或填写错误'})
     response.status_code = 200
     response.headers['Content-Type'] = 'application/json; charset=utf-8'
@@ -127,4 +128,8 @@ def index():
 
 if __name__ == '__main__':
     print('服务器已在http://127.0.0.1:5000 运行')
-    app.run(threaded=True)
+    try:
+        server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
+        server.serve_forever()
+    except OSError:
+        print('5000 端口被占用')
