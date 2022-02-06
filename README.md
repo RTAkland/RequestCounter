@@ -7,28 +7,23 @@
 </p>
 
 ## Python 版访问次数计数器使用了flask 作为服务端接收请求
-## 借鉴于(仿制): [Moe Counter](https://github.com/journey-ad/Moe-counter)  (应该算借鉴吧) 作者:[journey-ad](https://github.com/journey-ad/Moe-counter/commits?author=journey-ad)
 
 ### 开源
 - 本项目以[Apache-2.0](./LICENSE)许可开源, 即:
   - 你可以直接使用该项目提供的功能, 无需任何授权
   - 你可以在**注明来源版权信息**的情况下对源代码进行任意分发和修改以及衍生
   
-***示例:***
-<details>
-
-![LocalCounter](https://geminitay.pythonanywhere.com/API?name=main)
-
-</details>
+## 部署
+> 由于对`vercel`不熟悉, vercel的配置文件搞不明白所以暂时没有vercel的配置文件, 我也试了很多方法去部署但是要么是500要么是400
 
 ## 调用须知
 - API支持`GET` 和 `POST` 方法请求
 - 最大可以计数`10`位数, 超过则重置
+- 可以自定义显示位数默认`7`位数最大`10`位
 
 
 # 一些信息
 - 使用了Python3.6 的标准库`Sqlite3`进行数据库操作
-- 开启时占用了`32Mb`的内存
 
 
 
