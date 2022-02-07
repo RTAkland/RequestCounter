@@ -16,15 +16,24 @@ def re_sort_number_image(origin_number: str, theme: str) -> list:
     :param origin_number:
     :return:
     """
+    print(theme)
     if theme == 't1':
         cursor.execute('select * from theme1')
-        data = cursor.fetchall()
     elif theme == 't2':
         cursor.execute('select * from theme2')
-        data = cursor.fetchall()
+    elif theme == 'gelbooru':
+        cursor.execute('select * from gelbooru')
+    elif theme == 'gelbooru-h':
+        cursor.execute('select * from gelbooruh')
+    elif theme == 'moebooru':
+        cursor.execute('select * from moebooru')
+    elif theme == 'moebooru-h':
+        cursor.execute('select * from moebooruh')
+    elif theme == 'rule34':
+        cursor.execute('select * from rule34')
     else:
-        cursor.execute('select * from theme1')
-        data = cursor.fetchall()
+        cursor.execute('select * from rule34')
+    data = cursor.fetchall()
     temp_dict = {}
     for k, v in data:
         temp_dict.setdefault(k, []).append(v)
@@ -63,5 +72,5 @@ def re_sort_number_image(origin_number: str, theme: str) -> list:
 
 
 if __name__ != '__main__':
-    conn = sqlite3.connect('./bin/res/theme.db')
+    conn = sqlite3.connect('./bin/assets/theme.db')
     cursor = conn.cursor()

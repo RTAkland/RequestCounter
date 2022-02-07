@@ -15,7 +15,6 @@ from flask import send_from_directory
 from gevent import pywsgi
 from bin.core.render_ import render_temp_
 from bin.core.b64img import re_sort_number_image
-from bin.core.length import make_html
 from db.db import (fetch_data, update_data)
 
 app = Flask(__name__)
@@ -77,15 +76,14 @@ def build_page(name: str, length: int, theme: str) -> list[Response] | list[bool
     if len(str(count)) > length:
         return [False, too_lang_to_count(name)]
     if 7 <= length <= 10:
-        make_html(length)
         zero_count = '0' * (length - len(str(count))) + str(count)
         sorted_image = re_sort_number_image(zero_count, theme)
-        return [True, render_temp_(length, name, sorted_image)]
+        return [True, render_temp_(length, name, sorted_image, theme)]
     else:
         return [False, 'BadLength']
 
 
-@app.route('/API', methods=['GET', 'POST'])  # 允许 GET 和 POST 方法
+@app.route('/get', methods=['GET', 'POST'])  # 允许 GET 和 POST 方法
 def api_page() -> Response | str:
     """
     API 页面函数
@@ -97,11 +95,11 @@ def api_page() -> Response | str:
     theme = args.get('theme')
     if name and name != 'null':
         if not length:
-            length = 8
+            length = 7
         else:
             length = int(length)
         if not theme:
-            theme = 't1'
+            theme = 'moebooru'
         build_page_result = build_page(name, length, theme)
         if build_page_result[0]:
             response = make_response(build_page_result[1])
