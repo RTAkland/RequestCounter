@@ -65,9 +65,10 @@ def arg_not_be_full() -> Response:
     return response
 
 
-def build_page(name: str, length: int) -> list[Response] | list[bool | str] | list[bool]:
+def build_page(name: str, length: int, theme: str) -> list[Response] | list[bool | str] | list[bool]:
     """
     渲染最终的页面
+    :param theme:
     :param name:
     :param length:
     :return:
@@ -78,7 +79,7 @@ def build_page(name: str, length: int) -> list[Response] | list[bool | str] | li
     if 7 <= length <= 10:
         make_html(length)
         zero_count = '0' * (length - len(str(count))) + str(count)
-        sorted_image = re_sort_number_image(zero_count)
+        sorted_image = re_sort_number_image(zero_count, theme)
         return [True, render_temp_(length, name, sorted_image)]
     else:
         return [False, 'BadLength']
@@ -90,29 +91,28 @@ def api_page() -> Response | str:
     API 页面函数
     :return:
     """
-    if 'length' in request.args:
-        try:
-            length = int(request.args['length'])
-        except ValueError:
-            return arg_not_be_full()
-    else:
-        length = 8
-    if 'name' in request.args:
-        name = request.args['name']
-        if name != '':  # 数据为空返回参数不完整界面
-            resp = build_page(name, length)
-            if resp[0]:
-                response = make_response(resp[1])
-                response.headers['Content-Type'] = 'image/svg+xml; charset=utf-8'
-                response.headers['cache-control'] = 'max-age=0, no-cache, no-store, must-revalidate'
-                response.headers['date'] = time.ctime()
-                return response
-            elif resp[1] == 'BadLength':
-                return error_length(length)
-            else:
-                return resp[1]
+    args = request.args
+    name = str(args.get('name')).replace('None', 'null')
+    length = args.get('length')
+    theme = args.get('theme')
+    if name and name != 'null':
+        if not length:
+            length = 8
         else:
-            return arg_not_be_full()
+            length = int(length)
+        if not theme:
+            theme = 't1'
+        build_page_result = build_page(name, length, theme)
+        if build_page_result[0]:
+            response = make_response(build_page_result[1])
+            response.headers['Content-Type'] = 'image/svg+xml; charset=utf-8'
+            response.headers['cache-control'] = 'max-age=0, no-cache, no-store, must-revalidate'
+            response.headers['date'] = time.ctime()
+            return response
+        elif build_page_result[1] == 'BadLength':
+            return error_length(length)
+        else:
+            return build_page_result[1]
     else:
         return arg_not_be_full()
 
@@ -127,7 +127,7 @@ def index():
 
 
 if __name__ == '__main__':
-    print('服务器已在http://127.0.0.1:5000 运行')
+    print('服务器已在 http://127.0.0.1:5000 运行')
     try:
         server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
         server.serve_forever()
