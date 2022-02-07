@@ -1,3 +1,9 @@
-/.idea/
-**/__pycache__/
+# Dirs
+.idea/
+build/
+dist/
+
+
+# Files
+*.pyc
 *.zip
