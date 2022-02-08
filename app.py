@@ -12,7 +12,6 @@ from flask import request
 from flask import Response
 from flask import make_response
 from flask import send_from_directory
-from gevent import pywsgi
 from bin.core.render_ import render_temp_
 from bin.core.b64img import re_sort_number_image
 from db.db import (fetch_data, update_data)
@@ -77,8 +76,8 @@ def build_page(name: str, length: int, theme: str) -> list[Response] | list[bool
         return [False, too_lang_to_count(name)]
     if 7 <= length <= 10:
         zero_count = '0' * (length - len(str(count))) + str(count)
-        sorted_image = re_sort_number_image(zero_count, theme)
-        return [True, render_temp_(length, name, sorted_image, theme)]
+        sorted_image, width, height = re_sort_number_image(zero_count, theme)
+        return [True, render_temp_(length, name, sorted_image, width, height)]
     else:
         return [False, 'BadLength']
 
