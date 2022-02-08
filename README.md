@@ -7,7 +7,7 @@
 </p>
 
 ## Python 版访问次数计数器使用了flask 作为服务端接收请求
-
+*  [文档](https://request-counter-docs.vercel.app/#/)
 ### 开源
 - 本项目以[Apache-2.0](./LICENSE)许可开源, 即:
   - 你可以直接使用该项目提供的功能, 无需任何授权
