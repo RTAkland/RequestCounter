@@ -12,7 +12,7 @@
 > 在部署之前你需要先安装`python3.9.x`以上的版本 
 ## 部署到本地服务器
  ```shell
- $ git clone https://git@github.com:MarkusJoe/RequestCounter.git
+ $ git clone https://github.com/MarkusJoe/RequestCounter.git
  $ cd RequestCounter
  $ pip3 install -r requirements.txt
  $ python3 app.py 
