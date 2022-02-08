@@ -16,61 +16,50 @@ def re_sort_number_image(origin_number: str, theme: str) -> list:
     :param origin_number:
     :return:
     """
-    print(theme)
-    if theme == 't1':
-        cursor.execute('select * from theme1')
-    elif theme == 't2':
-        cursor.execute('select * from theme2')
-    elif theme == 'gelbooru':
-        cursor.execute('select * from gelbooru')
-    elif theme == 'gelbooru-h':
-        cursor.execute('select * from gelbooruh')
-    elif theme == 'moebooru':
-        cursor.execute('select * from moebooru')
-    elif theme == 'moebooru-h':
-        cursor.execute('select * from moebooruh')
-    elif theme == 'rule34':
-        cursor.execute('select * from rule34')
-    else:
-        cursor.execute('select * from rule34')
+    try:
+        cursor.execute('select * from %(theme_db)s' % {'theme_db': theme} )
+    except sqlite3.OperationalError:
+        return False
+    width_list = []
+    height_list = []
+    b_64_list = []
     data = cursor.fetchall()
-    temp_dict = {}
-    for k, v in data:
-        temp_dict.setdefault(k, []).append(v)
-    for i, c in zip(temp_dict.keys(), temp_dict.values()):
-        temp_dict[i] = c[0]
+    for i in data:
+        width_list.append(i[2])
+        height_list.append(i[3])
+        b_64_list.append(i[1])
 
     final_b64_img_code = []
     if origin_number != '0000000000':
         for i in origin_number:
             if i == '0':
-                final_b64_img_code.append(temp_dict.get(str(i)))
+                final_b64_img_code.append(b_64_list[0])
             elif i == '1':
-                final_b64_img_code.append(temp_dict.get(str(i)))
+                final_b64_img_code.append(b_64_list[1])
             elif i == '2':
-                final_b64_img_code.append(temp_dict.get(str(i)))
+                final_b64_img_code.append(b_64_list[2])
             elif i == '3':
-                final_b64_img_code.append(temp_dict.get(str(i)))
+                final_b64_img_code.append(b_64_list[3])
             elif i == '4':
-                final_b64_img_code.append(temp_dict.get(str(i)))
+                final_b64_img_code.append(b_64_list[4])
             elif i == '5':
-                final_b64_img_code.append(temp_dict.get(str(i)))
+                final_b64_img_code.append(b_64_list[5])
             elif i == '6':
-                final_b64_img_code.append(temp_dict.get(str(i)))
+                final_b64_img_code.append(b_64_list[6])
             elif i == '7':
-                final_b64_img_code.append(temp_dict.get(str(i)))
+                final_b64_img_code.append(b_64_list[7])
             elif i == '8':
-                final_b64_img_code.append(temp_dict.get(str(i)))
+                final_b64_img_code.append(b_64_list[8])
             elif i == '9':
-                final_b64_img_code.append(temp_dict.get(str(i)))
+                final_b64_img_code.append(b_64_list[9])
 
-        return final_b64_img_code
+        return final_b64_img_code, width_list[0], height_list[0]
     else:
         for i in range(10):
-            final_b64_img_code.append(temp_dict.get(str(0)))
-        return final_b64_img_code
+            final_b64_img_code.append(b_64_list[0])
+        return final_b64_img_code, width_list[0], height_list[0]
 
 
 if __name__ != '__main__':
-    conn = sqlite3.connect('./bin/assets/theme.db')
+    conn = sqlite3.connect('./bin/assets/theme.db', check_same_thread=False)
     cursor = conn.cursor()
