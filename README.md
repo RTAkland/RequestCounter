@@ -16,6 +16,15 @@
 ## 部署
 > 由于对`vercel`不熟悉, vercel的配置文件搞不明白所以暂时没有vercel的配置文件, 我也试了很多方法去部署但是要么是500要么是400
 
+> 在部署之前你需要先安装`python3.9.x`以上的版本 
+### 部署到本地服务器
+ ```shell
+ $ git clone https://github.com/MarkusJoe/RequestCounter.git
+ $ cd RequestCounter
+ $ pip3 install -r requirements.txt
+ $ python3 app.py 
+ ```
+
 ## 调用须知
 - API支持`GET` 和 `POST` 方法请求
 - 最大可以计数`10`位数, 超过则重置

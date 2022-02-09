@@ -7,7 +7,12 @@
 
 
 import requests
+import threading
 
 
-for i in range(100):
-    print(requests.get('http://127.0.0.1:5000/API?name=89999&length=10&theme=t2').elapsed.microseconds)
+def thread_():
+    print(requests.get('http://127.0.0.1:5000/get?name=89999&length=10&theme=t2').elapsed.microseconds)
+
+
+for i in range(1000000):
+    threading.Thread(target=thread_).start()

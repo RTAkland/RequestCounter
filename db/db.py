@@ -18,8 +18,14 @@ def insert_data(name: str) -> None:
     :param name:
     :return:
     """
-    cursor.execute('insert into ReqCount values(?, ?)', (name, 1))
-    conn.commit()
+    conn = sqlite3.connect('./db/data.db', check_same_thread=False)
+    cursor = conn.cursor()
+    try:
+        cursor.execute('insert into ReqCount values(?, ?)', (name, 1))
+        conn.commit()
+    finally:
+        cursor.close()
+        conn.close()
 
 
 def fetch_data(name: str) -> int:
@@ -28,26 +34,30 @@ def fetch_data(name: str) -> int:
     :param name:
     :return:
     """
-    cursor.execute('select * from ReqCount')
-    conn.commit()
-    data = cursor.fetchall()
+    conn = sqlite3.connect('./db/data.db', check_same_thread=False)
+    cursor = conn.cursor()
+    try:
+        cursor.execute('select * from ReqCount')
+        conn.commit()
+        data = cursor.fetchall()
 
-    # 将返回的元组转换为字典
-    temp_dict = {}
-    for k, v in data:
-        temp_dict.setdefault(k, []).append(v)
-    # 上方代码将元组转换为字典后字典的值会变成只有一个值的列表, 用下面两行代码去除
-    for i, c in zip(temp_dict.keys(), temp_dict.values()):
-        temp_dict[i] = c[0]
+        temp_dict = {}
+        for k, v in data:
+            temp_dict.setdefault(k, []).append(v)
+        for i, c in zip(temp_dict.keys(), temp_dict.values()):
+            temp_dict[i] = c[0]
 
-    if name in temp_dict.keys():
-        count = temp_dict[name]  # 获取原数字 为 整型
-        update_data(name, count)
-        return count
-    else:
-        # 新建用户数据
-        insert_data(name)
-        return 0
+        if name in temp_dict.keys():
+            count = temp_dict[name]  # 获取原数字 为 整型
+            update_data(name, count)
+            return count
+        else:
+            # 新建用户数据
+            insert_data(name)
+            return 0
+    finally:
+        cursor.close()
+        conn.close()
 
 
 def update_data(name: str, times: int) -> None:
@@ -57,9 +67,15 @@ def update_data(name: str, times: int) -> None:
     :param times:
     :return:
     """
-    times += 1
-    cursor.execute('update ReqCount set times=? where name=?', (times, name))
-    conn.commit()
+    conn = sqlite3.connect('./db/data.db', check_same_thread=False)
+    cursor = conn.cursor()
+    try:
+        times += 1
+        cursor.execute('update ReqCount set times=? where name=?', (times, name))
+        conn.commit()
+    finally:
+        cursor.close()
+        conn.close()
 
 
 def fetch_table() -> list:
@@ -67,15 +83,15 @@ def fetch_table() -> list:
     返回已有主题列表
     :return:
     """
-    lst = []
     conn_temp = sqlite3.connect('./bin/assets/theme.db', check_same_thread=False)
     cursor_temp = conn_temp.cursor()
-    cursor_temp.execute("select * from sqlite_master where type='table'")
-    for i in cursor_temp.fetchall():
-        lst.append(i[1])
-    return lst
+    try:
+        lst = []
+        cursor_temp.execute("select * from sqlite_master where type='table'")
+        for i in cursor_temp.fetchall():
+            lst.append(i[1])
+        return lst
+    finally:
+        cursor_temp.close()
+        conn_temp.close()
 
-
-if __name__ != '__main__':
-    conn = sqlite3.connect('./db/data.db', check_same_thread=False)
-    cursor = conn.cursor()
