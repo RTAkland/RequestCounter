@@ -18,7 +18,7 @@
 ## 部署
 > 由于对`vercel`不熟悉, vercel的配置文件搞不明白所以暂时没有vercel的配置文件, 我也试了很多方法去部署但是要么是500要么是400
 
-> 在部署之前你需要先安装`python3.9.x`以上的版本 
+> 在部署之前你需要先安装`python3.10.x`以上的版本 
 ### 部署到本地服务器
  ```shell
  $ git clone https://github.com/MarkusJoe/RequestCounter.git
