@@ -22,7 +22,7 @@
 # 基本信息
 - Python版本: `3.9.9`
 - 请求方法: `GET` `POST`
-- 请求地址: `/API`
+- 请求地址: `/get`
 - 请求参数: `name` : `str`
   - 可选参数: `length` : `int`
   - 可选参数: `theme` : `str`
