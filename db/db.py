@@ -12,7 +12,7 @@ import sqlite3
 """
 
 
-def insert_data(name: str):
+def insert_data(name: str) -> None:
     """
     插入数据
     :param name:
@@ -50,7 +50,7 @@ def fetch_data(name: str) -> int:
         return 0
 
 
-def update_data(name: str, times: int):
+def update_data(name: str, times: int) -> None:
     """
     更新数据
     :param name:
@@ -60,6 +60,20 @@ def update_data(name: str, times: int):
     times += 1
     cursor.execute('update ReqCount set times=? where name=?', (times, name))
     conn.commit()
+
+
+def fetch_table() -> list:
+    """
+    返回已有主题列表
+    :return:
+    """
+    lst = []
+    conn_temp = sqlite3.connect('./bin/assets/theme.db', check_same_thread=False)
+    cursor_temp = conn_temp.cursor()
+    cursor_temp.execute("select * from sqlite_master where type='table'")
+    for i in cursor_temp.fetchall():
+        lst.append(i[1])
+    return lst
 
 
 if __name__ != '__main__':

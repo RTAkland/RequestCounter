@@ -7,22 +7,27 @@
 
 
 import sqlite3
+from typing import Any
+from db.db import fetch_table
 
 
-def re_sort_number_image(origin_number: str, theme: str) -> list:
+def re_sort_number_image(origin_number: str, theme: str) -> tuple[bool, bool, bool, bool] | list[
+    bool | list[Any] | Any]:
     """
     返回一个排列好的svg base64代码列表
     :param theme:
     :param origin_number:
     :return:
     """
-    try:
-        cursor.execute('select * from %(theme_db)s' % {'theme_db': theme} )
-    except sqlite3.OperationalError:
-        return False
+
+    table_list = fetch_table()
+    if theme not in table_list:
+        return False, False, False, False
+
     width_list = []
     height_list = []
     b_64_list = []
+    cursor.execute('select * from %(name)s' % {'name': theme})
     data = cursor.fetchall()
     for i in data:
         width_list.append(i[2])
@@ -53,11 +58,11 @@ def re_sort_number_image(origin_number: str, theme: str) -> list:
             elif i == '9':
                 final_b64_img_code.append(b_64_list[9])
 
-        return final_b64_img_code, width_list[0], height_list[0]
+        return [True, final_b64_img_code, width_list[0], height_list[0]]
     else:
         for i in range(10):
             final_b64_img_code.append(b_64_list[0])
-        return final_b64_img_code, width_list[0], height_list[0]
+        return [True, final_b64_img_code, width_list[0], height_list[0]]
 
 
 if __name__ != '__main__':
