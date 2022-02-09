@@ -6,6 +6,8 @@
     </a>
 </p>
 
+<img style="text-align: center" src="http://36.134.138.141:5000/get?name=MarkusJoe&theme=lewd" alt="Counter">
+
 ## Python 版访问次数计数器使用了flask 作为服务端接收请求
 *  [文档](https://request-counter-docs.vercel.app/#/)
 ### 开源
@@ -35,7 +37,63 @@
 
 # 一些信息
 - 使用了Python3.6 的标准库`Sqlite3`进行数据库操作
+- 当前支持的主题如下
+
+<details>
+foot<br>
+gelbooru<br>
+gelbooruh<br>
+moebooru<br>
+moebooruh<br>
+g<br>
+cripple<br>
+blacked<br>
+allgirl<br>
+rule34<br>
+steambanner<br>
+lefty<br>
+erpg<br>
+crewbooru<br>
+hgoon<br>
+sthg<br>
+rfck<br>
+lisu<br>
+tv<br>
+lewd<br>
+amibooru<br>
+blankatlas<br>
+mmballbusting<br>
+sss<br>
+legolamb<br>
+goldengator<br>
+r6gdrawfriends<br>
+vivi<br>
+twifanartsfw<br>
+hololive<br>
+vglobby<br>
+jaypee<br>
+melanin<br>
+dollstuffing<br>
+orb<br>
+min<br>
+mjg<br>
+cloppers<br>
+townofgravityfalls<br>
+brown<br>
+enacdoa<br>
+daifuku<br>
+straponff<br>
+keyofnik<br>
+osc<br>
+konan<br>
+girlsfeet<br>
+hybreedsgeneral<br>
+sr<br>
+mono<br>
+riskofrain<br>
+neovb<br>
+ffsr<br>
+</details>
 
 
-
-
+* 仓库总共约`4.12Mb` `theme.db`占用了`4Mb` ...

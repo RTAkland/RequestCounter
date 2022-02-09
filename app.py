@@ -13,90 +13,14 @@ from flask import request
 from flask import Response
 from flask import make_response
 from flask import send_from_directory
+from bin.core.error import ErrorProcess
 from bin.core.render_ import render_temp_
 from bin.core.b64img import re_sort_number_image
-from db.db import (fetch_data,
-                   update_data,
-                   fetch_table)
+from db.db import fetch_data
 
 app = Flask(__name__)
-
-
-def get_theme_list() -> Response:
-    """
-    直接获取可选主题
-    :return: 
-    """
-    table_list = fetch_table()
-    response = make_response({'code': 200,
-                              'msg': '可用主题如下',
-                              'themes': table_list})
-    response.status_code = 200
-    response.headers['Content-Type'] = 'application/json: charset=utf-8'
-    response.headers['cache-control'] = 'max-age=0, no-cache, no-store, must-revalidate'
-    response.headers['date'] = time.ctime()
-    return response
-
-
-def error_theme(theme: str) -> Response:
-    """
-    错误的主题
-    :param theme:
-    :return:
-    """
-    table_list = fetch_table()
-    response = make_response({'code': -2,
-                              'msg': f'数据库内没有选择的主题: {theme}. 可用主题如下',
-                              'themes': table_list})
-    response.status_code = 200
-    response.headers['Content-Type'] = 'application/json; charset=utf-8'
-    response.headers['cache-control'] = 'max-age=0, no-cache, no-store, must-revalidate'
-    response.headers['date'] = time.ctime()
-    return response
-
-
-def error_length(length: int) -> Response:
-    """
-    数值太长显示此页面
-    :param length:
-    :return:
-    """
-    response = make_response({'code': -2,
-                              'msg': f'错误的长度: {length}'})
-    response.status_code = 200
-    response.headers['Content-Type'] = 'application/json; charset=utf-8'
-    response.headers['cache-control'] = 'max-age=0, no-cache, no-store, must-revalidate'
-    response.headers['date'] = time.ctime()
-    return response
-
-
-def too_lang_to_count(name: str) -> Response:
-    """
-    数据过长重置数据
-    :param name:
-    :return:
-    """
-    update_data(name, 0)
-    response = make_response({'code': -2,
-                              'msg': '当前长度超过了最大可计数长度:10. 已将重置该名称的计数器'})
-    response.headers['Content-Type'] = 'application/json; charset=utf-8'
-    response.headers['cache-control'] = 'max-age=0, no-cache, no-store, must-revalidate'
-    response.headers['date'] = time.ctime()
-    return response
-
-
-def arg_not_be_full() -> Response:
-    """
-    参数不完整
-    :return:
-    """
-    response = make_response({'code': -2,
-                              'msg': '参数填写不完整或填写错误'})
-    response.status_code = 200
-    response.headers['Content-Type'] = 'application/json; charset=utf-8'
-    response.headers['cache-control'] = 'max-age=0, no-cache, no-store, must-revalidate'
-    response.headers['date'] = time.ctime()
-    return response
+app.config['JSON_SORT_KEYS'] = False  # 设置JSON消息不根据字母顺序重新排序
+app.config['JSON_AS_ASCII'] = False  # 设置JSON消息显示中文
 
 
 def build_page(name: str, length: int, theme: str) -> list[bool | Response] | list[bool | str] | bool:
@@ -109,7 +33,7 @@ def build_page(name: str, length: int, theme: str) -> list[bool | Response] | li
     """
     count = fetch_data(name)
     if len(str(count)) > length:
-        return [False, too_lang_to_count(name)]
+        return [False, ErrorProcess().too_lang_to_count(name)]
     if 7 <= length <= 10:
         zero_count = '0' * (length - len(str(count))) + str(count)
         status, sorted_image, width, height = re_sort_number_image(zero_count, theme)
@@ -132,7 +56,7 @@ def api_page() -> Response | str:
     length = args.get('length')
     theme = args.get('theme')
     if theme == 'ls':
-        return get_theme_list()
+        return ErrorProcess().get_theme_list()
     if name and name != 'null':
         if not length:
             length = 7
@@ -148,13 +72,13 @@ def api_page() -> Response | str:
             response.headers['date'] = time.ctime()
             return response
         elif build_page_result[1] == 'BadLength':
-            return error_length(length)
+            return ErrorProcess().error_length(length)
         elif build_page_result[1] == 'BadTheme':
-            return error_theme(theme)
+            return ErrorProcess().error_theme(theme)
         else:
             return build_page_result[1]
     else:
-        return arg_not_be_full()
+        return ErrorProcess().arg_not_be_full()
 
 
 @app.route('/', methods=['GET', 'POST'])
