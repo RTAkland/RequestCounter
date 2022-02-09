@@ -9,7 +9,7 @@
 使用Flask建立服务器接收请求分析获取到的数据写入数据库
 
 # 部署
-> 在部署之前你需要先安装`python3.9.x`以上的版本 
+> 在部署之前你需要先安装`python3.10.x`以上的版本 
 ## 部署到本地服务器
  ```shell
  $ git clone https://github.com/MarkusJoe/RequestCounter.git
