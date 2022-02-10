@@ -92,7 +92,7 @@ def index():
 
 if __name__ == '__main__':
     print('服务器已在 http://127.0.0.1:5000 运行')
-    app.run(host='0.0.0.0', port=5000)
+    app.run()
     # try:
     #     server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
     #     server.serve_forever()
