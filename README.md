@@ -16,7 +16,18 @@
   - 你可以在**注明来源版权信息**的情况下对源代码进行任意分发和修改以及衍生
   
 ## 部署
-> 由于对`vercel`不熟悉, vercel的配置文件搞不明白所以暂时没有vercel的配置文件, 我也试了很多方法去部署但是要么是500要么是400
+### 已部署好的地址
+* https://requestcounters.herokuapp.com/get?name=MarkusJoe
+* https://requestcounter.herokuapp.com/get?name=MarkusJoe
+* 默认主题: `lewd`
+
+
+### 部署到Heroku
+1. `fork` 本项目到你的仓库
+2. 在[Heroku](https://www.heroku.com/) 注册账号
+3. 在[Dashboard](https://dashboard.heroku.com/apps) 新建App 
+4. 流程: 进入网址 -> 点击右上角`New` -> 点击 `Create new app` -> 输入App名称 -> `Create app` -> 选择`Github` (登陆完成后) -> 点击`Search` -> 选择你fork的项目并点击`Connect` -> 滑到末尾点击`Deploy branch`(如果你想在仓库更新时自动部署的话可以把`Enable Automatic Deploy`勾选) -> 等待完成 
+5. App的地址就是 `App名称` + `.herokuapp.com`
 
 > 在部署之前你需要先安装`python3.10.x`以上的版本 
 ### 部署到本地服务器
@@ -94,6 +105,3 @@ riskofrain<br>
 neovb<br>
 ffsr<br>
 </details>
-
-
-* 仓库总共约`4.12Mb` `theme.db`占用了`4Mb` ...

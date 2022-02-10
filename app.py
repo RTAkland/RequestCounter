@@ -23,7 +23,7 @@ app.config['JSON_SORT_KEYS'] = False  # 设置JSON消息不根据字母顺序重
 app.config['JSON_AS_ASCII'] = False  # 设置JSON消息显示中文
 
 
-def build_page(name: str, length: int, theme: str) -> list[bool or Response] or list[bool or str] or bool:
+def build_page(name: str, length: int, theme: str) -> list[bool | Response] | list[bool | str] | bool:
     """
     渲染最终的页面
     :param theme:
@@ -46,7 +46,7 @@ def build_page(name: str, length: int, theme: str) -> list[bool or Response] or 
 
 
 @app.route('/get', methods=['GET', 'POST'])  # 允许 GET 和 POST 方法
-def api_page() -> Response or str:
+def api_page() -> Response | str:
     """
     API 页面函数
     :return:
@@ -82,7 +82,7 @@ def api_page() -> Response or str:
 
 
 @app.route('/', methods=['GET', 'POST'])
-def index():
+def index() -> Response:
     """
     索引页面
     :return:
@@ -92,7 +92,6 @@ def index():
 
 if __name__ == '__main__':
     print('服务器已在 http://127.0.0.1:5000 运行')
-    # app.run()
     try:
         server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
         server.serve_forever()
