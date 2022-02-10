@@ -11,8 +11,8 @@ import threading
 
 
 def thread_():
-    print(requests.get('http://127.0.0.1:5000/get?name=89999&length=10&theme=t2').elapsed.microseconds)
+    print(requests.get('http://127.0.0.1:5000/get?name=MarkusJoe&theme=lewd').elapsed.microseconds)
 
 
-for i in range(1000000):
+for i in range(100):
     threading.Thread(target=thread_).start()
