@@ -11,8 +11,8 @@ from typing import Any
 from db.db import fetch_table
 
 
-def re_sort_number_image(origin_number: str, theme: str) -> tuple[bool, bool, bool, bool] | list[
-    bool | list[Any] | Any]:
+def re_sort_number_image(origin_number: str, theme: str) -> tuple[bool, bool, bool, bool] or list[
+    bool or list[Any] or Any]:
     """
     返回一个排列好的svg base64代码列表
     :param theme:

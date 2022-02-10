@@ -17,7 +17,7 @@ class ErrorProcess:
                              'msg': '',
                              'data': None}
 
-    def get_theme_list(self):
+    def get_theme_list(self) -> Response:
         """
         直接获取可选主题
         :return:
