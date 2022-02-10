@@ -23,7 +23,7 @@ app.config['JSON_SORT_KEYS'] = False  # 设置JSON消息不根据字母顺序重
 app.config['JSON_AS_ASCII'] = False  # 设置JSON消息显示中文
 
 
-def build_page(name: str, length: int, theme: str) -> list[bool | Response] | list[bool | str] | bool:
+def build_page(name: str, length: int, theme: str) -> list[bool or Response] or list[bool or str] or bool:
     """
     渲染最终的页面
     :param theme:
@@ -46,7 +46,7 @@ def build_page(name: str, length: int, theme: str) -> list[bool | Response] | li
 
 
 @app.route('/get', methods=['GET', 'POST'])  # 允许 GET 和 POST 方法
-def api_page() -> Response | str:
+def api_page() -> Response or str:
     """
     API 页面函数
     :return:
