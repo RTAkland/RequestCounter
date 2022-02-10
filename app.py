@@ -63,7 +63,7 @@ def api_page() -> Response | str:
         else:
             length = int(length)
         if not theme:
-            theme = 'moebooru'
+            theme = 'lewd'
         build_page_result = build_page(name, length, theme)
         if build_page_result[0]:
             response = make_response(build_page_result[1])
