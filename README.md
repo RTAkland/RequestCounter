@@ -7,7 +7,7 @@
 </p>
 
 <div align="center">
-    <img src="http://36.134.138.141:5000/get?name=MarkusJoe&theme=lewd" alt="Counter">
+    <img src="https://requestcounters.herokuapp.com/get?name=MarkusJoe" alt="Counter">
 </div>
 
 ## Python 版访问次数计数器使用了flask 作为服务端接收请求
