@@ -7,7 +7,7 @@
 
 
 import time
-# from gevent import pywsgi
+from gevent import pywsgi
 from flask import Flask
 from flask import request
 from flask import Response
@@ -92,9 +92,9 @@ def index():
 
 if __name__ == '__main__':
     print('服务器已在 http://127.0.0.1:5000 运行')
-    app.run()
-    # try:
-    #     server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
-    #     server.serve_forever()
-    # except OSError:
-    #     print('5000 端口被占用')
+    # app.run()
+    try:
+        server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
+        server.serve_forever()
+    except OSError:
+        print('5000 端口被占用')
