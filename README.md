@@ -19,7 +19,7 @@
   
 ## 部署
 ### 已部署好的地址
-* https://requestcounters.herokuapp.com/get?name=MarkusJoe
+* https://requestcounter.herokuapp.com/get?name=MarkusJoe
 * 默认主题: `lewd`
 
 
