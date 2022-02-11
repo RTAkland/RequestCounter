@@ -12,14 +12,13 @@ from flask import Flask
 from flask import request
 from flask import Response
 from flask import make_response
-from flask import send_from_directory
 from flask import jsonify
-from bin.core.error import ErrorProcess
-from bin.core.render_ import render_temp_
-from bin.core.b64img import re_sort_number_image
+from bin.utils.error import ErrorProcess
+from bin.utils.render_ import render_temp_
+from bin.utils.b64img import re_sort_number_image
 from db.db import fetch_data
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 app.config['JSON_SORT_KEYS'] = False  # 设置JSON消息不根据字母顺序重新排序
 app.config['JSON_AS_ASCII'] = False  # 设置JSON消息显示中文
 
@@ -31,7 +30,7 @@ def miss(reason) -> Response:
     :param reason:
     :return:
     """
-    return jsonify({'code': 404, 'msg': f'{reason}', 'data': []})
+    return jsonify({'code': 404, 'msg': f'{reason}', 'data': None})
 
 
 @app.errorhandler(500)
@@ -41,16 +40,7 @@ def error(reason) -> Response:
     :param reason:
     :return:
     """
-    return jsonify({'code': 500, 'msg': f'{reason}', 'data': []})
-
-
-@app.route('/favicon.ico', methods=['GET', 'POST'])
-def favicon() -> Response:
-    """
-    主页图标
-    :return:
-    """
-    return app.send_static_file('favicon.ico')
+    return jsonify({'code': 500, 'msg': f'{reason}', 'data': None})
 
 
 def build_page(name: str, length: int, theme: str) -> list[bool or Response] or list[bool or str] or bool:
@@ -111,13 +101,22 @@ def api_page() -> Response or str:
         return ErrorProcess().arg_not_be_full()
 
 
+@app.route('/favicon.ico', methods=['GET', 'POST'])
+def favicon() -> Response:
+    """
+    主页图标
+    :return:
+    """
+    return app.send_static_file('favicon.ico')
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index() -> Response:
     """
     索引页面
     :return:
     """
-    return send_from_directory('./static', 'index.html')
+    return app.send_static_file('index.html')
 
 
 if __name__ == '__main__':
