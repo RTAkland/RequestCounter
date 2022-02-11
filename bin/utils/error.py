@@ -6,6 +6,7 @@
 # @File Name: error.py
 
 
+from typing import Optional
 from flask import jsonify
 from flask import Response
 from db.db import (update_data, fetch_table)
@@ -15,7 +16,7 @@ class ErrorProcess:
     def __init__(self):
         self.msg_template = {'code': -2,
                              'msg': '',
-                             'data': None}
+                             'data': Optional[list]}
 
     def get_theme_list(self) -> Response:
         """
