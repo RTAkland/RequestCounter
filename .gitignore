@@ -7,5 +7,5 @@ dist/
 # Files
 *.pyc
 *.zip
-*.
+*.db
 !./bin/assets/theme.db
