@@ -28,28 +28,8 @@
   - 可选参数: `theme` : `str`
   
 
-# 注意事项
-- Python版能最新版就最新版
-- 项目使用了标准库`Sqlite3`进行了数据库操作某些可以部署项目的服务器可能不支持例如`vercel`(可能是我不会)
-
-
-# 快速响应
-测试用代码如下
-```python
-import requests
-import threading
-
-
-def thread_():
-    print(requests.get('http://127.0.0.1:5000/get?name=89999&length=10&theme=t2').elapsed.microseconds)
-
-    
-for i in range(1000000):
-    threading.Thread(target=thread_).start()
-```
->在`AMD Athlon(tm) X4 830 Quad Core Processor 2.99 GHz` `4G` 内存的电脑上运行项目<br>
-> 在本机上使用`Requests`库`GET`方法请求`1000000`次 (名称为`2`长度为`10`主题为`t2`)<br>
-> 使用`elapsed.microseconds`属性 获取响应速度在 `0.03` ~ `0.8` 秒左右
+# 响应速度
+* `flask` 服务端使用的是`同步`编程
 
 
 # 关于
