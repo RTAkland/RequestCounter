@@ -7,15 +7,15 @@
 
 
 import time
-from gevent import pywsgi
 from flask import Flask
-from flask import request
 from flask import Response
-from flask import make_response
 from flask import jsonify
+from flask import make_response
+from flask import request
+from gevent import pywsgi
+from bin.utils.b64img import re_sort_number_image
 from bin.utils.error import ErrorProcess
 from bin.utils.render_ import render_temp_
-from bin.utils.b64img import re_sort_number_image
 from db.db import fetch_data
 
 app = Flask(__name__, static_url_path='')
