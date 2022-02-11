@@ -30,7 +30,7 @@ def miss(reason) -> Response:
     :param reason:
     :return:
     """
-    return jsonify({'code': 404, 'msg': f'{reason}', 'data': None})
+    return jsonify({'code': 404, 'msg': '没有定义的页面', 'data': None})
 
 
 @app.errorhandler(500)
@@ -40,7 +40,7 @@ def error(reason) -> Response:
     :param reason:
     :return:
     """
-    return jsonify({'code': 500, 'msg': f'{reason}', 'data': None})
+    return jsonify({'code': 500, 'msg': '服务器内部错误', 'data': None})
 
 
 def build_page(name: str, length: int, theme: str) -> list[bool or Response] or list[bool or str] or bool:
@@ -52,9 +52,9 @@ def build_page(name: str, length: int, theme: str) -> list[bool or Response] or 
     :return:
     """
     count = fetch_data(name)
-    if len(str(count)) > length:
+    if len(str(count)) > length:  # 判断在数据库内的长度是否超过了设定的(或预设的)长度
         return [False, ErrorProcess().too_lang_to_count(name)]
-    if 7 <= length <= 10:
+    if 7 <= length <= 10:  # 判断设定的长度是否超过阈值
         zero_count = '0' * (length - len(str(count))) + str(count)
         status, sorted_image, width, height = re_sort_number_image(zero_count, theme)
         if status:
@@ -66,7 +66,7 @@ def build_page(name: str, length: int, theme: str) -> list[bool or Response] or 
 
 
 @app.route('/get', methods=['GET', 'POST'])  # 允许 GET 和 POST 方法
-def api_page() -> Response or str:
+def main() -> Response or str:
     """
     API 页面函数
     :return:
@@ -81,12 +81,12 @@ def api_page() -> Response or str:
         if not length:
             length = 7
         else:
-            length = int(length)
+            length = int(length)  # 将类型转换为整型
         if not theme:
             theme = 'lewd'
-        build_page_result = build_page(name, length, theme)
+        build_page_result = build_page(name, length, theme)  # 开始处理整体页面
         if build_page_result[0]:
-            response = make_response(build_page_result[1])
+            response = make_response(build_page_result[1])  # 设置响应体 和 响应头
             response.headers['Content-Type'] = 'image/svg+xml; charset=utf-8'
             response.headers['cache-control'] = 'max-age=0, no-cache, no-store, must-revalidate'
             response.headers['date'] = time.ctime()
@@ -120,9 +120,11 @@ def index() -> Response:
 
 
 if __name__ == '__main__':
-    print('服务器已在 http://127.0.0.1:5000 运行')
+    print('I: 服务器已在 http://127.0.0.1:5000 运行')
     try:
         server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
         server.serve_forever()
     except OSError:
-        print('5000 端口被占用')
+        print('E: 5000 端口被占用')
+    except KeyboardInterrupt:
+        print('I: 程序已退出')

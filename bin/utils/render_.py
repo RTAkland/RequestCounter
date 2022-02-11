@@ -24,7 +24,7 @@ def render_temp_(length: int, name: str, image_list: list, width: int, height: i
         position_list.append(i * width)
     file_name = f'index{length}.html'
 
-    # 自己写的都看不下去了
+    # 下面的代码超级烂
     if length == 7:
         return render_template(file_name,
                                title=name,

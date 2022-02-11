@@ -36,7 +36,7 @@ def re_sort_number_image(origin_number: str, theme: str) -> tuple[bool, bool, bo
 
     final_b64_img_code = []
     if origin_number != '0000000000':
-        for i in origin_number:
+        for i in origin_number:  # 通过elif语句依次判断数字
             if i == '0':
                 final_b64_img_code.append(b_64_list[0])
             elif i == '1':
@@ -61,7 +61,7 @@ def re_sort_number_image(origin_number: str, theme: str) -> tuple[bool, bool, bo
         return [True, final_b64_img_code, width_list[0], height_list[0]]
     else:
         for i in range(10):
-            final_b64_img_code.append(b_64_list[0])
+            final_b64_img_code.append(b_64_list[0])  # 直接将0返回
         return [True, final_b64_img_code, width_list[0], height_list[0]]
 
 

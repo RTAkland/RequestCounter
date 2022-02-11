@@ -34,7 +34,7 @@ def fetch_data(name: str) -> int:
     :param name:
     :return:
     """
-    conn = sqlite3.connect('./db/d.db', check_same_thread=False)
+    conn = sqlite3.connect('./db/count.db', check_same_thread=False)
     cursor = conn.cursor()
     try:
         cursor.execute('select * from ReqCount')
@@ -42,7 +42,7 @@ def fetch_data(name: str) -> int:
         data = cursor.fetchall()
 
         temp_dict = {}
-        for k, v in data:
+        for k, v in data:  # 遍历数据将元组数据转换为字典类型
             temp_dict.setdefault(k, []).append(v)
         for i, c in zip(temp_dict.keys(), temp_dict.values()):
             temp_dict[i] = c[0]

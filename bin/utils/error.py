@@ -13,6 +13,7 @@ from db.db import (update_data, fetch_table)
 
 
 class ErrorProcess:
+    """处理错误的页面"""
     def __init__(self):
         self.msg_template = {'code': -2,
                              'msg': '',
