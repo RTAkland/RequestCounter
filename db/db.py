@@ -18,7 +18,7 @@ def insert_data(name: str) -> None:
     :param name:
     :return:
     """
-    conn = sqlite3.connect('./db/data.db', check_same_thread=False)
+    conn = sqlite3.connect('./db/count.db', check_same_thread=False)
     cursor = conn.cursor()
     try:
         cursor.execute('insert into ReqCount values(?, ?)', (name, 1))
@@ -34,7 +34,7 @@ def fetch_data(name: str) -> int:
     :param name:
     :return:
     """
-    conn = sqlite3.connect('./db/data.db', check_same_thread=False)
+    conn = sqlite3.connect('./db/d.db', check_same_thread=False)
     cursor = conn.cursor()
     try:
         cursor.execute('select * from ReqCount')
@@ -67,7 +67,7 @@ def update_data(name: str, times: int) -> None:
     :param times:
     :return:
     """
-    conn = sqlite3.connect('./db/data.db', check_same_thread=False)
+    conn = sqlite3.connect('./db/count.db', check_same_thread=False)
     cursor = conn.cursor()
     try:
         times += 1
