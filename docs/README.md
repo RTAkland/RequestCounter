@@ -2,7 +2,7 @@
 > 虽然说项目很小根本不需要文档
 
 # 灵感来源
-[Moe-Counter](https://github.com/MarkusJoe/Moe-counter)
+[Moe-Counter](https://github.com/journey-ad/Moe-counter)
 > 看到这个项目感觉挺有意思就用Python写了一个 此项目中添加了原项目中没有的功能 `Length` `设置长度`
 
 # 工作原理
