@@ -9,7 +9,7 @@
 import os
 
 if not os.path.exists('./db/count.db'):
-    print('未检测到数据库')
+    print('未检测到用户计数数据库')
     import sqlite3
     conn = sqlite3.connect('./db/count.db', check_same_thread=False)
     cursor = conn.cursor()
