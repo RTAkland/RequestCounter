@@ -8,4 +8,3 @@ dist/
 *.pyc
 *.zip
 *.db
-!./bin/assets/theme.db
