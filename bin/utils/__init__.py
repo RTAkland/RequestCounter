@@ -74,7 +74,7 @@ class Check:
         开始下载
         :return:
         """
-        filesize = int(requests.get(self.assets_url).headers['Content-Length'])
+        filesize = int(self.session.head(self.assets_url).headers['Content-Length'])
         threaded_count = 3
         print(f'I: 数据库大小: {round(filesize / 1024 / 1024, 2)}Mb. 下载线程: {threaded_count}')
         threading.BoundedSemaphore(threaded_count)
