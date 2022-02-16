@@ -126,11 +126,11 @@ def index() -> Response:
 if __name__ == '__main__':
     import sys
     logger.info(sys.argv)
-    logger.info('服务器已在 http://127.0.0.1:5000 运行')
-    try:
-        server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
-        server.serve_forever()
-    except OSError:
-        logger.error('5000 端口被占用')
-    except KeyboardInterrupt:
-        logger.info('程序已退出')
+    # logger.info('服务器已在 http://127.0.0.1:5000 运行')
+    # try:
+    #     server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
+    #     server.serve_forever()
+    # except OSError:
+    #     logger.error('5000 端口被占用')
+    # except KeyboardInterrupt:
+    #     logger.info('程序已退出')
