@@ -7,9 +7,10 @@
 
 
 import os
+from bin.utils.logger import logger
 
 if not os.path.exists('./db/count.db'):
-    print('未检测到用户计数数据库')
+    logger.error('未检测到用户计数数据库')
     import sqlite3
     conn = sqlite3.connect('./db/count.db', check_same_thread=False)
     cursor = conn.cursor()
@@ -17,4 +18,4 @@ if not os.path.exists('./db/count.db'):
     conn.commit()
     cursor.close()
     conn.close()
-    print('已在./db 目录下创建了count.db数据库')
+    logger.info('已在./db 目录下创建了count.db数据库')
