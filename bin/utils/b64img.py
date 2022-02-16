@@ -66,5 +66,5 @@ def re_sort_number_image(origin_number: str, theme: str) -> tuple[bool, bool, bo
 
 
 if __name__ != '__main__':
-    conn = sqlite3.connect('./db/theme.db', check_same_thread=False)
+    conn = sqlite3.connect('./db/style.db', check_same_thread=False)
     cursor = conn.cursor()
