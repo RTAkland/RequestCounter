@@ -26,19 +26,6 @@ app.config['JSON_SORT_KEYS'] = False  # 设置JSON消息不根据字母顺序重
 app.config['JSON_AS_ASCII'] = False  # 设置JSON消息显示中文
 
 
-@app.route('/sync')
-def sync():
-    """
-    同步count.db
-    :return:
-    """
-    try:
-        requests.get('https://themedatabase.vercel.app/')
-        return {'code': 200, 'msg': '从远程服务器同步成功', 'data': []}
-    except BaseException as e:
-        return {'code': -2, 'msg': f'从远程服务器同步失败: {e}', 'data': []}
-
-
 def build_page(name: str, length: int, theme: str) -> list[bool or Response] or list[bool or str] or bool:
     """
     渲染最终的页面
