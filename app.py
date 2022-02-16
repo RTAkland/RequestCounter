@@ -16,6 +16,7 @@ from gevent import pywsgi
 from bin.utils.b64img import re_sort_number_image
 from bin.utils.error import ErrorProcess
 from bin.utils.render_ import render_temp_
+from bin.utils.logger import logger
 from db.db import fetch_data
 
 app = Flask(__name__, static_url_path='')
@@ -120,11 +121,11 @@ def index() -> Response:
 
 
 if __name__ == '__main__':
-    print('I: 服务器已在 http://127.0.0.1:5000 运行')
+    logger.info('服务器已在 http://127.0.0.1:5000 运行')
     try:
         server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
         server.serve_forever()
     except OSError:
-        print('E: 5000 端口被占用')
+        logger.error('5000 端口被占用')
     except KeyboardInterrupt:
-        print('I: 程序已退出')
+        logger.info('程序已退出')
