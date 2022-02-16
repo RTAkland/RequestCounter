@@ -123,6 +123,11 @@ def index() -> Response:
     return app.send_static_file('index.html')
 
 
+@app.route('/arg')
+def arg():
+    return {'data': sys.argv}
+
+
 if __name__ == '__main__':
     import sys
     logger.info(sys.argv)
