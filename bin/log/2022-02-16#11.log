@@ -1,0 +1,24 @@
+[11:53:29] |app.py[<module>line:124] |INFO     |I: 服务器已在 http://127.0.0.1:5000 运行
+[11:54:17] |app.py[<module>line:131] |INFO     |I: 程序已退出
+[11:54:20] |app.py[<module>line:124] |INFO     |服务器已在 http://127.0.0.1:5000 运行
+[11:56:15] |app.py[<module>line:131] |INFO     |程序已退出
+[11:57:38] |app.py[<module>line:124] |INFO     |服务器已在 http://127.0.0.1:5000 运行
+[11:58:26] |app.py[<module>line:124] |INFO     |服务器已在 http://127.0.0.1:5000 运行
+[11:58:54] |app.py[<module>line:131] |INFO     |程序已退出
+[11:58:57] |app.py[<module>line:124] |INFO     |服务器已在 http://127.0.0.1:5000 运行
+[11:59:26] |app.py[<module>line:131] |INFO     |程序已退出
+[11:59:30] |app.py[<module>line:124] |INFO     |服务器已在 http://127.0.0.1:5000 运行
+[11:59:33] |app.py[<module>line:131] |INFO     |程序已退出
+[11:59:45] |__init__.py[<module>line:138] |ERROR    |没有检测到本地主题数据库即将开始下载
+[11:59:47] |__init__.py[downloadline:80] |INFO     |数据库大小: 0.0Mb. 下载线程: 3
+[11:59:47] |__init__.py[check_md5line:66] |INFO     |本地数据库md5: d41d8cd98f00b204e9800998ecf8427e
+I: 远程数据库md5: 1731a1ec76b6e8279512d2476d497c9d
+[11:59:47] |__init__.py[check_md5line:68] |ERROR    |下载错误: 本地数据库md5和远程数据库md5检验不通过, 即将开始重新下载
+I: 本次下载将使用单线程下载
+[11:59:49] |__init__.py[single_downloadline:118] |INFO     |正在使用单线程下载中
+[11:59:49] |__init__.py[single_downloadline:121] |INFO     |下载完成 正在检验文件md5
+[11:59:49] |__init__.py[single_downloadline:126] |INFO     |本地数据库md5: 1731a1ec76b6e8279512d2476d497c9d
+I: 远程数据库md5: 1731a1ec76b6e8279512d2476d497c9d
+[11:59:49] |__init__.py[single_downloadline:131] |INFO     |md5检验已通过
+[11:59:49] |app.py[<module>line:124] |INFO     |服务器已在 http://127.0.0.1:5000 运行
+[12:00:19] |app.py[<module>line:131] |INFO     |程序已退出
