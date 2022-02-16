@@ -7,8 +7,6 @@
 
 
 import time
-
-import requests
 from flask import Flask
 from flask import Response
 from flask import jsonify
