@@ -36,7 +36,7 @@ class Logger:
         ConsoleLogger = logging.StreamHandler()  # 输出到终端
         ConsoleLogger.setFormatter(formatter)
         log_name = time.strftime('%Y-%m-%d %H')  # 一小时内使用的日志文件都是同一个
-        FileLogger = logging.handlers.RotatingFileHandler(filename=f'./log/{log_name}.log',
+        FileLogger = logging.handlers.RotatingFileHandler(filename=f'./bin/log/{log_name}.log',
                                                           maxBytes=102400,
                                                           backupCount=5)  # 每个日志文件最大102400字节(100Kb)
         FileLogger.setFormatter(formatter_file)
