@@ -10,8 +10,7 @@ import random
 import base64
 import sqlite3
 
-
-conn = sqlite3.connect('../assets/theme.db')
+conn = sqlite3.connect('../../db/style.db')
 cursor = conn.cursor()
 
 
@@ -30,4 +29,6 @@ def get_all_theme():
                 fp.write(img_data)
             # if i[1] == '':
             #     print(n)
+
+
 get_all_theme()

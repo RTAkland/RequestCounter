@@ -9,7 +9,7 @@
 from typing import Optional
 from flask import jsonify
 from flask import Response
-from db.db import (update_data, fetch_table)
+from db.sqlite import (update_data, fetch_table)
 
 
 class ErrorProcess:
@@ -42,7 +42,7 @@ class ErrorProcess:
         self.msg_template['data'] = table_list
         return jsonify(self.msg_template)
 
-    def error_length(self, length: int) -> Response:
+    def error_length(self, length: int or str) -> Response:
         """
         数值太长显示此页面
         :param length:

@@ -59,7 +59,7 @@ class Check:
         检验本地文件md5是否和远程md5相同
         :return:
         """
-        with open('./bin/assets/theme.db', 'rb') as fp:
+        with open('./db/style.db', 'rb') as fp:
             data = fp.read()
         local_md5 = hashlib.md5(data).hexdigest()
         remote_md5 = self.session.get(self.remote_md5).json()['data'][0]
@@ -84,9 +84,9 @@ class Check:
         mtd_list = []
         start = 0
         end = -1
-        with open('./bin/assets/theme.db', 'w') as initial_file:
+        with open('./db/style.db', 'w') as initial_file:
             initial_file.close()
-        with open('./bin/assets/theme.db', 'rb+') as f:
+        with open('./db/style.db', 'rb+') as f:
             name = 1
             fileno = f.fileno()
             while end < filesize - 1:
@@ -117,10 +117,10 @@ def single_download(url):
     session.trust_env = False
     logger.info(f'正在使用单线程下载中')
     resp = session.get(url)
-    with open('./bin/assets/theme.db', 'wb') as fp:
+    with open('./db/style.db', 'wb') as fp:
         fp.write(resp.content)
     logger.info('下载完成 正在检验文件md5')
-    with open('./bin/assets/theme.db', 'rb') as fp:
+    with open('./db/style.db', 'rb') as fp:
         data = fp.read()
     local_md5 = hashlib.md5(data).hexdigest()
     remote_md5 = session.get('https://themedatabases.vercel.app/md5').json()['data'][0]
@@ -136,6 +136,6 @@ def single_download(url):
 if __name__ != '__main__':
     if not os.path.exists('./bin/log'):
         os.mkdir('./bin/log')
-    if not os.path.exists('./bin/assets/theme.db'):
+    if not os.path.exists('./db/style.db'):
         logger.error('没有检测到本地主题数据库即将开始下载')
         Check().download()

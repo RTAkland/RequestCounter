@@ -8,7 +8,7 @@
 
 import sqlite3
 from typing import Any
-from db.db import fetch_table
+from db.sqlite import fetch_table
 
 
 def re_sort_number_image(origin_number: str, theme: str) -> tuple[bool, bool, bool, bool] or list[
@@ -66,5 +66,5 @@ def re_sort_number_image(origin_number: str, theme: str) -> tuple[bool, bool, bo
 
 
 if __name__ != '__main__':
-    conn = sqlite3.connect('./bin/assets/theme.db', check_same_thread=False)
+    conn = sqlite3.connect('./db/theme.db', check_same_thread=False)
     cursor = conn.cursor()

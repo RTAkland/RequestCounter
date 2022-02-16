@@ -7,6 +7,8 @@
 
 
 import time
+
+import requests
 from flask import Flask
 from flask import Response
 from flask import jsonify
@@ -17,31 +19,24 @@ from bin.utils.b64img import re_sort_number_image
 from bin.utils.error import ErrorProcess
 from bin.utils.render_ import render_temp_
 from bin.utils.logger import logger
-from db.db import fetch_data
+from db.sqlite import fetch_data
 
 app = Flask(__name__, static_url_path='')
 app.config['JSON_SORT_KEYS'] = False  # 设置JSON消息不根据字母顺序重新排序
 app.config['JSON_AS_ASCII'] = False  # 设置JSON消息显示中文
 
 
-@app.errorhandler(404)
-def miss(reason) -> Response:
+@app.route('/sync')
+def sync():
     """
-    404页面使用json格式显示
-    :param reason:
+    同步count.db
     :return:
     """
-    return jsonify({'code': 404, 'msg': '没有定义的页面', 'data': None})
-
-
-@app.errorhandler(500)
-def error(reason) -> Response:
-    """
-    500 页面使用json格式显示
-    :param reason:
-    :return:
-    """
-    return jsonify({'code': 500, 'msg': '服务器内部错误', 'data': None})
+    try:
+        requests.get('https://themedatabase.vercel.app/')
+        return {'code': 200, 'msg': '从远程服务器同步成功', 'data': []}
+    except BaseException as e:
+        return {'code': -2, 'msg': f'从远程服务器同步失败: {e}', 'data': []}
 
 
 def build_page(name: str, length: int, theme: str) -> list[bool or Response] or list[bool or str] or bool:
@@ -66,6 +61,26 @@ def build_page(name: str, length: int, theme: str) -> list[bool or Response] or 
         return [False, 'BadLength']
 
 
+@app.errorhandler(404)
+def miss(reason) -> Response:
+    """
+    404页面使用json格式显示
+    :param reason:
+    :return:
+    """
+    return jsonify({'code': 404, 'msg': '没有定义的页面', 'data': None})
+
+
+@app.errorhandler(500)
+def error(reason) -> Response:
+    """
+    500 页面使用json格式显示
+    :param reason:
+    :return:
+    """
+    return jsonify({'code': 500, 'msg': '服务器内部错误', 'data': None})
+
+
 @app.route('/get', methods=['GET', 'POST'])  # 允许 GET 和 POST 方法
 def main() -> Response or str:
     """
@@ -81,6 +96,8 @@ def main() -> Response or str:
     if name and name != 'null':
         if not length:
             length = 7
+        elif type(length) is not int:
+            return ErrorProcess().error_length(length)
         else:
             length = int(length)  # 将类型转换为整型
         if not theme:
@@ -89,14 +106,15 @@ def main() -> Response or str:
         if build_page_result[0]:
             response = make_response(build_page_result[1])  # 设置响应体 和 响应头
             response.headers['Content-Type'] = 'image/svg+xml; charset=utf-8'
+            # 防止浏览器和markdown编辑器缓存图片
             response.headers['cache-control'] = 'max-age=0, no-cache, no-store, must-revalidate'
             response.headers['date'] = time.ctime()
             return response
-        elif build_page_result[1] == 'BadLength':
+        elif build_page_result[1] == 'BadLength':  # 输入的长度错误
             return ErrorProcess().error_length(length)
-        elif build_page_result[1] == 'BadTheme':
+        elif build_page_result[1] == 'BadTheme':  # 输入的主题错误
             return ErrorProcess().error_theme(theme)
-        else:
+        else:  # 长度过长无法计数重置数据库内的已有数据
             return build_page_result[1]
     else:
         return ErrorProcess().arg_not_be_full()

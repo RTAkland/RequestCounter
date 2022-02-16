@@ -4,7 +4,7 @@ import os
 import sqlite3
 
 
-conn = sqlite3.connect('../assets/theme.db')
+conn = sqlite3.connect('../../db/theme.db')
 cursor = conn.cursor()
 
 file_list = os.listdir('../assets/themes/')
