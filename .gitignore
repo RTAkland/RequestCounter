@@ -8,5 +8,6 @@ dist/
 *.pyc
 *.zip
 *.db
+!/db/count.db
 *.log
 *.log.*
