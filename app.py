@@ -129,7 +129,7 @@ def arg():
     return {'data': sys.argv}
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # logger.info('服务器已在 http://127.0.0.1:5000 运行')
     # try:
     #     server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
