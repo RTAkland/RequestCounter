@@ -134,7 +134,7 @@ def single_download(url):
 
 
 if __name__ != '__main__':
-    if os.path.exists('./app.py') and not os.path.exists('./log'):
+    if not os.path.exists('./log'):
         os.mkdir('./log')
     if not os.path.exists('./bin/assets/theme.db'):
         logger.error('没有检测到本地主题数据库即将开始下载')
