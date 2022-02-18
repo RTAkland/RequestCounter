@@ -15,16 +15,15 @@ from bin.utils.logger import logger
 
 
 class MulThreadDownload(threading.Thread):
-    """继承threading使用多线程"""
     def __init__(self, url, startpos, endpos, f, name):
         super(MulThreadDownload, self).__init__()
         self.session = requests.Session()
         self.session.trust_env = False
-        self.url = url
+        self.url = url  # 资源Url
         self.startpos = startpos
         self.endpos = endpos
-        self.fd = f
-        self.name = name
+        self.fd = f  # 文件操作
+        self.name = name  # 线程名称
 
     def download(self):
         """
@@ -48,6 +47,7 @@ class MulThreadDownload(threading.Thread):
 
 class Check:
     """检查md5是否相同和下载数据库"""
+
     def __init__(self):
         self.assets_url = 'https://themedatabases.vercel.app/assets'
         self.remote_md5 = 'https://themedatabases.vercel.app/md5'
@@ -67,7 +67,7 @@ class Check:
         logger.info(f'远程数据库md5: {remote_md5}')
         if local_md5 != remote_md5:
             logger.error('下载错误: 本地数据库md5和远程数据库md5检验不通过, 即将开始重新下载\nI: 本次下载将使用单线程下载')
-            single_download(self.assets_url)
+            self.single_download()
         else:
             logger.info('md5检验已通过')
 
@@ -106,36 +106,33 @@ class Check:
 
         self.check_md5()
 
-
-def single_download(url):
-    """
-    单线程进行下载
-    :param url:
-    :return:
-    """
-    session = requests.Session()
-    session.trust_env = False
-    logger.info(f'正在使用单线程下载中')
-    resp = session.get(url)
-    with open('./db/style.db', 'wb') as fp:
-        fp.write(resp.content)
-    logger.info('下载完成 正在检验文件md5')
-    with open('./db/style.db', 'rb') as fp:
-        data = fp.read()
-    local_md5 = hashlib.md5(data).hexdigest()
-    remote_md5 = session.get('https://themedatabases.vercel.app/md5').json()['data'][0]
-    logger.info(f'本地数据库md5: {local_md5}')
-    logger.info(f'远程数据库md5: {remote_md5}')
-    if local_md5 != remote_md5:
-        logger.error('md5检验未通过请手动前往 https://themedatabases.vercel.app/assets 下载文件并放入./bin/assets文件夹内')
-        sys.exit(-1)
-    else:
-        logger.info('md5检验已通过')
+    def single_download(self):
+        """
+        单线程进行下载
+        :return:
+        """
+        session = requests.Session()
+        session.trust_env = False
+        logger.info(f'正在使用单线程下载中')
+        resp = session.get(self.assets_url)
+        with open('./db/style.db', 'wb') as fp:
+            fp.write(resp.content)
+        logger.info('下载完成 正在检验文件md5')
+        with open('./db/style.db', 'rb') as fp:
+            data = fp.read()
+        local_md5 = hashlib.md5(data).hexdigest()
+        remote_md5 = session.get('https://themedatabases.vercel.app/md5').json()['data'][0]
+        logger.info(f'本地数据库md5: {local_md5}')
+        logger.info(f'远程数据库md5: {remote_md5}')
+        if local_md5 != remote_md5:
+            logger.error('md5检验未通过请手动前往 https://themedatabases.vercel.app/assets 下载文件并放入./bin/assets文件夹内')
+            sys.exit(-1)
+        else:
+            logger.info('md5检验已通过')
 
 
 if __name__ != '__main__':
-    if not os.path.exists('./bin/log'):
-        os.mkdir('./bin/log')
+    __all__ = ['b64img', 'error', 'logger', 'view']
     if not os.path.exists('./db/style.db'):
         logger.error('没有检测到本地主题数据库即将开始下载')
         Check().download()
