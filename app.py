@@ -6,17 +6,20 @@
 # @File Name: app.py
 
 
+import os
 import time
+from typing import Any
 from flask import Flask
 from flask import Response
 from flask import jsonify
 from flask import make_response
 from flask import request
+from flask import send_from_directory
 from gevent import pywsgi
-from bin.utils.b64img import re_sort_number_image
 from bin.utils.error import ErrorProcess
-from bin.utils.render_ import render_temp_
+from bin.utils.view import view_template
 from bin.utils.logger import logger
+from bin.utils.packlog import make_targz
 from db.sqlite import fetch_data
 
 app = Flask(__name__, static_url_path='')
@@ -24,7 +27,7 @@ app.config['JSON_SORT_KEYS'] = False  # 设置JSON消息不根据字母顺序重
 app.config['JSON_AS_ASCII'] = False  # 设置JSON消息显示中文
 
 
-def build_page(name: str, length: int, theme: str) -> list[bool or Response] or list[bool or str] or bool:
+def build_page(name: str, length: int, theme: str) -> list[bool or Response] or list[bool or Any] or list[bool or str]:
     """
     渲染最终的页面
     :param theme:
@@ -37,13 +40,28 @@ def build_page(name: str, length: int, theme: str) -> list[bool or Response] or 
         return [False, ErrorProcess().too_lang_to_count(name)]
     if 7 <= length <= 10:  # 判断设定的长度是否超过阈值
         zero_count = '0' * (length - len(str(count))) + str(count)
-        status, sorted_image, width, height = re_sort_number_image(zero_count, theme)
+        status, template = view_template(theme, length, name, zero_count)
         if status:
-            return [True, render_temp_(length, name, sorted_image, width, height)]
+            return [True, template]
         else:
             return [False, 'BadTheme']
     else:
         return [False, 'BadLength']
+
+
+@app.before_request
+def requests_log() -> None:
+    """
+    向日志文件内请求记录
+    :return:
+    """
+    if request.path != '/favicon.ico':  # 不记录favicon.ico的请求记录
+        logger.info(f'{request.host} {request.method} {request.path}')
+
+    file_list = os.listdir('./static/cache')
+    file_list.remove('.gitkeep')
+    for i in file_list:
+        os.remove(f'./static/cache/{i}')
 
 
 @app.errorhandler(404)
@@ -64,6 +82,19 @@ def error(reason) -> Response:
     :return:
     """
     return jsonify({'code': 500, 'msg': '服务器内部错误', 'data': None})
+
+
+@app.route('/get/log', methods=['GET', 'POST'])
+def view_log() -> Response:
+    """
+    下载日志
+    :return:
+    """
+    make_targz()  # 打包tar.gz 文件
+    log_file = f'{time.strftime("%Y-%m-%d %H")}.tar.gz'
+    logger.warning(f'{request.host} {request.method} {request.path} -> Packed log files: {log_file}')
+    dir_path = os.path.join(app.root_path, 'static/cache')
+    return send_from_directory(dir_path, log_file, as_attachment=True)
 
 
 @app.route('/get', methods=['GET', 'POST'])  # 允许 GET 和 POST 方法
@@ -126,7 +157,7 @@ def index() -> Response:
 if __name__ == '__main__':
     logger.info('服务器已在 http://127.0.0.1:5000 运行')
     try:
-        server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
+        server = pywsgi.WSGIServer(('0.0.0.0', 5000), app, log=None)  # log=None 关闭日志输出, 使用自写的日志器记录
         server.serve_forever()
     except OSError:
         logger.error('5000 端口被占用')
