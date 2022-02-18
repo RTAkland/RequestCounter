@@ -37,13 +37,14 @@ def build_page(name: str, length: int, theme: str) -> list[bool or Response] or 
     """
     count = fetch_data(name)
     if len(str(count)) > length:  # 判断在数据库内的长度是否超过了设定的(或预设的)长度
+        print('sdadada')
         return [False, ErrorProcess().too_lang_to_count(name)]
     if 7 <= length <= 10:  # 判断设定的长度是否超过阈值
         zero_count = '0' * (length - len(str(count))) + str(count)
         status, template = view_template(theme, length, name, zero_count)
-        if status:
+        if status is True:
             return [True, template]
-        else:
+        elif status == 'BadTheme':
             return [False, 'BadTheme']
     else:
         return [False, 'BadLength']
@@ -56,7 +57,7 @@ def requests_log() -> None:
     :return:
     """
     if request.path != '/favicon.ico':  # 不记录favicon.ico的请求记录
-        logger.info(f'{request.host} {request.method} {request.path}')
+        logger.info(f'{request.host} {request.method} {request.full_path}')
 
     file_list = os.listdir('./static/cache')
     file_list.remove('.gitkeep')
@@ -105,17 +106,17 @@ def main() -> Response or str:
     """
     args = request.args
     name = str(args.get('name')).replace('None', 'null')
-    length = args.get('length')
     theme = args.get('theme')
+    length = args.get('length')
+    try:
+        length = int(length)
+    except ValueError:
+        return ErrorProcess().error_length(length)
     if theme == 'ls':
         return ErrorProcess().get_theme_list()
     if name and name != 'null':
         if not length:
             length = 7
-        elif type(length) is not int:
-            return ErrorProcess().error_length(length)
-        else:
-            length = int(length)  # 将类型转换为整型
         if not theme:
             theme = 'lewd'
         build_page_result = build_page(name, length, theme)  # 开始处理整体页面
