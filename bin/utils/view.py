@@ -3,7 +3,7 @@
 # @Author: markushammered@gmail.com
 # @Development Tool: PyCharm
 # @Create Time: 2022/2/18
-# @File Name: sort_image.py
+# @File Name: view.py
 
 
 import sqlite3
@@ -11,7 +11,7 @@ from flask import render_template
 from db.sqlite import fetch_style_data
 
 
-def view_template(style: str, length: int, name: str, count: str):
+def view_template(style: str, length: int, name: str, count: str) -> tuple[bool, bool] or tuple[bool, str]:
     """
     渲染模板
     :param count: 
