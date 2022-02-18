@@ -7,13 +7,12 @@
 
 
 import sqlite3
-from typing import Tuple
 from flask import render_template
 from db.sqlite import fetch_style_data
 from db.sqlite import fetch_table
 
 
-def view_template(style: str, length: int, name: str, count: str) -> str or tuple[bool, bool] or tuple[bool, str]:
+def view_template(style: str, length: int, name: str, count: str) -> str or tuple[bool, str]:
     """
     渲染模板
     :param count: 
@@ -23,11 +22,8 @@ def view_template(style: str, length: int, name: str, count: str) -> str or tupl
     :return:
     """
     if style not in fetch_table():
-        return 'BadLength'
-    try:
-        origin_data = fetch_style_data(style)  # 获取数据库内的文件
-    except sqlite3.OperationalError:
-        return False, False
+        return [False, 'BadLength']
+    origin_data = fetch_style_data(style)  # 获取数据库内的文件
     context = []
     if count != '0000000000':
         for i in count:  # 通过elif语句依次判断数字

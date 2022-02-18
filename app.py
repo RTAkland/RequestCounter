@@ -37,14 +37,13 @@ def build_page(name: str, length: int, theme: str) -> list[bool or Response] or 
     """
     count = fetch_data(name)
     if len(str(count)) > length:  # 判断在数据库内的长度是否超过了设定的(或预设的)长度
-        print('sdadada')
         return [False, ErrorProcess().too_lang_to_count(name)]
     if 7 <= length <= 10:  # 判断设定的长度是否超过阈值
         zero_count = '0' * (length - len(str(count))) + str(count)
         status, template = view_template(theme, length, name, zero_count)
         if status is True:
             return [True, template]
-        elif status == 'BadTheme':
+        else:
             return [False, 'BadTheme']
     else:
         return [False, 'BadLength']
@@ -107,7 +106,7 @@ def main() -> Response or str:
     args = request.args
     name = str(args.get('name')).replace('None', 'null')
     theme = args.get('theme')
-    length = args.get('length')
+    length = str(args.get('length')).replace('None', '7')
     try:
         length = int(length)
     except ValueError:
