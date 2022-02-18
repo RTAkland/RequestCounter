@@ -6,10 +6,7 @@
 # @File Name: sqlite.py
 
 import sqlite3
-
-"""
-使用python3自带的Sqlite3进行数据库操作
-"""
+from typing import Any
 
 
 def insert_data(name: str) -> None:
@@ -95,3 +92,22 @@ def fetch_table() -> list:
         cursor_temp.close()
         conn_temp.close()
 
+
+def fetch_style_data(style: str) -> list[dict[str, Any]]:
+    """
+    获取主题数据库内的数据
+    :param style:
+    :return:
+    """
+    conn = sqlite3.connect('./db/style.db', check_same_thread=False)
+    cursor = conn.cursor()
+    try:
+        cursor.execute('select * from %(style_name)s' % {'style_name': style})
+        data = cursor.fetchall()
+        data_set = []
+        for i in data:
+            data_set.append({'index': i[0], 'base64': i[1], 'width': i[2], 'height': i[3]})
+        return data_set
+    finally:
+        cursor.close()
+        conn.close()
