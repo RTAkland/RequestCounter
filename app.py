@@ -65,7 +65,7 @@ def requests_log() -> None:
 
     origin_log_list = os.listdir('./bin/log')
     origin_log_list.remove('.gitkeep')
-    if len(origin_log_list) > 10:
+    if len(origin_log_list) > 100:
         for d in origin_log_list:
             try:
                 os.remove(f'./bin/log/{d}')
