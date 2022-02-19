@@ -9,7 +9,7 @@
 使用Flask建立服务器接收请求分析获取到的数据写入数据库
 
 # 部署
-> 在部署之前你需要先安装`python3.10.x`以上的版本 
+> 在部署之前你需要先安装`python3.10.x`以上的版本
 ## 部署到本地服务器
  ```shell
  $ git clone https://github.com/MarkusJoe/RequestCounter.git
@@ -23,13 +23,24 @@
 - Python版本: `3.10.x`
 - 请求方法: `GET` `POST`
 - 请求地址: `/get`
-- 请求参数: `name` : `str`
+- 必选参数: `name` : `str`
   - 可选参数: `length` : `int`
   - 可选参数: `theme` : `str`
   
 
-# 获取日志文件
-* 你可以通过访问`/get/log`来下载一个`tar.gz`的压缩包里面包含了`./bin/log`内所有的日志文件
+# 额外接口
+## 获取日志
+* 访问`/extra/log`来获取一个`*.tar.gz`的压缩包里面包含了`./bin/log`内所有的日志文件
+
+## 导出当前计数数据库文件
+* 访问`/extra/db`来获取`count.db`, 源文件位置: `./bin/db/count.db`
+
+## 获取主题数据库文件
+* 此接口没有在本项目中, 该仓库为私人仓库暂不开源
+* 访问 `https://themedatabase.vercel.app/assets` 获取
+* 由于速度较慢建议使用多线程进行下载
+* 项目中自动下载主题数据库的文件也是来自此处
+
 
 
 # 关于
