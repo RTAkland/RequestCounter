@@ -63,6 +63,15 @@ def requests_log() -> None:
     for i in file_list:
         os.remove(f'./static/cache/{i}')
 
+    origin_log_list = os.listdir('./bin/log')
+    origin_log_list.remove('.gitkeep')
+    if len(origin_log_list) > 10:
+        for d in origin_log_list:
+            try:
+                os.remove(f'./bin/log/{d}')
+            except PermissionError:
+                pass
+
 
 @app.errorhandler(404)
 def miss(reason) -> Response:
