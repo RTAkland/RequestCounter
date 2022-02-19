@@ -114,8 +114,6 @@ def main() -> Response or str:
     if theme == 'ls':
         return ErrorProcess().get_theme_list()
     if name and name != 'null':
-        if not length:
-            length = 7
         if not theme:
             theme = 'lewd'
         build_page_result = build_page(name, length, theme)  # 开始处理整体页面
@@ -131,6 +129,7 @@ def main() -> Response or str:
         elif build_page_result[1] == 'BadTheme':  # 输入的主题错误
             return ErrorProcess().error_theme(theme)
         else:  # 长度过长无法计数重置数据库内的已有数据
+            logger.critical(f'用户: {name} 数据已被重置')
             return build_page_result[1]
     else:
         return ErrorProcess().arg_not_be_full()

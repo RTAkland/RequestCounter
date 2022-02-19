@@ -111,3 +111,6 @@ def fetch_style_data(style: str) -> list[dict[str, Any]]:
     finally:
         cursor.close()
         conn.close()
+
+
+__all__ = ['fetch_table', 'fetch_data', 'fetch_style_data', 'update_data', 'insert_data']
