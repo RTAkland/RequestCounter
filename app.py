@@ -20,7 +20,7 @@ from bin.utils.error import ErrorProcess
 from bin.utils.view import view_template
 from bin.utils.logger import logger
 from bin.utils.packlog import make_targz
-from db.sqlite import fetch_data
+from bin.db.sqlite import fetch_data
 
 app = Flask(__name__, static_url_path='')
 app.config['JSON_SORT_KEYS'] = False  # 设置JSON消息不根据字母顺序重新排序

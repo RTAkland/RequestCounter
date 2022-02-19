@@ -9,7 +9,7 @@
 from typing import Optional
 from flask import jsonify
 from flask import Response
-from db.sqlite import (update_data, fetch_table)
+from bin.db import (update_data, fetch_table)
 
 
 class ErrorProcess:

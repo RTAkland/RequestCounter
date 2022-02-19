@@ -6,10 +6,9 @@
 # @File Name: view.py
 
 
-import sqlite3
 from flask import render_template
-from db.sqlite import fetch_style_data
-from db.sqlite import fetch_table
+from bin.db import fetch_style_data
+from bin.db import fetch_table
 
 
 def view_template(style: str, length: int, name: str, count: str) -> str or tuple[bool, str]:

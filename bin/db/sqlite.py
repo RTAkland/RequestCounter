@@ -15,7 +15,7 @@ def insert_data(name: str) -> None:
     :param name:
     :return:
     """
-    conn = sqlite3.connect('./db/count.db', check_same_thread=False)
+    conn = sqlite3.connect('./bin/db/count.db', check_same_thread=False)
     cursor = conn.cursor()
     try:
         cursor.execute('insert into ReqCount values(?, ?)', (name, 1))
@@ -31,7 +31,7 @@ def fetch_data(name: str) -> int:
     :param name:
     :return:
     """
-    conn = sqlite3.connect('./db/count.db', check_same_thread=False)
+    conn = sqlite3.connect('./bin/db/count.db', check_same_thread=False)
     cursor = conn.cursor()
     try:
         cursor.execute('select * from ReqCount')
@@ -64,7 +64,7 @@ def update_data(name: str, times: int) -> None:
     :param times:
     :return:
     """
-    conn = sqlite3.connect('./db/count.db', check_same_thread=False)
+    conn = sqlite3.connect('./bin/db/count.db', check_same_thread=False)
     cursor = conn.cursor()
     try:
         times += 1
@@ -80,7 +80,7 @@ def fetch_table() -> list:
     返回已有主题列表
     :return:
     """
-    conn_temp = sqlite3.connect('./db/style.db', check_same_thread=False)
+    conn_temp = sqlite3.connect('./bin/db/style.db', check_same_thread=False)
     cursor_temp = conn_temp.cursor()
     try:
         lst = []
@@ -99,7 +99,7 @@ def fetch_style_data(style: str) -> list[dict[str, Any]]:
     :param style:
     :return:
     """
-    conn = sqlite3.connect('./db/style.db', check_same_thread=False)
+    conn = sqlite3.connect('./bin/db/style.db', check_same_thread=False)
     cursor = conn.cursor()
     try:
         cursor.execute('select * from %(style_name)s' % {'style_name': style})
