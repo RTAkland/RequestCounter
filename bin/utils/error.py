@@ -9,14 +9,14 @@
 from typing import Optional
 from flask import jsonify
 from flask import Response
-from bin.db import (update_data, fetch_table)
+from bin.db.sqlite import (update_data, fetch_table)
 
 
 class ErrorProcess:
     """处理错误的页面"""
     def __init__(self):
         self.msg_template = {'code': -2,
-                             'msg': '',
+                             'msg': Optional[str],
                              'data': Optional[list]}
 
     def get_theme_list(self) -> Response:

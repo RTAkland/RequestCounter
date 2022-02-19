@@ -93,7 +93,17 @@ def error(reason) -> Response:
     return jsonify({'code': 500, 'msg': '服务器内部错误', 'data': None})
 
 
-@app.route('/get/log', methods=['GET', 'POST'])
+@app.route('/extra/db')
+def export_db():
+    """
+    导出数据库
+    :return:
+    """
+    dir_path = os.path.join(app.root_path, 'bin/db')
+    return send_from_directory(dir_path, 'count.db', as_attachment=True)
+
+
+@app.route('/extra/log', methods=['GET', 'POST'])
 def view_log() -> Response:
     """
     下载日志

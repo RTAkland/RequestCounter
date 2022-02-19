@@ -7,8 +7,8 @@
 
 
 from flask import render_template
-from bin.db import fetch_style_data
-from bin.db import fetch_table
+from bin.db.sqlite import fetch_style_data
+from bin.db.sqlite import fetch_table
 
 
 def view_template(style: str, length: int, name: str, count: str) -> str or tuple[bool, str]:

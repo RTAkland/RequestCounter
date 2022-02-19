@@ -9,7 +9,7 @@
 import os
 from bin.utils.logger import logger
 
-if not os.path.exists('./db/count.db'):
+if not os.path.exists('./bin/db/count.db'):
     logger.error('未检测到用户计数数据库')
     import sqlite3
     conn = sqlite3.connect('./bin/db/count.db', check_same_thread=False)
