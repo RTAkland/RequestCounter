@@ -7,8 +7,7 @@
 
 
 from flask import render_template
-from bin.db.sqlite import fetch_style_data
-from bin.db.sqlite import fetch_table
+from bin.db.sqlite import Database
 
 
 def view_template(style: str, length: int, name: str, count: str) -> str or tuple[bool, str]:
@@ -20,9 +19,9 @@ def view_template(style: str, length: int, name: str, count: str) -> str or tupl
     :param style:
     :return:
     """
-    if style not in fetch_table():
+    if style not in Database().fetch_table():
         return [False, 'BadLength']
-    origin_data = fetch_style_data(style)  # 获取数据库内的文件
+    origin_data = Database().fetch_style_data(style)  # 获取数据库内的文件
     context = []
     if count != '0000000000':
         for i in count:  # 通过elif语句依次判断数字

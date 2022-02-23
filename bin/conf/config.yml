@@ -1,0 +1,22 @@
+servers:
+  # 服务器建立的地址
+  host: "0.0.0.0"
+  # 服务器监听的端口
+  port: 5000
+
+
+database:
+  # 数据库类型
+  type: sqlite
+  sqlite:
+    path: "./bin/db/data.db"
+
+  # 暂未开发
+#  mysql:
+#    address: "localhost"
+#    port: 3306
+#    user: ""
+#    password: ""
+
+
+

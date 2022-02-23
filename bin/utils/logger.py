@@ -13,7 +13,7 @@ from colorlog import ColoredFormatter
 
 
 class MakeLogger:
-    def __init__(self):
+    def __init__(self) -> None:
         self.date_format = '%H:%M:%S'
         self.format_console = '%(log_color)s[%(asctime)s] |%(filename)s[%(lineno)-3s] |%(levelname)-8s |%(message)s'
         self.format_file = '[%(asctime)s] |%(filename)s[%(funcName)sline:%(lineno)d] |%(levelname)-8s |%(message)s'

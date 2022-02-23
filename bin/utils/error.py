@@ -9,7 +9,7 @@
 from typing import Optional
 from flask import jsonify
 from flask import Response
-from bin.db.sqlite import (update_data, fetch_table)
+from bin.db.sqlite import Database
 
 
 class ErrorProcess:
@@ -24,7 +24,7 @@ class ErrorProcess:
         直接获取可选主题
         :return:
         """
-        table_list = fetch_table()
+        table_list = Database().fetch_table()
         self.msg_template['code'] = 200
         self.msg_template['msg'] = '当前已保存到数据库的主题如下'
         self.msg_template['data'] = table_list
@@ -36,7 +36,7 @@ class ErrorProcess:
         :param theme:
         :return:
         """
-        table_list = fetch_table()
+        table_list = Database().fetch_table()
         self.msg_template['code'] = -2
         self.msg_template['msg'] = f'错误的主题: {theme}. 以下是已保存的主题'
         self.msg_template['data'] = table_list
@@ -59,7 +59,7 @@ class ErrorProcess:
         :param name:
         :return:
         """
-        update_data(name, 0)
+        Database().update_data(name, 0)
         self.msg_template['code'] = 200
         self.msg_template['msg'] = '当前长度已超过最大可计数范围. 已将此名称的计数器重置为零'
         self.msg_template['data'] = None
