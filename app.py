@@ -19,8 +19,9 @@ from gevent import pywsgi
 from bin.utils.error import ErrorProcess
 from bin.utils.view import view_template
 from bin.utils.logger import logger
-from bin.utils.packlog import make_targz
-from bin.db.sqlite import fetch_data
+from bin.utils.packing_logs import make_targz
+from bin.utils.settings import Settings
+from bin.db.sqlite import Database
 
 app = Flask(__name__, static_url_path='')
 app.config['JSON_SORT_KEYS'] = False  # 设置JSON消息不根据字母顺序重新排序
@@ -35,7 +36,7 @@ def build_page(name: str, length: int, theme: str) -> list[bool or Response] or 
     :param length:
     :return:
     """
-    count = fetch_data(name)
+    count = Database().fetch_data(name)
     if len(str(count)) > length:  # 判断在数据库内的长度是否超过了设定的(或预设的)长度
         return [False, ErrorProcess().too_lang_to_count(name)]
     if 7 <= length <= 10:  # 判断设定的长度是否超过阈值
@@ -173,11 +174,12 @@ def index() -> Response:
 
 
 if __name__ == '__main__':
-    logger.info('服务器已在 http://127.0.0.1:5000 运行')
+    conf = Settings()
+    logger.info(f'服务器已在 http://127.0.0.1:{conf.port} 运行')
     try:
-        server = pywsgi.WSGIServer(('0.0.0.0', 5000), app, log=None)  # log=None 关闭日志输出, 使用自写的日志器记录
+        server = pywsgi.WSGIServer((conf.host, conf.port), app, log=None)  # log=None 关闭日志输出, 使用自写的日志器记录
         server.serve_forever()
     except OSError:
-        logger.error('5000 端口被占用')
+        logger.error(f'{conf.port} 端口被占用')
     except KeyboardInterrupt:
         logger.info('程序已退出')
