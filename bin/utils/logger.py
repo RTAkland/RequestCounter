@@ -36,7 +36,7 @@ class MakeLogger:
                                            datefmt=self.date_format)  # 文件输入不使用颜色
 
         _logger = logging.getLogger('RequestCounter')  # 设置日志器名称
-        _logger.setLevel(logging.DEBUG)  # 设置等级
+        _logger.setLevel(logging.INFO)  # 设置等级
 
         console_logger = logging.StreamHandler()  # 输出到终端
         console_logger.setFormatter(formatter)  # 设置输出格式化
