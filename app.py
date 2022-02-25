@@ -21,7 +21,7 @@ from bin.utils.view import view_template
 from bin.utils.logger import logger
 from bin.utils.packing_logs import make_targz
 from bin.utils.settings import Settings
-from bin.db.sqlite import Database
+from bin.db.db import SQLite
 
 app = Flask(__name__, static_url_path='')
 app.config['JSON_SORT_KEYS'] = False  # 设置JSON消息不根据字母顺序重新排序
@@ -36,7 +36,7 @@ def build_page(name: str, length: int, theme: str) -> list[bool or Response] or 
     :param length:
     :return:
     """
-    count = Database().fetch_data(name)
+    count = SQLite().fetch_data(name)
     if len(str(count)) > length:  # 判断在数据库内的长度是否超过了设定的(或预设的)长度
         return [False, ErrorProcess().too_lang_to_count(name)]
     if 7 <= length <= 10:  # 判断设定的长度是否超过阈值
