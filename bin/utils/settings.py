@@ -17,6 +17,7 @@ class Settings:
             self.data = yaml.load(fp.read(), Loader=yaml.Loader)
         self.__servers = self.data['servers']
         self.__database = self.data['database']
+        self.__view = self.data['view']
 
     def all_data(self) -> Dict:
         """
@@ -24,6 +25,14 @@ class Settings:
         :return:
         """
         return self.data
+
+    @property
+    def default_style(self) -> str:
+        """
+        默认显示主题
+        :return:
+        """
+        return self.__view['style']
 
     @property
     def host(self) -> str:
