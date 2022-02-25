@@ -135,7 +135,7 @@ def main() -> Response or str:
         return ErrorProcess().get_theme_list()
     if name and name != 'null':
         if not theme:
-            theme = 'lewd'
+            theme = conf.default_style  # 设置默认主题
         build_page_result = build_page(name, length, theme)  # 开始处理整体页面
         if build_page_result[0]:
             response = make_response(build_page_result[1])  # 设置响应体 和 响应头
