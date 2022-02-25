@@ -7,7 +7,7 @@
 
 
 from flask import render_template
-from bin.db.sqlite import Database
+from bin.db.db import SQLite
 
 
 def view_template(style: str, length: int, name: str, count: str) -> str or tuple[bool, str]:
@@ -19,9 +19,9 @@ def view_template(style: str, length: int, name: str, count: str) -> str or tupl
     :param style:
     :return:
     """
-    if style not in Database().fetch_table():
+    if style not in SQLite().fetch_table():  # 选择的主题不在数据库内
         return [False, 'BadLength']
-    origin_data = Database().fetch_style_data(style)  # 获取数据库内的文件
+    origin_data = SQLite().fetch_style_data(style)  # 获取数据库内的数据
     context = []
     if count != '0000000000':
         for i in count:  # 通过elif语句依次判断数字
@@ -67,10 +67,10 @@ def view_template(style: str, length: int, name: str, count: str) -> str or tupl
                                 'height': origin_data[9]['height']})
 
     for p, i in zip(context, range(0, length)):
-        p['position'] = i * p['width']
+        p['position'] = i * p['width']  # 设置每张图片对应的位置
 
-    general_width = origin_data[0]['width'] * length
-    general_height = origin_data[0]['height']
+    general_width = origin_data[0]['width'] * length  # 计算出图片总长度
+    general_height = origin_data[0]['height']  # 总宽度
 
     return True, render_template('view.html',
                                  context=context,
