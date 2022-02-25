@@ -5,18 +5,35 @@ servers:
   port: 5000
 
 
+view:
+  # 默认显示主题
+  style: "lewd"
+
+
 database:
   # 数据库类型
-  type: sqlite
-  sqlite:
+  # 可选 'SQLite' /'MySQL'/ -> 暂未开发
+  type: SQLite
+  SQLite:
+    # 数据库的路径,
+    # 需要从app.py文件所在目录为工作目录
     path: "./bin/db/data.db"
 
-  # 暂未开发
-#  mysql:
-#    address: "localhost"
-#    port: 3306
-#    user: ""
-#    password: ""
+
+# 暂未开发
+  MySQL:
+    # 数据库地址
+    host: "localhost"
+    # 数据库端口
+    port: 3306
+    # 数据库用户
+    user: "root"
+    # 数据库密码
+    password: ""
+    # 数据库名称
+    # 如果该数据库不存在则自动创建
+    db: "requestcounter"
+
 
 
 
