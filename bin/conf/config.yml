@@ -23,7 +23,7 @@ database:
 # 暂未开发
   MySQL:
     # 数据库地址
-    host: "localhost"
+    host: "127.0.0.1"
     # 数据库端口
     port: 3306
     # 数据库用户
@@ -32,7 +32,7 @@ database:
     password: ""
     # 数据库名称
     # 如果该数据库不存在则自动创建
-    db: "requestcounter"
+    db: "reqcount"
 
 
 
