@@ -120,9 +120,3 @@ class SQLite:
             conn.close()
 
 
-if __name__ == '__main__':
-    print('MySQL数据库并未开发完成暂时只能使用SQLite数据库\n'
-          '如果你想帮助开发MySQL的支持你可以在./bin/tests内找到MySQL_.py并继续开发\n'
-          '开发进度: 已经完成 删, 改, 增, 查, 以及查询已有的表\n'
-          '获取配置文件直接使用from bin.utils.settings import Settings\n'
-          '可以直接实例化并使用此类, 调用Settings内的属性可以直接获取对应的信息')

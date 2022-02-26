@@ -27,6 +27,8 @@ app = Flask(__name__, static_url_path='')
 app.config['JSON_SORT_KEYS'] = False  # 设置JSON消息不根据字母顺序重新排序
 app.config['JSON_AS_ASCII'] = False  # 设置JSON消息显示中文
 
+conf = Settings()
+
 
 def build_page(name: str, length: int, theme: str) -> list[bool or Response] or list[bool or Any] or list[bool or str]:
     """
@@ -174,7 +176,6 @@ def index() -> Response:
 
 
 if __name__ == '__main__':
-    conf = Settings()
     logger.info(f'服务器已在 http://127.0.0.1:{conf.port} 运行')
     try:
         server = pywsgi.WSGIServer((conf.host, conf.port), app, log=None)  # log=None 关闭日志输出, 使用自写的日志器记录
