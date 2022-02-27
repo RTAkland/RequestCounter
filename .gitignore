@@ -10,6 +10,5 @@ dist/
 *.tar
 *.gz
 *.db
-!/bin/db/count.db
 *.log
 *.log.*
