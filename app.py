@@ -11,9 +11,8 @@ import time
 from typing import Any
 from flask import Flask
 from flask import Response
-from flask import jsonify
-from flask import make_response
 from flask import request
+from flask import make_response
 from flask import send_from_directory
 from gevent import pywsgi
 from bin.utils.error import ErrorProcess
@@ -76,37 +75,17 @@ def requests_log() -> None:
                 pass
 
 
-@app.errorhandler(404)
-def miss(reason) -> Response:
-    """
-    404页面使用json格式显示
-    :param reason:
-    :return:
-    """
-    return jsonify({'code': 404, 'msg': '没有定义的页面', 'data': None})
-
-
-@app.errorhandler(500)
-def error(reason) -> Response:
-    """
-    500 页面使用json格式显示
-    :param reason:
-    :return:
-    """
-    return jsonify({'code': 500, 'msg': '服务器内部错误', 'data': None})
-
-
-@app.route('/extra/db')
+@app.route('/db', methods=['GET', 'POST'])
 def export_db():
     """
     导出数据库
     :return:
     """
     dir_path = os.path.join(app.root_path, 'bin/db')
-    return send_from_directory(dir_path, 'count.db', as_attachment=True)
+    return send_from_directory(dir_path, 'data.db', as_attachment=True)
 
 
-@app.route('/extra/log', methods=['GET', 'POST'])
+@app.route('/log', methods=['GET', 'POST'])
 def view_log() -> Response:
     """
     下载日志
