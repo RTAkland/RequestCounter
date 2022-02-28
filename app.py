@@ -6,7 +6,6 @@
 # @File Name: app.py
 
 
-import time
 from flask import Flask
 from flask import Response
 from flask import request

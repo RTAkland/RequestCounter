@@ -7,7 +7,7 @@
 </p>
 
 <div align="center">
-    <img src="https://requestcounters.herokuapp.com/get/MarkusJoe" alt="Counter">
+    <img src="https://requestcounters.herokuapp.com/get?name=MarkusJoe" alt="Counter">
 </div>
 
 * 上方的计数器为不更新版本只保留了最基本的功能
