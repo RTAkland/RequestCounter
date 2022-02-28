@@ -8,11 +8,8 @@
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-from tables import *  # 导入所有的主题表模型
+from models import *  # 导入所有的主题表模型
 from typing import List, Tuple
-
-Base = declarative_base()
 
 
 class MySQL:
@@ -50,8 +47,9 @@ class MySQL:
         self.database = database
         self.charset = charset
         self.engine = create_engine(
-            f'mysql+mysqlconnector://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}')  # 连接到数据库
+            f'mysql+pymysql://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}')  # 连接到数据库
         self.Session = sessionmaker(bind=self.engine)  # 创建引擎
+        self.Base = Base
 
     def __del__(self):
         """
@@ -101,7 +99,7 @@ class MySQL:
         """
         data = self.session.query(ReqCount).filter(ReqCount.name == name).all()
         for i in data:
-            print(i.times)
+            return i.times
 
     def fetchall(self) -> List[Tuple]:
         """
@@ -126,3 +124,7 @@ class MySQL:
         for tup in tables:
             table_list.append((tup.k, tup.v, tup.w, tup.h))
         return table_list
+
+    def create(self):
+        self.Base.metadata.create_all(self.engine)
+

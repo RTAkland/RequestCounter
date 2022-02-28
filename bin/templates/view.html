@@ -4,8 +4,8 @@
     <title>{{ title }}</title>
     <g>
         {% for value in context %}
-            <image x="{{ value.position }}" y="0" width="{{ value.width }}" height="{{ value.height }}"
-                   xlink:href="{{ value.base64 }}"></image>
+        <image x="{{ value.position }}" y="0" width="{{ value.width }}" height="{{ value.height }}"
+               xlink:href="{{ value.base64 }}"></image>
         {% endfor %}
     </g>
 </svg>

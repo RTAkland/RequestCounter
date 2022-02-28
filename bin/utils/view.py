@@ -7,72 +7,69 @@
 
 
 from flask import render_template
-from bin.db.db import SQLite
 
 
-def view_template(style: str, length: int, name: str, count: str) -> str or tuple[bool, str]:
+def view_template(style: str, length: int, name: str, count: str, DB) -> str or tuple[bool, str]:
     """
     渲染模板
-    :param count: 
-    :param name:
-    :param length:
     :param style:
+    :param length:
+    :param name:
+    :param count:
+    :param DB:
     :return:
     """
-    if style not in SQLite().fetch_table():  # 选择的主题不在数据库内
-        return [False, 'BadLength']
-    origin_data = SQLite().fetch_style_data(style)  # 获取数据库内的数据
+    datas = DB().fetching_table(style)
     context = []
-    if count != '0000000000':
-        for i in count:  # 通过elif语句依次判断数字
-            if i == '0':
-                context.append({'base64': origin_data[0]['base64'],
-                                'width': origin_data[0]['width'],
-                                'height': origin_data[0]['height']})
-            elif i == '1':
-                context.append({'base64': origin_data[1]['base64'],
-                                'width': origin_data[1]['width'],
-                                'height': origin_data[1]['height']})
-            elif i == '2':
-                context.append({'base64': origin_data[2]['base64'],
-                                'width': origin_data[2]['width'],
-                                'height': origin_data[2]['height']})
-            elif i == '3':
-                context.append({'base64': origin_data[3]['base64'],
-                                'width': origin_data[3]['width'],
-                                'height': origin_data[3]['height']})
-            elif i == '4':
-                context.append({'base64': origin_data[4]['base64'],
-                                'width': origin_data[4]['width'],
-                                'height': origin_data[4]['height']})
-            elif i == '5':
-                context.append({'base64': origin_data[5]['base64'],
-                                'width': origin_data[5]['width'],
-                                'height': origin_data[5]['height']})
-            elif i == '6':
-                context.append({'base64': origin_data[6]['base64'],
-                                'width': origin_data[6]['width'],
-                                'height': origin_data[6]['height']})
-            elif i == '7':
-                context.append({'base64': origin_data[7]['base64'],
-                                'width': origin_data[7]['width'],
-                                'height': origin_data[7]['height']})
-            elif i == '8':
-                context.append({'base64': origin_data[8]['base64'],
-                                'width': origin_data[8]['width'],
-                                'height': origin_data[8]['height']})
-            elif i == '9':
-                context.append({'base64': origin_data[9]['base64'],
-                                'width': origin_data[9]['width'],
-                                'height': origin_data[9]['height']})
+    for i in count:
+        if i == '0':
+            context.append({'base64': datas[0]['base64'],
+                            'width': datas[0]['width'],
+                            'height': datas[0]['height']})
+        elif i == '1':
+            context.append({'base64': datas[1]['base64'],
+                            'width': datas[1]['width'],
+                            'height': datas[1]['height']})
+        elif i == '2':
+            context.append({'base64': datas[2]['base64'],
+                            'width': datas[2]['width'],
+                            'height': datas[2]['height']})
+        elif i == '3':
+            context.append({'base64': datas[3]['base64'],
+                            'width': datas[3]['width'],
+                            'height': datas[3]['height']})
+        elif i == '4':
+            context.append({'base64': datas[4]['base64'],
+                            'width': datas[4]['width'],
+                            'height': datas[4]['height']})
+        elif i == '5':
+            context.append({'base64': datas[5]['base64'],
+                            'width': datas[5]['width'],
+                            'height': datas[5]['height']})
+        elif i == '6':
+            context.append({'base64': datas[6]['base64'],
+                            'width': datas[6]['width'],
+                            'height': datas[6]['height']})
+        elif i == '7':
+            context.append({'base64': datas[7]['base64'],
+                            'width': datas[7]['width'],
+                            'height': datas[7]['height']})
+        elif i == '8':
+            context.append({'base64': datas[8]['base64'],
+                            'width': datas[8]['width'],
+                            'height': datas[8]['height']})
+        elif i == '9':
+            context.append({'base64': datas[9]['base64'],
+                            'width': datas[9]['width'],
+                            'height': datas[9]['height']})
 
     for p, i in zip(context, range(0, length)):
         p['position'] = i * p['width']  # 设置每张图片对应的位置
 
-    general_width = origin_data[0]['width'] * length  # 计算出图片总长度
-    general_height = origin_data[0]['height']  # 总宽度
+    general_width = datas[0]['width'] * length  # 计算出图片总长度
+    general_height = datas[0]['height']  # 总宽度
 
-    return True, render_template('view.html',
+    return render_template('view.html',
                                  context=context,
                                  title=name,
                                  general_height=general_height,

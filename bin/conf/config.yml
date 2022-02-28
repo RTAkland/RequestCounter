@@ -13,7 +13,7 @@ view:
 database:
   # 数据库类型
   # 可选 'SQLite' /'MySQL'/ -> 暂未开发
-  type: SQLite
+  type: "SQLite"
   SQLite:
     # 数据库的路径,
     # 需要从app.py文件所在目录为工作目录
