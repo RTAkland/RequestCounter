@@ -14,13 +14,6 @@ database:
   # 数据库类型
   # 可选 'SQLite' /'MySQL'/ -> 暂未开发
   type: "SQLite"
-  SQLite:
-    # 数据库的路径,
-    # 需要从app.py文件所在目录为工作目录
-    path: "./bin/db/data.db"
-
-
-# 暂未开发
   MySQL:
     # 数据库地址
     host: "127.0.0.1"
