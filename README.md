@@ -1,3 +1,8 @@
+# 暂时不要将你的fork的仓库同步更新!!!!  有重大bug
+# 暂时不要将你的fork的仓库同步更新!!!!  有重大bug
+# 暂时不要将你的fork的仓库同步更新!!!!  有重大bug
+
+
 <p align="center">
     <a href="https://github.com/MarkusJoe/FlaskRequestCounter">
         <img src="https://img.shields.io/badge/Python-3.9.x-blue.svg" alt="PythonVersion">
