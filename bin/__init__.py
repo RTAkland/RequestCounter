@@ -50,7 +50,7 @@ class Check:
     """检查md5是否相同和下载数据库"""
 
     def __init__(self):
-        self.db_name = conf.name
+        self.db_name = 'data.db'
         self.assets_url = 'https://themedatabases.vercel.app/assets'
         self.remote_md5 = 'https://themedatabases.vercel.app/md5'
         self.session = requests.Session()
@@ -137,6 +137,6 @@ if __name__ != '__main__':
     conf = Settings()
     if not os.path.exists('./bin/log'):
         os.mkdir('./bin/log')
-    if not os.path.exists(f'./bin/db/{conf.name}'):
+    if not os.path.exists(f'./bin/db/data.db'):
         logger.error('没有检测到本地主题数据库即将开始下载')
         Check().download()
