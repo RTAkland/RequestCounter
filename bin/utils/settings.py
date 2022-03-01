@@ -59,7 +59,7 @@ class Settings:
         return self.__database['type']
 
     @property
-    def mysql_host(self) -> str:
+    def m_host(self) -> str:
         """
         mysql数据库的地址
         :return: 
@@ -67,7 +67,7 @@ class Settings:
         return self.__database['MySQL']['host']
 
     @property
-    def mysql_port(self) -> int:
+    def m_port(self) -> int:
         """
         mysql数据库的端口
         默认3306
@@ -76,7 +76,7 @@ class Settings:
         return self.__database['MySQL']['port']
 
     @property
-    def mysql_user(self) -> str:
+    def m_user(self) -> str:
         """
         mysql数据库的用户名
         :return:
@@ -84,7 +84,7 @@ class Settings:
         return self.__database['MySQL']['user']
 
     @property
-    def mysql_pwd(self) -> str:
+    def m_pwd(self) -> str:
         """
         mysql数据库的密码
         :return:
@@ -92,7 +92,7 @@ class Settings:
         return self.__database['MySQL']['password']
 
     @property
-    def mysql_db(self) -> str:
+    def m_db(self) -> str:
         """
         保存数据库数据库名
         :return:

@@ -8,20 +8,21 @@
 
 import sqlite3
 import pymysql
+from bin.utils.settings import Settings
+
+conf = Settings()
 
 
 class SQLite:
     """操作SQLite数据库"""
 
-    def __init__(self,
-                 path: str = './bin/db/data.db'
-                 ) -> None:
+    def __init__(self, **kwargs) -> None:
         """
         初始化SQLite对象
         完成后会自动提交, 自动关闭
         :param path: 数据库路径
         """
-        self.__path = path
+        self.__path = './bin/db/data.db'
         self.__conn = sqlite3.connect(self.__path)
         self.__cursor = self.__conn.cursor()
 
@@ -147,12 +148,7 @@ class SQLite:
 class MySQL:
     """操作MySQL数据库"""
 
-    def __init__(self,
-                 host: str,
-                 user: str,
-                 pwd: str,
-                 database: str
-                 ) -> None:
+    def __init__(self, **kwargs) -> None:
         """
         初始化MySQL对象并创建一个连接
         创建的连接会在执行完毕后自动提交以及自动关闭
@@ -161,10 +157,10 @@ class MySQL:
         :param pwd: 数据库密码
         :param database: 数据库名
         """
-        self.__host = host
-        self.__user = user
-        self.__password = pwd
-        self.__database = database
+        self.__host = conf.m_host
+        self.__user = conf.m_user
+        self.__password = conf.m_pwd
+        self.__database = conf.m_db
         self.__conn = pymysql.connect(user=self.__user,
                                       password=self.__password,
                                       host=self.__host,
@@ -268,7 +264,7 @@ class MySQL:
         :return:
         """
         self.__cursor.execute(
-            'update reqcount set times="%(times)s" where name="%(name)s"";' % {'times': times + 1, 'name': name})
+            'update reqcount set times=%(times)s where name="%(name)s";' % {'times': times + 1, 'name': name})
         return True
 
     def fetching_table(self, table: str) -> list:
@@ -292,4 +288,3 @@ class MySQL:
 
 
 __all__ = ['SQLite', 'MySQL']
-
