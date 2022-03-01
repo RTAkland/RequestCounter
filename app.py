@@ -47,8 +47,8 @@ def main(name) -> Response or str:
     :return:
     """
     args = request.args
-    theme = args.get('theme')
-    length = args.get('length')
+    theme = args.get('theme', type=str)
+    length = args.get('length', type=int)
     if not bool(theme):  # 判断主题是否存在查询参数内如果不存在则使用配置文件内的默认主题
         theme = conf.default_style
     elif theme == 'ls':
@@ -58,8 +58,7 @@ def main(name) -> Response or str:
     if not db().exists_name(name):
         db().insert(name)
     count = db().fetch(name)
-    themes = db().fetching_table(theme)
-    if not len(themes):
+    if not db().exists_table(theme):
         return ErrorProcess(db).theme_error(theme)
     if 7 <= int(length) <= 10:  # 限定自定义长度阈值
         view_number = '0' * (int(length) - len(str(count[1]))) + str(count[1])
