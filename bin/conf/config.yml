@@ -14,6 +14,8 @@ database:
   # 数据库类型
   # 可选 'SQLite' /'MySQL'/ -> 暂未开发
   type: "SQLite"
+  SQLite:
+    path: "./bin/db/data.db"
   MySQL:
     # 数据库地址
     host: "127.0.0.1"
