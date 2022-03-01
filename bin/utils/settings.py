@@ -59,22 +59,6 @@ class Settings:
         return self.__database['type']
 
     @property
-    def path(self) -> str:
-        """
-        数据库路径
-        :return:
-        """
-        return self.__database['SQLite']['path']
-
-    @property
-    def name(self) -> str:
-        """
-        数据库名称
-        :return:
-        """
-        return self.__database['SQLite']['path'].split('/')[-1]
-
-    @property
     def mysql_host(self) -> str:
         """
         mysql数据库的地址

@@ -25,9 +25,7 @@ if conf.type == 'MySQL':
 else:
     from bin.db.db import SQLite as db
 
-app = Flask(__name__,
-            static_folder='bin/static',
-            template_folder='bin/templates')
+app = Flask(__name__, static_url_path='')
 app.config['JSON_SORT_KEYS'] = False  # 设置JSON消息不根据字母顺序重新排序
 app.config['JSON_AS_ASCII'] = False  # 设置JSON消息显示中文
 
