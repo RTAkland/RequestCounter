@@ -20,7 +20,7 @@ from bin.utils.settings import Settings
 
 conf = Settings()
 
-if conf.type == 'MySQL':
+if conf.type.lower() == 'mysql':
     from bin.db.db import MySQL as db
 else:
     from bin.db.db import SQLite as db
@@ -85,6 +85,6 @@ if __name__ == '__main__':
         server = pywsgi.WSGIServer((conf.host, conf.port), app, log=None)  # log=None 关闭日志输出, 使用自写的日志器记录
         server.serve_forever()
     except OSError:
-        logger.error(f'{conf.port} 端口被占用')
+        logger.critical(f'{conf.port} 端口被占用 已退出')
     except KeyboardInterrupt:
         logger.info('程序已退出')
