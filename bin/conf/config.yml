@@ -12,7 +12,7 @@ view:
 
 database:
   # 数据库类型
-  # 可选 'SQLite' /'MySQL'/ -> 暂未开发
+  # 可选 'SQLite' 'MySQL'
   type: "SQLite"
   SQLite:
     path: "./bin/db/data.db"
@@ -27,7 +27,7 @@ database:
     password: ""
     # 数据库名称
     # 如果该数据库不存在则自动创建
-    db: ""
+    db: "
 
 
 
