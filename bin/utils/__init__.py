@@ -11,7 +11,8 @@ from bin.utils.logger import logger
 from bin.utils.settings import Settings
 
 if __name__ != '__main__':
-    if Settings().type == 'MySQL' and not os.path.exists('./bin/db/origin.sql'):
-        logger.info('当前使用的数据库为MySQL请前往 https://themedatabase.vercel.app/source/sql 下载sql文件')
-        logger.info('并使用 source 命令来导入MySQL数据库')
-        logger.info('忽略此消息请在./bin/db内创建一个名为origin.sql的文件')
+    if Settings().type.lower() == 'mysql' and not os.path.exists('./static/origin.sql'):
+        logger.warning('当前使用的数据库为MySQL请前往 https://themedatabase.vercel.app/source/sql 下载sql文件')
+        logger.warning('并使用 source 命令来导入MySQL数据库')
+        logger.warning('此消息只显示一次, 下次启动不显示')
+        open('./static/origin.sql', 'w').close()
