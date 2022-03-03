@@ -6,51 +6,51 @@
 # @File Name: downloader.py
 
 
-from concurrent.futures import ThreadPoolExecutor, wait
-from threading import Lock
-from requests import get
+import requests
+import threading
 from bin.utils.logger import logger
 
-lock = Lock()
 
-
-class Downloader:
-    def __init__(self, url, nums, file):
+class Threaded(threading.Thread):
+    def __init__(self, s, e, fp, id_, url):
+        super().__init__()
+        self.start_ = s
+        self.end_ = e
+        self.fp = fp
+        self.id = id_
         self.url = url
-        self.num = nums
-        self.name = file
-        r = get(self.url)
-        self.size = int(r.headers['Content-Length'])
-        logger.info('该文件大小为：{} bytes'.format(self.size))
 
-    def down(self, start, end):
-        headers = {'Range': 'bytes={}-{}'.format(start, end)}
-        r = get(self.url, headers=headers, stream=True)
-        lock.acquire()
-        with open(self.name, "rb+") as fp:
-            fp.seek(start)
-            fp.write(r.content)
-            lock.release()
+    def download(self):
+        logger.info(f'线程: {self.id} 开始下载')
+        res = requests.get(self.url, headers={'Range': f'Bytes={self.start_}-{self.end_}'}).content
+        self.fp.seek(self.start_)
+        self.fp.write(res)
+        logger.info(f'线程: {self.id} 结束下载')
 
     def run(self):
-        fp = open(self.name, "wb")
-        fp.truncate(self.size)
-        fp.close()
-        part = self.size // self.num
-        pool = ThreadPoolExecutor(max_workers=self.num)
-        futures = []
-        for i in range(self.num):
-            start = part * i
-            if i == self.num - 1:
-                end = self.size
-            else:
-                end = start + part - 1
-                logger.info('本线程下载范围: {}->{}'.format(start, end))
-            futures.append(pool.submit(self.down, start, end))
-        wait(futures)
-        logger.info('%s 下载完成' % self.name)
+        self.download()
 
 
-ss = Downloader(
-    'https://themedatabase.vercel.app/source/sql', 6, "origin.sql")
-ss.run()
+def main(url: str, path: str = '.', workers: int = 8):
+    logger.info(f'本次下载使用线程数: {workers}')
+    file_name = url.split('/')[-1]
+    file_size = int(requests.get(url).headers['Content-Length'])
+    if requests.get(url).status_code == '302':
+        url = requests.get(url).headers['Location']
+    offset = int(file_size / workers)
+    start = 0
+    open(path + file_name, 'wb').close()
+    fp = open(path + file_name, 'r+b')
+    for i in range(workers):
+        if i == workers - 1:
+            end = file_size
+        elif i != 0:
+            end = i * offset
+        else:
+            end = offset
+        Threaded(start, end, fp, i, url).start()
+        start = end + 1
+
+
+if __name__ == '__main__':
+    main('https://i0.hdslb.com/bfs/archive/cc013c0a726082e07772ec77d5c0444ac7d40a6f.jpg')
