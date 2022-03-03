@@ -7,70 +7,81 @@
 
 
 import os
-import sys
-from requests import get
-from threading import Lock
+import requests
+import threading
 from bin.utils.logger import logger
-from bin.utils.settings import Settings
-from concurrent.futures import ThreadPoolExecutor, wait
-
-lock = Lock()
-conf = Settings()
 
 
-class Downloader:
-    def __init__(self, url, nums, file):
+class Threaded(threading.Thread):
+    def __init__(self, s, e, fp, id_, url):
         """
-        初始化
-        :param url:
-        :param nums:
-        :param file:
+        初始化类
+        :param s: 开始点
+        :param e: 结束点
+        :param fp: 文件操作
+        :param id_: 线程id
+        :param url: 文件url
         """
+        super().__init__()
+        self.start_ = s
+        self.end_ = e
+        self.fp = fp
+        self.id = id_
         self.url = url
-        self.num = nums
-        self.name = file
-        r = get(self.url)
-        self.size = int(r.headers['Content-Length'])
-        logger.info('文件大小为：{} Mb'.format(round(self.size / 1024 / 1024, 2)))
 
-    def down(self, start, end):
+    def download(self):
         """
-        下载
-        :param start:
-        :param end:
+        下载文件
+        写入文件
         :return:
         """
-        headers = {'Range': 'bytes={}-{}'.format(start, end)}
-        r = get(self.url, headers=headers, stream=True)
-        lock.acquire()
-        with open(self.name, "rb+") as fp:
-            fp.seek(start)
-            fp.write(r.content)
-            lock.release()
+        logger.info(f'线程: {self.id} 开始下载')
+        res = requests.get(self.url, headers={'Range': f'Bytes={self.start_}-{self.end_}'}).content
+        self.fp.seek(self.start_)
+        self.fp.write(res)
+        logger.info(f'线程: {self.id} 结束下载')
 
     def run(self):
         """
-        运行
+        重写run()方法开始下载
         :return:
         """
-        fp = open(self.name, "wb")
-        fp.truncate(self.size)
-        fp.close()
-        part = self.size // self.num
-        pool = ThreadPoolExecutor(max_workers=self.num)
-        futures = []
-        for i in range(self.num):
-            start = part * i
-            if i == self.num - 1:
-                end = self.size
-            else:
-                end = start + part - 1
-            futures.append(pool.submit(self.down, start, end))
-        wait(futures)
-        logger.info('数据库: %s 下载完成' % self.name.split('/')[-1])
+        self.download()
+
+
+def main(url: str, name: str, path: str = '.', workers: int = 8):
+    """
+    主函数
+    :param url:
+    :param name:
+    :param path:
+    :param workers:
+    :return:
+    """
+    logger.info(f'本次下载使用线程数: {workers}')
+    file_size = int(requests.get(url).headers['Content-Length'])
+    if requests.get(url).status_code == '302':
+        url = requests.get(url).headers['Location']
+        logger.warning(f'下载地址已重定向到了: {url}')
+    logger.info(f'文件大小: {round(file_size / 1024 / 1024, 2)} Mb')
+    offset = int(file_size / workers)
+    start = 0
+    open(path + name, 'wb').close()
+    fp = open(path + name, 'r+b')
+    for i in range(workers):
+        if i == workers - 1:
+            end = file_size
+        elif i != 0:
+            end = i * offset
+        else:
+            end = offset
+        threads = Threaded(start, end, fp, i, url)
+        threads.start()
+        threads.join()
+        start = end + 1
 
 
 if __name__ != '__main__':
     if not os.path.exists('./bin/db/data.db'):
-        logger.error('没有检测到数据库文件, 即将开始下载data.db')
-        Downloader('https://themedatabase.vercel.app/assets', 4, './bin/db/data.db').run()
+        logger.warning('数据库文件不存在, 即将开始下载')
+        main('https://themedatabase.vercel.app/assets', 'data.db', './bin/db/', 6)
