@@ -8,7 +8,6 @@
 
 import requests
 import threading
-from bin.utils.logger import logger
 
 
 class Threaded(threading.Thread):
@@ -21,18 +20,18 @@ class Threaded(threading.Thread):
         self.url = url
 
     def download(self):
-        logger.info(f'线程: {self.id} 开始下载')
+        print(f'线程: {self.id} 开始下载')
         res = requests.get(self.url, headers={'Range': f'Bytes={self.start_}-{self.end_}'}).content
         self.fp.seek(self.start_)
         self.fp.write(res)
-        logger.info(f'线程: {self.id} 结束下载')
+        print(f'线程: {self.id} 结束下载')
 
     def run(self):
         self.download()
 
 
 def main(url: str, path: str = '.', workers: int = 8):
-    logger.info(f'本次下载使用线程数: {workers}')
+    print(f'本次下载使用线程数: {workers}')
     file_name = url.split('/')[-1]
     file_size = int(requests.get(url).headers['Content-Length'])
     if requests.get(url).status_code == '302':
