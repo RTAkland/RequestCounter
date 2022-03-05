@@ -28,7 +28,7 @@
 
 ### 已部署好的地址
 
-* [Click to enter](https://requestcounter.herokuapp.com/get/MarkusJoe)
+* [Click to enter](https://requestcounter.herokuapp.com/count/MarkusJoe)
 * 默认主题: `lewd`
 
 ### 部署到Heroku

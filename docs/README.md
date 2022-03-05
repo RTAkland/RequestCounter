@@ -22,8 +22,8 @@
 # 基本信息
 - Python版本: `3.10.x`
 - 请求方法: `GET` `POST`
-- 请求地址: `/get/<string:name>`
-- 你需要在 `/get/` 后加入你需要使用的名称来进行统计
+- 请求地址: `/count/<string:name>`
+- 你需要在 `/count/` 后加入你需要使用的名称来进行统计
 - 可选参数: `theme` `length`
 
 
