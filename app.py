@@ -40,8 +40,8 @@ def requests_log() -> None:
         logger.info(f'{request.remote_addr} {request.method} {request.base_url}')
 
 
-@app.route('/get/<string:name>', methods=['GET', 'POST'])  # 允许 GET 和 POST 方法
-def main(name) -> Response or str:
+@app.route('/count/<string:name>', methods=['GET', 'POST'])  # 允许 GET 和 POST 方法
+def main(name: str) -> Response or str:
     """
     API 页面函数
     :return:
