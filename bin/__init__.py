@@ -7,6 +7,7 @@
 
 
 import os
+import sys
 import time
 import requests
 import threading
@@ -117,5 +118,6 @@ if __name__ != '__main__':
             try:
                 download('https://themedatabase.vercel.app/assets')
             except requests.Timeout:
-                logger.critical('连接超时, 请自行前往此页面下载文件将文件命名为data.db并放置在 ./bin/db/ 文件夹内')
-                raise requests.Timeout
+                logger.critical('连接超时, 请自行前往https://themedatabase.vercel.app/assets下载文件')
+                logger.critical('将文件命名为data.db后放置在 ./bin/db/ 文件夹内')
+                sys.exit(-1)
