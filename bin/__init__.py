@@ -37,7 +37,7 @@ class Threaded(threading.Thread):
         :return:
         """
         logger.info(f'线程: {self.id} 开始下载')
-        res = requests.get(self.url, headers={'Range': f'Bytes={self.start_}-{self.end_}'}).content
+        res = requests.get(self.url, headers={'Range': f'Bytes={self.start_}-{self.end_}'}, timeout=10).content
         with open(self.name, 'r+b') as fp:
             fp.seek(self.start_)
             fp.write(res)
@@ -74,8 +74,8 @@ def main(url: str, name: str, path: str = '.', workers: int = 4):
     :return:
     """
     logger.info(f'本次下载使用线程数: {workers}')
-    file_size = int(requests.get(url).headers['Content-Length'])
-    if requests.get(url).status_code == 302:
+    file_size = int(requests.get(url, timeout=10).headers['Content-Length'])
+    if requests.get(url, timeout=10).status_code == 302:
         url = requests.get(url).headers['Location']
         logger.warning(f'下载地址已重定向到了: {url}')
     logger.info(f'文件大小: {round(file_size / 1024 / 1024, 2)} Mb')
@@ -95,7 +95,27 @@ def main(url: str, name: str, path: str = '.', workers: int = 4):
         start = end + 1
 
 
+@cost
+def download(url: str) -> None:
+    """
+    单线程下载资源
+    :param url:
+    :return:
+    """
+    content = requests.get(url, timeout=10, stream=True).content
+    with open('./bin/db/data.db', 'wb') as fp:
+        fp.write(content)
+
+
 if __name__ != '__main__':
     if not os.path.exists('./bin/db/data.db'):
         logger.warning('数据库文件不存在, 即将开始下载')
-        main('https://themedatabase.vercel.app/assets', 'data.db', './bin/db/')
+        try:
+            main('https://themedatabase.vercel.app/assets', 'data.db', './bin/db/')
+        except requests.Timeout:
+            logger.critical('连接超时, 将使用单线程重新尝试下载')
+            try:
+                download('https://themedatabase.vercel.app/assets')
+            except requests.Timeout:
+                logger.critical('连接超时, 请自行前往此页面下载文件将文件命名为data.db并放置在 ./bin/db/ 文件夹内')
+                raise requests.Timeout
