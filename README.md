@@ -43,12 +43,12 @@
 
 ### 部署到本地服务器
 
- ```shell
- $ git clone https://github.com/MarkusJoe/RequestCounter.git
- $ cd RequestCounter
- $ pip3 install -r requirements.txt
- $ python3 app.py 
- ```
+```shell
+$ git clone https://github.com/MarkusJoe/RequestCounter.git
+$ cd RequestCounter
+$ pip3 install -r requirements.txt
+$ python3 app.py 
+```
 
 ## 调用须知
 
