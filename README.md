@@ -43,8 +43,6 @@
 
 ### 部署到本地服务器
 
-> 本地部署时你需要打开`requirements.txt`文件将`itdangerous`一行去除
-
  ```shell
  $ git clone https://github.com/MarkusJoe/RequestCounter.git
  $ cd RequestCounter
