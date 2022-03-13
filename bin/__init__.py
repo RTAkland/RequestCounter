@@ -14,19 +14,25 @@ import threading
 from bin.utils.logger import logger
 
 
-class Threaded(threading.Thread):
-    def __init__(self, s, e, id_, url, name):
+class MultiThreaded(threading.Thread):
+    def __init__(self,
+                 start_: int,
+                 end_: int,
+                 id_: int,
+                 url: str,
+                 name: str
+                 ) -> None:
         """
         初始化类
-        :param s: 开始点
-        :param e: 结束点
+        :param start_: 开始点
+        :param end_: 结束点
         :param id_: 线程id
         :param url: 文件url
         :param name: 文件名
         """
-        super(Threaded, self).__init__()
-        self.start_ = s
-        self.end_ = e
+        super(MultiThreaded, self).__init__()
+        self.start_ = start_
+        self.end_ = end_
         self.id = id_
         self.url = url
         self.name = name
@@ -65,7 +71,7 @@ def cost(func):
 
 
 @cost
-def main(url: str, name: str, path: str = '.', workers: int = 4):
+def main(url: str, name: str, path: str = '.', workers: int = 8):
     """
     主函数
     :param url:
@@ -90,7 +96,7 @@ def main(url: str, name: str, path: str = '.', workers: int = 4):
             end = i * offset
         else:
             end = offset
-        threads = Threaded(start, end, i, url, path + name)
+        threads = MultiThreaded(start, end, i, url, path + name)
         threads.start()
         threads.join()
         start = end + 1
@@ -112,12 +118,12 @@ if __name__ != '__main__':
     if not os.path.exists('./bin/db/data.db'):
         logger.warning('数据库文件不存在, 即将开始下载')
         try:
-            main('https://themedatabase.vercel.app/assets', 'data.db', './bin/db/')
+            main('https://filebase.vercel.app/data.db', 'data.db', './bin/db/')
         except requests.Timeout:
             logger.critical('连接超时, 将使用单线程重新尝试下载')
             try:
-                download('https://themedatabase.vercel.app/assets')
+                download('https://filebase.vercel.app/data.db')
             except requests.Timeout:
-                logger.critical('连接超时, 请自行前往https://themedatabase.vercel.app/assets下载文件')
-                logger.critical('将文件命名为data.db后放置在 ./bin/db/ 文件夹内')
+                logger.critical('连接超时, 请自行前往 https://filebase.vercel.app/data.db 下载文件')
+                logger.critical('并放置在 ./bin/db/ 文件夹内')
                 sys.exit(-1)

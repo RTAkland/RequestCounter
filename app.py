@@ -12,11 +12,12 @@ from flask import request
 from flask import make_response
 from flask import render_template
 from gevent import pywsgi
-from bin.utils.error import ErrorProcess
-from bin.utils.features import Features
-from bin.utils.view import view_template
 from bin.utils.logger import logger
+from bin.utils.features import Features
 from bin.utils.settings import Settings
+from bin.utils.error import ErrorProcess
+from bin.utils.view import view_template
+
 
 conf = Settings()
 
