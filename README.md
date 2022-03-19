@@ -12,7 +12,7 @@
 
 * 上方的计数器为不更新版本只保留了最基本的功能
 
-## Python 版访问次数计数器使用了flask 作为服务端接收请求
+## Python 版访问次数计数器 使用了flask 作为服务端接收请求
 
 * [文档](https://request-counter-docs.vercel.app/#/)
 

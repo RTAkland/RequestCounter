@@ -118,12 +118,12 @@ if __name__ != '__main__':
     if not os.path.exists('./bin/db/data.db'):
         logger.warning('数据库文件不存在, 即将开始下载')
         try:
-            main('https://filebase.vercel.app/data.db', 'data.db', './bin/db/')
+            main('https://filebase.vercel.app/download/data.db', 'data.db', './bin/db/')
         except requests.Timeout:
             logger.critical('连接超时, 将使用单线程重新尝试下载')
             try:
-                download('https://filebase.vercel.app/data.db')
+                download('https://filebase.vercel.app/download/data.db')
             except requests.Timeout:
-                logger.critical('连接超时, 请自行前往 https://filebase.vercel.app/data.db 下载文件')
+                logger.critical('连接超时, 请自行前往 https://filebase.vercel.app/download/data.db 下载文件')
                 logger.critical('并放置在 ./bin/db/ 文件夹内')
                 sys.exit(-1)
