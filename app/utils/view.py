@@ -7,6 +7,7 @@
 
 
 from ..db.db import SQLite as db
+from flask import request
 from flask import render_template
 from typing import Tuple
 
@@ -77,5 +78,6 @@ def view(theme: str,
     return render_template('view.html',
                            context=context,
                            title=name,
+                           address=request.remote_addr,
                            general_height=general_height,
                            general_width=general_width)
