@@ -34,12 +34,11 @@
 ### 部署到Heroku
 
 1. `fork` 本项目到你的仓库
-2. 此步骤为 `非必要` 你可以在 `fork` 本仓库到你的仓库时, 修改 `./bin/conf/config.yml` 内的配置文件来修改配置 (前提时你的仓库为私人仓库, 否则可能泄露一些私人信息)
-3. 在[Heroku](https://www.heroku.com/) 注册账号
-4. 在[Dashboard](https://dashboard.heroku.com/apps) 新建App
-5. 流程: 进入网址 -> 点击右上角`New` -> 点击 `Create new app` -> 输入App名称 -> `Create app` -> 选择`Github` (登陆完成后) -> 点击`Search` ->
+2. 在[Heroku](https://www.heroku.com/) 注册账号
+3. 在[Dashboard](https://dashboard.heroku.com/apps) 新建App
+4. 流程: 进入网址 -> 点击右上角`New` -> 点击 `Create new app` -> 输入App名称 -> `Create app` -> 选择`Github` (登陆完成后) -> 点击`Search` ->
    选择你fork的项目并点击`Connect` -> 滑到末尾点击`Deploy branch`(如果你想在仓库更新时自动部署的话可以把`Enable Automatic Deploy`勾选) -> 等待完成
-6. App的地址就是 `App名称` + `.herokuapp.com`
+5. App的地址就是 `App名称` + `.herokuapp.com`
 
 ### 部署到本地服务器
 
@@ -56,7 +55,6 @@ $ python3 app.py
 - 最大可以计数`10`位数, 超过则重置
 - 可以自定义显示位数默认`7`位数最大`10`位
 - 可以自己选择更多的主题只需要加上请求参数: `theme` 再加上想要的主题即可
-- 在`theme`请求参数中写入`ls`可以获取所有可选的主题 (来自于`./bin/assets/theme.db`)
 
 # 一些信息
 

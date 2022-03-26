@@ -22,14 +22,14 @@
 # 基本信息
 - Python版本: `3.10.x`
 - 请求方法: `GET` `POST`
-- 请求地址: `/count/<string:name>`
-- 你需要在 `/count/` 后加入你需要使用的名称来进行统计
+- 请求地址: `/count/<string:name>` or `/api/v1/<string:name>`
+- 你需要在 请求地址末尾加入你需要使用的名称来进行计数
 - 可选参数: `theme` `length`
 
 
 ## 获取主题数据库文件
 * 此接口没有在本项目中, 该仓库为私人仓库暂不开源
-* 访问 `https://themedatabase.vercel.app/assets` 获取
+* 访问 `http://resource-base.herokuapp.com/`  or `https://filebase.vercel.app/download/data.db` 获取数据库文件
 * 由于速度较慢建议使用多线程进行下载
 * 项目中自动下载主题数据库的文件也是来自此处
 

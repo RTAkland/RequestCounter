@@ -2,24 +2,29 @@
 # -- coding:utf-8 --
 # @Author: markushammered@gmail.com
 # @Development Tool: PyCharm
-# @Create Time: 2022/2/18
+# @Create Time: 2022/3/25
 # @File Name: view.py
 
 
+from ..db.db import SQLite as db
 from flask import render_template
+from typing import Tuple
 
 
-def view_template(style: str, length: int, name: str, count: str, DB) -> str or tuple[bool, str]:
+def view(theme: str,
+         length: int,
+         name: str,
+         count: str
+         ) -> str or Tuple[bool, str]:
     """
     渲染模板
-    :param style:
+    :param theme:
     :param length:
     :param name:
     :param count:
-    :param DB:
     :return:
     """
-    datas = DB().fetching_table(style)
+    datas = db().fetching_table(theme)
     context = []
     for i in count:
         if i == '0':
@@ -70,7 +75,7 @@ def view_template(style: str, length: int, name: str, count: str, DB) -> str or 
     general_height = datas[0]['height']  # 总宽度
 
     return render_template('view.html',
-                                 context=context,
-                                 title=name,
-                                 general_height=general_height,
-                                 general_width=general_width)
+                           context=context,
+                           title=name,
+                           general_height=general_height,
+                           general_width=general_width)
