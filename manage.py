@@ -13,6 +13,5 @@ app = create_app()
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    # server = pywsgi.WSGIServer(('0.0.0.0', 5000), app, log=None)
-    # server.serve_forever()
+    server = pywsgi.WSGIServer(('0.0.0.0', 5000), app, log=None)
+    server.serve_forever()
