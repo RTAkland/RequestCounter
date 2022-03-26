@@ -54,7 +54,7 @@ class SQLite:
         :return:
         """
         status = self.fetch(name, True)
-        if status == ():
+        if not bool(status):
             return False
         else:
             return True
