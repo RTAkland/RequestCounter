@@ -101,7 +101,7 @@ class SQLite:
         :return:
         """
         self.__cursor.execute('select * from reqcount where name="%(name)s"' % {'name': name})
-        data = self.__cursor.fetchall()[0]
+        data = self.__cursor.fetchone()
         if not is_check:
             self.update(name, data[-1])
         return data
