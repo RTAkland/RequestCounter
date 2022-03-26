@@ -16,7 +16,7 @@ def download():
         fp.write(res.content)
 
 
-if __name__ == '__main__':
+if __name__ != '__main__':
     if not os.path.exists('./app/db/data.db'):
         print('数据库文件未找到, 正在下载中')
         download()
