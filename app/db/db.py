@@ -7,7 +7,7 @@
 
 
 import sqlite3
-from typing import List
+from typing import List, Any
 
 
 class SQLite:
@@ -136,3 +136,8 @@ class SQLite:
             return lst
         else:
             return []
+
+    def exec(self, cmd: str) -> List[Any]:
+        self.__cursor.execute(cmd)
+        result = self.__cursor.fetchall()
+        return result
