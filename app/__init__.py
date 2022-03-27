@@ -9,8 +9,34 @@
 import os
 import requests
 from flask import Flask
-from config import config
 from .main import main
+
+
+class Config:
+    JSON_SORT_KEYS = False
+    JSON_AS_ASCII = False
+    SQLALCHEMY_DATABASE_URI = './app/db/data.db'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    @staticmethod
+    def init_app(app):
+        pass
+
+
+class DevelopmentConfig(Config):
+    DEBUG = True
+
+
+class ProductionConfig(Config):
+    DEBUG = False
+
+
+config = {
+    'development': DevelopmentConfig,
+    'production': ProductionConfig,
+
+    'default': ProductionConfig
+}
 
 
 def create_app(config_name):
