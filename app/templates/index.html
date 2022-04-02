@@ -2,11 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Request Counter - Index</title>
-    <!--  设置图标  -->
-    <link rel="icon" type="image/png" sizes="128x128" href="{{ url_for('static', filename='favicon.ico') }}"/>
-    <link rel="apple-touch-icon" type="image/png" sizes="128x128"
-          href="{{ url_for('static', filename='favicon.ico') }}"/>
+    <title>Request Counter | {{ remote_address }}</title>
+    <link href="{{ url_for('static', filename='favicon.ico') }}" rel="shortcut icon">
     <style>
         .intro{
             text-align: center;
@@ -18,28 +15,32 @@
 </head>
 <body>
 <div class="intro">
-    <br>
-    <br>
-    <i>看到这句话就说明程序正常运行啦!! <a href="https://markusjoe.github.io/RequestCounter/" target="_blank">查看文档</a></i>
-    <br>
-    <i>服务端使用Flask开发没有使用异步编程</i>
-    <br>
-    <i><a href="http://127.0.0.1:5000/api/v1/main">点击查看本地部署示例</a></i>
-    <br>
-    <i><a href="https://requestcounter.herokuapp.com/count/RequestCounter">点击查看已部署好的调用示例</a></i>
-    <br>
-    <i><b>注: 调用支持POST 和 GET 方法请求</b></i>
-    <br>
-    <br>
-    <i>项目开源协议: <b>Apache-2.0</b> 即:
-        <br>
-        你可以直接使用该项目提供的功能, 无需任何授权
-        <br>
-        你可以在注明来源版权信息的情况下对源代码进行任意分发和修改以及衍生
-    </i>
-    <br>
-    <!--  显示客户端的IP地址  -->
-    <i><b>你的IP地址为: {{ remote_address }}</b></i>
+    <div class="normal-text">
+        <i>看到这句话就说明程序正常运行啦!! <a href="https://markusjoe.github.io/RequestCounter/" target="_blank">查看文档</a></i>
+    </div>
+    <div class="normal-text">
+        <i>服务端使用Flask开发没有使用异步编程</i>
+    </div>
+    <div class="normal-text">
+        <i><a href="/api/v1/test-example">快速查看当前示例试用例</a></i>
+    </div>
+    <div class="normal-text">
+        <i><a href="https://requestcounter.herokuapp.com/count/test-example">点击查看已部署好的调用示例</a></i>
+    </div>
+    <div class="normal-text">
+        <i><b>注: 调用支持POST 和 GET 方法请求</b></i>
+    </div>
+    <div class="open_source_protocol">
+        <i>项目开源协议: <b>Apache-2.0</b> 即:
+            <br>
+            你可以直接使用该项目提供的功能, 无需任何授权
+            <br>
+            你可以在注明来源版权信息的情况下对源代码进行任意分发和修改以及衍生
+        </i>
+    </div>
+    <div class="ip_address">
+        <i><b>你的IP地址为: {{ remote_address }}</b></i>
+    </div>
 </div>
 </body>
 </html>

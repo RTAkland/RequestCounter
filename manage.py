@@ -6,12 +6,13 @@
 # @File Name: manage.py
 
 
-from gevent import pywsgi
 from app import create_app
 
 app = create_app('default')
 
 if __name__ == '__main__':
+    from gevent import pywsgi
+
     print('服务运行在 http://127.0.0.1:5000')
     try:
         server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)

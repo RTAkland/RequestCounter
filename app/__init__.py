@@ -15,8 +15,6 @@ from .main import main
 class Config:
     JSON_SORT_KEYS = False
     JSON_AS_ASCII = False
-    SQLALCHEMY_DATABASE_URI = './app/db/data.db'
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     @staticmethod
     def init_app(app):
@@ -61,3 +59,11 @@ if __name__ == '__main__':
         print('数据库文件未找到, 正在下载中')
         download()
         print('下载完成')
+
+__all__ = [
+    'db',
+    'main',
+    'tests',
+    'utils',
+    'create_app'
+]
