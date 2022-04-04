@@ -41,9 +41,8 @@ def api_v1(name: str):
         abort(500)
     if 7 <= length <= 10:
         data = db().fetch(name)
+        # 使用设置的长度减去已有数据的长度, 将结果转换为string类型, 再和数据库内的数据进行拼接
         number = '0' * (length - len(str(data[-1]))) + str(data[-1])
-        # 将设置的长度减去数据库内已有的数据库字符串长度剩下的结果为[0]的个数
-        # 再将这个字符串后拼接上数据库内已有次数的字符串, 就可以得到最终的结果
         response = make_response(view(theme, int(length), name, number))
         response.headers['Content-Type'] = 'image/svg+xml; charset=utf-8'
         response.headers['cache-control'] = 'max-age=0, no-cache, no-store, must-revalidate'
