@@ -18,7 +18,7 @@ class SQLite:
         初始化SQLite对象
         完成后会自动提交, 自动关闭
         """
-        self.__path = './app/db/data.db'
+        self.__path = './app/db/data.sqlite'
         self.__conn = sqlite3.connect(self.__path)
         self.__cursor = self.__conn.cursor()
 
