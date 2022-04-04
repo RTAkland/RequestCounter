@@ -9,7 +9,7 @@ dist/
 *.zip
 *.tar
 *.gz
-*.db
+*.sqlite
 *.log
 *.log.*
 *.sql
