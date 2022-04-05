@@ -9,8 +9,10 @@
 import os
 import sys
 import requests
+from ..decorators import time_it
 
 
+@time_it
 def download():
     res = requests.get('https://markusjoe.github.io/static_file_hosting/data.sqlite')
     with open('./app/db/data.sqlite', 'wb') as fp:
@@ -22,7 +24,6 @@ if __name__ != '__main__':
         print('数据库文件未找到, 正在下载中')
         try:
             download()
-            print('下载完成')
         except Exception as error:
             print('下载失败, 错误原因:', error)
             print('请手动下载数据库文件到 ./app/db/data.sqlite')
