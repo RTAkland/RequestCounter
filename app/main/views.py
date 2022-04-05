@@ -26,8 +26,8 @@ def index():
     return render_template('index.html', remote_address=request.remote_addr)
 
 
-@main.route('/api/v1/<string:name>', methods=['GET', 'POST'])
 @main.route('/count/<string:name>', methods=['GET', 'POST'])
+@main.route('/api/v1/<string:name>', methods=['GET', 'POST'])
 def api_v1(name: str):
     length = request.args.get('length', type=int)
     theme = request.args.get('theme', type=str)

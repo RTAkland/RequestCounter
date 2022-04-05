@@ -8,31 +8,7 @@
 
 from flask import Flask
 from .main import main
-
-
-class Config:
-    JSON_SORT_KEYS = False
-    JSON_AS_ASCII = False
-
-    @staticmethod
-    def init_app(app):
-        pass
-
-
-class DevelopmentConfig(Config):
-    DEBUG = True
-
-
-class ProductionConfig(Config):
-    DEBUG = False
-
-
-config = {
-    'development': DevelopmentConfig,
-    'production': ProductionConfig,
-
-    'default': ProductionConfig
-}
+from app.config import config
 
 
 def create_app(config_name):
