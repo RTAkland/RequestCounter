@@ -13,11 +13,11 @@ app = create_app('default')
 if __name__ == '__main__':
     from gevent import pywsgi
 
-    print('服务运行在 http://127.0.0.1:5000')
+    print('I: 服务运行在 http://127.0.0.1:5000')
     try:
         server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
         server.serve_forever()
     except KeyboardInterrupt:
-        print('已退出')
+        print('I: 已退出')
     except OSError:
-        print('5000 端口已被占用')
+        print('C: 5000 端口已被占用')
