@@ -42,7 +42,8 @@ class SQLite:
         tables = self.__cursor.fetchall()
         lst = []
         for table in tables:
-            lst.append(table[1])
+            if table[1] != 'ReqCount':
+                lst.append(table[1])
         del tables
         return lst
 
