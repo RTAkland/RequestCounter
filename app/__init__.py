@@ -22,7 +22,7 @@ def create_app(config_name):
         sslify = SSLify(app)
 
     app.register_blueprint(main_blueprint)
-    app.register_blueprint(api_blueprint, url_prefix='/api')
+    app.register_blueprint(api_blueprint, url_prefix='/api/v1/')
 
     return app
 
