@@ -12,11 +12,7 @@ from flask import render_template
 from typing import Tuple
 
 
-def view(theme: str,
-         length: int,
-         name: str,
-         count: str
-         ) -> str or Tuple[bool, str]:
+def view(theme: str, length: int, name: str, count: str ) -> str or Tuple[bool, str]:
     """
     渲染模板
     :param theme:
