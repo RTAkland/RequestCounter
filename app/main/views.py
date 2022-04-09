@@ -41,6 +41,8 @@ def api_v1(name: str):
         abort(500)
     if 7 <= length <= 10:
         data = db().fetch(name)
+        if len(str(data[-1])) > 10:
+            db().update(name, 0)
         # 使用设置的长度减去已有数据的长度, 将结果转换为string类型, 再和数据库内的数据进行拼接
         number = '0' * (length - len(str(data[-1]))) + str(data[-1])
         response = make_response(view(theme, int(length), name, number))
@@ -48,14 +50,3 @@ def api_v1(name: str):
         response.headers['cache-control'] = 'max-age=0, no-cache, no-store, must-revalidate'
         return response
     return abort(500)
-
-
-@main.route('/exists-table', methods=['GET', 'POST'])
-@main.route('/exists', methods=['GET', 'POST'])
-def show_tables() -> Response:
-    """
-    返回已有表
-    :return:
-    """
-    tables = db().show_tables
-    return jsonify({'code': 200, 'msg': '已有表', 'data': [tables]})
