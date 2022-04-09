@@ -47,7 +47,7 @@
 ### 调用示例
 
 ```shell
-$ curl -X GET https://requestcounter.herokuapp.com/api/overall?limit=20
+$ curl -X GET https://requestcounter.herokuapp.com/api/overall/?limit=20
 ```
 
 ```json
@@ -80,7 +80,7 @@ $ curl -X GET https://requestcounter.herokuapp.com/api/overall?limit=20
 ### 调用示例
 
 ```shell
-$ curl -X GET https://requestcounter.herokuapp.com/api/query?name=main&nochange=1
+$ curl -X GET https://requestcounter.herokuapp.com/api/query/?name=main&nochange=1
 ```
 
 ```json
@@ -102,7 +102,7 @@ $ curl -X GET https://requestcounter.herokuapp.com/api/query?name=main&nochange=
 ### 调用示例
 
 ```shell
-$ curl -X GET https://requestcounter.herokuapp.com/api/theme?name=lewd
+$ curl -X GET https://requestcounter.herokuapp.com/api/theme/?name=lewd
 ```
 
 ```json
@@ -128,7 +128,7 @@ $ curl -X GET https://requestcounter.herokuapp.com/api/theme?name=lewd
 > 无参数
 
 ```shell
-$ curl -X GET https://requestcounter.herokuapp.com/api/alltables
+$ curl -X GET https://requestcounter.herokuapp.com/api/alltables/
 ```
 
 ```json
