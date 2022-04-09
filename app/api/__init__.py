@@ -4,3 +4,10 @@
 # @Development Tool: PyCharm
 # @Create Time: 2022/4/9
 # @File Name: __init__.py.py
+
+
+from flask import Blueprint
+
+api = Blueprint('api', __name__)
+
+from . import views, errors
