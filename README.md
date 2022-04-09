@@ -59,3 +59,4 @@ $ python3 app.py
 # 一些信息
 
 - 使用了Python3.6 的标准库`Sqlite3`进行数据库操作
+- 你可以在`api`获取原始数据, 文档地址: [文档](https://markusjoe.github.io/RequestCounter/#/api)
