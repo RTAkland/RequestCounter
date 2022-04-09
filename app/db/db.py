@@ -105,6 +105,8 @@ class SQLite:
         data = self.__cursor.fetchone()
         if not is_check:
             self.update(name, data[-1])
+        self.__cursor.execute('select * from reqcount where name="%(name)s"' % {'name': name})
+        data = self.__cursor.fetchone()
         return data
 
     def update(self, name: str, times: int) -> bool:
