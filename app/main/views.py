@@ -7,9 +7,7 @@
 
 
 from flask import abort
-from flask import jsonify
 from flask import request
-from flask import Response
 from flask import make_response
 from flask import render_template
 from . import main
@@ -27,7 +25,6 @@ def index():
 
 
 @main.route('/count/<string:name>', methods=['GET', 'POST'])
-@main.route('/api/v1/<string:name>', methods=['GET', 'POST'])
 def api_v1(name: str):
     length = request.args.get('length', type=int)
     theme = request.args.get('theme', type=str)
