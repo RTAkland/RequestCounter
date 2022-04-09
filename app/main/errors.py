@@ -6,23 +6,26 @@
 # @File Name: errors.py
 
 from . import main
+from flask import jsonify
 
 
 @main.app_errorhandler(404)
 def page_not_found(e):
-    """
-    404页面未找到
-    :param e:
-    :return:
-    """
-    return {'code': 404, 'msg': '页面未找到', 'data': []}, 404
+    return jsonify(
+        {
+            'code': 404,
+            'msg': '页面未找到',
+            'data': None
+        }
+    ), 404
 
 
 @main.app_errorhandler(500)
 def internal_server_error(e):
-    """
-    500服务器内部错误
-    :param e:
-    :return:
-    """
-    return {'code': 500, 'msg': '服务器内部错误', 'data': []}, 500
+    return jsonify(
+        {
+            'code': 500,
+            'msg': '服务器内部错误',
+            'data': None
+        }
+    ), 500
