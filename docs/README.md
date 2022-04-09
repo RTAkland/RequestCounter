@@ -5,7 +5,6 @@
 # 灵感来源
 
 [Moe-Counter](https://github.com/journey-ad/Moe-counter)
-> 看到这个项目感觉挺有意思就用Python写了一个 此项目中添加了原项目中没有的功能 `Length` `设置长度`
 
 # 工作原理
 
@@ -28,7 +27,7 @@
 
 - Python版本: `3.10.x`
 - 请求方法: `GET` `POST`
-- 请求地址: `/count/<string:name>` or `/api/v1/<string:name>`
+- 请求地址: `/count/<string:name>`
 - 你需要在 请求地址末尾加入你需要使用的名称来进行计数
 - 可选参数: `theme` `length`
 
@@ -48,7 +47,7 @@
 ### 调用示例
 
 ```shell
-$ curl -X GET https://requestcounter.herokuapp.com/api/overall/?limit=20
+$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/overall/?limit=20
 ```
 
 ```json
@@ -81,7 +80,7 @@ $ curl -X GET https://requestcounter.herokuapp.com/api/overall/?limit=20
 ### 调用示例
 
 ```shell
-$ curl -X GET https://requestcounter.herokuapp.com/api/query/?name=main&nochange=1
+$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/query/?name=main&nochange=1
 ```
 
 ```json
@@ -103,7 +102,7 @@ $ curl -X GET https://requestcounter.herokuapp.com/api/query/?name=main&nochange
 ### 调用示例
 
 ```shell
-$ curl -X GET https://requestcounter.herokuapp.com/api/theme/?name=lewd
+$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/theme/?name=lewd
 ```
 
 ```json
@@ -129,7 +128,7 @@ $ curl -X GET https://requestcounter.herokuapp.com/api/theme/?name=lewd
 > 无参数
 
 ```shell
-$ curl -X GET https://requestcounter.herokuapp.com/api/alltables/
+$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/alltables/
 ```
 
 ```json
