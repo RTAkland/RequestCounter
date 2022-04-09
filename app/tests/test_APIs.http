@@ -1,0 +1,61 @@
+GET http://127.0.0.1:5000/api/v1/overall/?limit=20
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:5000/api/v1/query/?name=test-example
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:5000/api/v1/theme/?name=lewd
+Accept: application/json
+
+###
+
+POST http://127.0.0.1:5000/api/v1/overall/?limit=20
+Accept: application/json
+
+###
+
+POST http://127.0.0.1:5000/api/v1/query/?name=test-example
+Accept: application/json
+
+###
+
+POST http://127.0.0.1:5000/api/v1/theme/?name=lewd
+Accept: application/json
+
+###
+
+
+GET https://requestcounter.herokuapp.com/api/v1/overall/?limit=20
+Accept: application/json
+
+###
+
+GET https://requestcounter.herokuapp.com/api/v1/query/?name=test-example
+Accept: application/json
+
+###
+
+GET https://requestcounter.herokuapp.com/api/v1/theme/?name=lewd
+Accept: application/json
+
+###
+
+POST https://requestcounter.herokuapp.com/api/v1/overall/?limit=20
+Accept: application/json
+
+###
+
+POST https://requestcounter.herokuapp.com/api/v1/query/?name=test-example
+Accept: application/json
+
+###
+
+POST https://requestcounter.herokuapp.com/api/v1/theme/?name=lewd
+Accept: application/json
+
+###
+
