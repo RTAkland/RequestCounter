@@ -25,7 +25,7 @@ def index():
 
 
 @main.route('/count/<string:name>', methods=['GET', 'POST'])
-def api_v1(name: str):
+def main(name: str):
     length = request.args.get('length', type=int)
     theme = request.args.get('theme', type=str)
     if not bool(length):
