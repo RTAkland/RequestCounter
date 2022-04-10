@@ -9,12 +9,23 @@ from . import api
 from flask import jsonify
 
 
+@api.errorhandler(403)
+def forbidden(e):
+    return jsonify(
+        {
+            'code': 403,
+            'msg': 'API: 没有权限',
+            'data': None
+        }
+    ), 403
+
+
 @api.errorhandler(404)
 def page_not_found(e):
     return jsonify(
         {
             'code': 404,
-            'msg': '页面未找到',
+            'msg': 'API: 页面未找到',
             'data': None
         }
     ), 404
@@ -25,7 +36,7 @@ def internal_server_error(e):
     return jsonify(
         {
             'code': 500,
-            'msg': '服务器内部错误',
+            'msg': 'API: 服务器内部错误',
             'data': None
         }
     ), 500

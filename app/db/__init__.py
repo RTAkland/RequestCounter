@@ -7,9 +7,23 @@
 
 
 import os
+import time
 import sys
 import requests
-from ..decorators import time_it
+from functools import wraps
+
+
+def time_it(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        print('I: 数据库文件开始下载')
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print('I: 下载结束, 耗时 {} 秒'.format(round(end - start, 2)))
+        return result
+
+    return wrapper
 
 
 @time_it

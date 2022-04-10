@@ -32,7 +32,12 @@
 - 可选参数: `theme` `length`
 
 # API
-> 注意事项: ***调用接口必须在路径末尾加入 `/` (不是参数末尾)***
+
+* 注意事项
+
+1. `/api/v1/`内的所有接口都是需要`key`来访问
+2. `key`是从环境变量中获取或自动生成, 这取决与你部署到`Heroku`时是否设置了`ACCESS_KEY`环境变量
+3. `key`的长度为`32`位的随机英文字母大小写字符串
 
 > 地址前缀: `/api/v1/`
 
@@ -41,13 +46,14 @@
 
 ## `/overall/` 接口
 
-> 使用此接口获取数据库中所有的数据  
+> 使用此接口获取数据库中所有的数据
+
 > 必选参数: `limit: int` > 自定义查询数量, 输入的数字大于等于最大值时, 将返回最大值
 
 ### 调用示例
 
 ```shell
-$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/overall/?limit=20
+$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/overall/?limit=20&key=<key>
 ```
 
 ```json
@@ -73,14 +79,16 @@ $ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/overall/?limit=20
 
 ***使用此接口查询的名称计数数值会加一***
 
-> 必选参数: `name: str`  > 查询指定名称的计数数据  
+> 必选参数: `name: str`  > 查询指定名称的计数数据
+
 > 可选参数: `nochange: Any`
+
 > `nochange`: 'Any` > 将参数值设置为任意值则仅查询不增加
 
 ### 调用示例
 
 ```shell
-$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/query/?name=main&nochange=1
+$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/query/?name=main&nochange=1&key=<key>
 ```
 
 ```json
@@ -97,12 +105,13 @@ $ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/query/?name=main&no
 ## `/theme/` 接口
 
 > 使用此接口获取数据库内原始的base64编码的主题图片
+
 > 必选参数: `theme: str`
 
 ### 调用示例
 
 ```shell
-$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/theme/?name=lewd
+$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/theme/?name=lewd&key=<key>
 ```
 
 ```json
@@ -124,11 +133,12 @@ $ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/theme/?name=lewd
 
 ## `/alltables/` 接口
 
-> 此接口可以获取数据库内所有的表名  > 返回的数据中不包含`ReqCount`  
+> 此接口可以获取数据库内所有的表名  > 返回的数据中不包含`ReqCount`
+
 > 无参数
 
 ```shell
-$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/alltables/
+$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/alltables/&key=<key>
 ```
 
 ```json
@@ -140,6 +150,18 @@ $ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/alltables/
   ]
 }
 ```
+
+## `/export/` 接口
+
+> 此接口可以导出应用的数据库文件
+
+> 无参数
+
+```shell
+$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/export/&key=<key>
+```
+
+> 该接口请求成功后返回文件
 
 # 关于
 
