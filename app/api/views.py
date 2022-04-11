@@ -6,24 +6,12 @@
 # @File Name: views.py
 
 
-import os
-from functools import wraps
-from flask import abort
 from flask import jsonify
 from flask import request
 from flask import send_file
 from ..db.db import SQLite as db
+from ..decorators import permission_required
 from . import api
-
-
-def permission_required(func):
-    @wraps(func)
-    def decorated_func(*args, **kwargs):
-        if request.args.get('key') != os.getenv('ACCESS_KEY'):
-            abort(403)
-        return func(*args, **kwargs)
-
-    return decorated_func
 
 
 @api.route('/overall/', methods=['GET', 'POST'])

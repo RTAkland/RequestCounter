@@ -7,22 +7,15 @@
 
 
 import os
-import random
 from flask import Flask
 from flask_sslify import SSLify
 from .main import main as main_blueprint
 from .api import api as api_blueprint
-from app.config import config
+from .config import config
+from .utils.password import generate_pwd
+from .utils.logger import CreateLogger
 
-
-def generate_random_string(length):
-    """
-    生成随机密码
-    :param length:
-    :return:
-    """
-    letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    return ''.join(random.choice(letters) for _ in range(length))
+logger = CreateLogger().get_logger()
 
 
 def create_app(config_name):
@@ -40,12 +33,15 @@ def create_app(config_name):
     app.register_blueprint(main_blueprint)
     app.register_blueprint(api_blueprint, url_prefix='/api/v1/')
 
+    CreateLogger.init_app(app)
+
     if not os.getenv('ACCESS_KEY'):
-        access_key = generate_random_string(32)
+        access_key = generate_pwd(32)
         os.environ['ACCESS_KEY'] = access_key
     else:
         access_key = os.getenv('ACCESS_KEY')
-    print('==========Access Key: {}=========='.format(access_key))
+
+    logger.info('Access Key: {}'.format(access_key))
 
     return app
 
@@ -55,5 +51,6 @@ __all__ = [
     'main',
     'tests',
     'utils',
+    'logger',
     'create_app'
 ]

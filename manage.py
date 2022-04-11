@@ -11,13 +11,15 @@ from app import create_app
 app = create_app('default')
 
 if __name__ == '__main__':
+    from app import logger
     from gevent import pywsgi
 
-    print('I: 服务运行在 http://127.0.0.1:5000')
+    logger.info('服务运行在 http://127.0.0.1:5000')
     try:
         server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
         server.serve_forever()
     except KeyboardInterrupt:
-        print('I: 已退出')
+        logger.info('已退出')
     except OSError:
-        print('C: 5000 端口已被占用')
+        logger.critical('5000 端口已被占用')
+        exit(1)
