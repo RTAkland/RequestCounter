@@ -46,7 +46,12 @@
 $ git clone https://github.com/MarkusJoe/RequestCounter.git
 $ cd RequestCounter
 $ pip3 install -r requirements.txt
-$ python3 app.py 
+```
+
+### 启动服务
+
+```shell
+$ python3 manage.py or gunicorn manage:app or waitress-serve --port=5000 manage:app
 ```
 
 ## 调用须知
