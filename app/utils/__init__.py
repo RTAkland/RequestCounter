@@ -6,5 +6,7 @@
 # @File Name: __init__.py.py
 
 __all__ = [
-    'view'
+    'view',
+    'password',
+    'logger'
 ]

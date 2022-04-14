@@ -12,7 +12,12 @@ from colorlog import ColoredFormatter
 
 
 class CreateLogger:
+    """创建日志器"""
+
     def __init__(self) -> None:
+        """
+        初始化类
+        """
         self.date_format = '%H:%M:%S'
         self.info_format_console = '%(log_color)s[%(asctime)s] |%(filename)-12s[%(lineno)s] |%(levelname)-8s |%(message)s'
         self.info_format_file = '[%(asctime)s] |%(filename)s[%(funcName)sline:%(lineno)d] |%(levelname)-8s |%(message)s'
@@ -29,6 +34,10 @@ class CreateLogger:
                                                 datefmt=self.date_format)
 
     def get_logger(self) -> logging.Logger:
+        """
+        设置日志器
+        :return:
+        """
         logger = logging.getLogger(__name__)
         logger.setLevel(logging.DEBUG)
         console_logger = logging.StreamHandler()  # 输出到终端
@@ -44,4 +53,9 @@ class CreateLogger:
 
     @staticmethod
     def init_app(app):
+        """
+        虚假的init_app静态方法
+        :param app:
+        :return:
+        """
         pass

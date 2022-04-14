@@ -141,6 +141,11 @@ class SQLite:
             return []
 
     def exec(self, cmd: str) -> List[Any]:
+        """
+        执行特殊sql语句
+        :param cmd:
+        :return:
+        """
         self.__cursor.execute(cmd)
         result = self.__cursor.fetchall()
         return result

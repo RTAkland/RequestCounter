@@ -12,7 +12,7 @@ from flask import render_template
 from typing import Tuple
 
 
-def view(theme: str, length: int, name: str, count: str ) -> str or Tuple[bool, str]:
+def view_(theme: str, length: int, name: str, count: str) -> str or Tuple[bool, str]:
     """
     渲染模板
     :param theme:
@@ -77,3 +77,13 @@ def view(theme: str, length: int, name: str, count: str ) -> str or Tuple[bool, 
                            address=request.remote_addr,
                            general_height=general_height,
                            general_width=general_width)
+
+
+def listing_(data: list):
+    """
+    展示数据库内所有的数据
+    :param data:
+    :return:
+    """
+    return render_template('list.html',
+                           data=data)

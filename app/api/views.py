@@ -119,11 +119,20 @@ def all_tables():
 
 
 @api.route('/export/', methods=['GET', 'POST'])
-@api.route('/export/<key>', methods=['GET', 'POST'])
 @permission_required
-def export(key: str = None):
+def export():
     """
     导出数据库文件
     :return:
     """
     return send_file('./db/data.sqlite', as_attachment=True)
+
+
+@api.route('/test', methods=['GET', 'POST'])
+def test_api():
+    """
+    测试专用接口
+    :return:
+    """
+    data = db().fetch('test-example')
+    return str(data[1])

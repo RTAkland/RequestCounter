@@ -9,5 +9,5 @@
 print('Tests models were loaded.')
 
 __all__ = [
-
+    'test_decorator'
 ]
