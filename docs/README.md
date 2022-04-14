@@ -66,7 +66,7 @@ $ curl -L -X GET https://requestcounter.herokuapp.com/list/
 
 * 注意事项
 
-1. `/api/v1/`内的所有接口都是需要`key`来访问
+1. `/api/v1/`内的接口需要`key`来访问的有: `/export/`
 2. `key`是从环境变量中获取或自动生成, 这取决与你部署到`Heroku`时是否设置了`ACCESS_KEY`环境变量
 3. `key`的长度为`32`位的随机英文字母大小写字符串
 
