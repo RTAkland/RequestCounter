@@ -1,10 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>All data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='listing.css') }}">
 </head>
 <body>
-$END$
+<div class="head">
+    <h2>
+        数据库内已有数据
+    </h2>
+    <table class="table">
+        <tr>
+            <th>
+                名称
+            </th>
+            <th>
+                次数
+            </th>
+        </tr>
+        {#使用Jinja2模板来快速遍历传入的列表数据#}
+        {% for value in data %}
+            <tr>
+                <td>{{ value['name'] }}</td>
+                <td>{{ value['times'] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
 </body>
 </html>

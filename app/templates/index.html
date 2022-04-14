@@ -5,17 +5,22 @@
     <title>Request Counter | {{ remote_address }}</title>
     <link href="{{ url_for('static', filename='favicon.ico') }}" rel="shortcut icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='request.js') }}"></script>
 </head>
 <body>
+<div class="head">
+    <h1>
+        应用名: 访问次数计数器
+    </h1>
+    <h3>
+        简介: 可以使用SVG矢量图的形式来显示页面的访问次数
+        <br>
+        或者通过API的方式获取原始计数数据
+    </h3>
+</div>
 <div class="intro">
-    <div class="normal_text">
-        <i>看到这句话就说明程序正常运行啦!! <a href="https://markusjoe.github.io/RequestCounter/" target="_blank">查看文档</a></i>
-    </div>
-    <div class="normal_text">
-        <i>服务端使用Flask开发没有使用异步编程</i>
-    </div>
     <div class="current_deployment_test">
-        <i><a href="{{ url_for('main.main', name='test-example') }}">快速查看当前示例试用例</a></i>
+        <i><a href="{{ url_for('main.home', name='test-example') }}">点击查看当但实例调用示例</a></i>
     </div>
     <div class="remote_deployment_test">
         <i><a href="https://requestcounter.herokuapp.com/count/test-example">点击查看已部署好的调用示例</a></i>
@@ -31,9 +36,32 @@
             你可以在注明来源版权信息的情况下对源代码进行任意分发和修改以及衍生
         </i>
     </div>
-    <div class="ip_address">
-        <i><b>你的IP地址为: {{ remote_address }}</b></i>
+    <div class="documents">
+        <div class="vercel">
+            <i><a href="https://request-counter-docs.vercel.app/#/" target="_blank">点击查看托管在<i>Vercel</i>上的文档</a></i>
+        </div>
+        <div class="github">
+            <i><a href="https://markusjoe.github.io/RequestCounter/" target="_blank">点击查看托管在<i>GitHub</i>上的文档</a></i>
+        </div>
     </div>
+    <div class="ip_address">
+        <i><b>请求地址来源: {{ remote_address }}</b></i>
+    </div>
+</div>
+<div class="example">
+    <div class="svg">
+        <img src="{{ url_for('main.home', name='test-example') }}" alt="fast_test_example_svg">
+    </div>
+    <div class="api">
+        <button onclick="request_async()">点击获取计数数值</button>
+        <div class="result">
+            <i><b>test-example</b>当前计数数据值: </i>
+            <p id="fast_test_example_text"></p>
+        </div>
+    </div>
+</div>
+<div class="something_to_say">
+    <i>开发周期</i>
 </div>
 </body>
 </html>
