@@ -15,7 +15,6 @@ from . import api
 
 
 @api.route('/overall/', methods=['GET', 'POST'])
-@permission_required
 def overall():
     """
     查询ReqCount表内所有的源数据
@@ -45,7 +44,6 @@ def overall():
 
 
 @api.route('/query/', methods=['GET', 'POST'])
-@permission_required
 def query():
     """
     查询指定名称的计数数据
@@ -75,7 +73,6 @@ def query():
 
 
 @api.route('/theme/', methods=['GET', 'POST'])
-@permission_required
 def theme():
     """
     查询数据库内主题的源数据
@@ -102,7 +99,6 @@ def theme():
 
 
 @api.route('/alltables/', methods=['GET', 'POST'])
-@permission_required
 def all_tables():
     """
     查询所有已有表
