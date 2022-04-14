@@ -1,8 +1,8 @@
 <p align="center">
     <a href="https://github.com/MarkusJoe/FlaskRequestCounter">
-        <img src="https://img.shields.io/badge/Python-3.9.x-blue.svg" alt="PythonVersion">
+        <img src="https://img.shields.io/badge/Python-3.10.x-blue.svg" alt="PythonVersion">
         <img src="https://img.shields.io/badge/LINCESE-Apache2.0-orange.svg" alt="LICENSE">
-        <img src="https://img.shields.io/badge/Falsk-2.0.2-purple" alt="FlaskVersion">
+        <img src="https://img.shields.io/badge/Falsk-2.0.3-purple" alt="FlaskVersion">
     </a>
 </p>
 

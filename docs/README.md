@@ -6,9 +6,14 @@
 
 [Moe-Counter](https://github.com/journey-ad/Moe-counter)
 
+# 资源来源
+
+* 数据库内的`base64`图片来自`booru`
+* 项目部分代码结构来自`miguelgrinberg`的书: `Falsk Web Development`
+
 # 工作原理
 
-使用Flask建立服务器接收请求分析获取到的数据写入数据库
+> Flask 建立服务器来接收请求并返回对应的响应体
 
 # 部署
 
@@ -23,13 +28,39 @@
  $ python3 app.py 
  ```
 
-# 基本信息
+# 普通接口
 
-- Python版本: `3.10.x`
-- 请求方法: `GET` `POST`
-- 请求地址: `/count/<string:name>`
-- 你需要在 请求地址末尾加入你需要使用的名称来进行计数
-- 可选参数: `theme` `length`
+## `/count/` 接口
+
+> 此接口为基本接口请求此接口可以获取`svg矢量图`的响应体
+
+> 必选参数: `name`: `str` 可选参数: `length`: `int` ; `theme`: `str`
+
+### 调用示例
+
+```shell
+$ curl -L -X https://requestcounter.herokuapp.com/count/main/
+```
+
+```json
+<...>
+```
+
+## `/list/` 接口
+
+> 此接口为展示数据库内所有的数据的页面
+
+> 无参数
+
+### 调用示例
+
+```shell
+$ curl -L -X GET https://requestcounter.herokuapp.com/list/
+```
+
+```json
+<...>
+```
 
 # API
 
@@ -157,11 +188,31 @@ $ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/alltables/&key=<key
 
 > 无参数
 
+### 调用示例
+
 ```shell
 $ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/export/&key=<key>
 ```
 
 > 该接口请求成功后返回文件
+
+## `/test`接口
+
+> 此接口仅用于测试 只能增加`test-example`名称的计数次数
+
+> 无需`key`即可请求
+
+### 调用示例
+
+```shell
+$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/test
+```
+
+```json
+622
+```
+
+> 返回一个`int`数字
 
 # 关于
 
