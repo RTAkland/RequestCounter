@@ -11,8 +11,7 @@ from flask import request
 from flask import make_response
 from flask import render_template
 from ..db.db import SQLite as db
-from ..utils.view import view_
-from ..utils.view import listing_
+from ..utils.response import index_
 from . import main
 
 
@@ -44,21 +43,8 @@ def home(name: str):
             db().update(name, 0)
         # 使用设置的长度减去已有数据的长度, 将结果转换为string类型, 再和数据库内的数据进行拼接
         number = '0' * (length - len(str(data[-1]))) + str(data[-1])
-        response = make_response(view_(theme, int(length), name, number))
+        response = make_response(index_(theme, int(length), name, number))
         response.headers['Content-Type'] = 'image/svg+xml; charset=utf-8'
         response.headers['cache-control'] = 'max-age=0, no-cache, no-store, must-revalidate'
         return response
     return abort(500)
-
-
-@main.route('/list/', methods=['GET', 'POST'])
-def listing():
-    """
-    列出所有数据库内已有的数据
-    :return:
-    """
-    data = db().exec('select * from reqcount;')
-    format_data = []
-    for i in data:
-        format_data.append({'name': i[0], 'times': i[1]})
-    return listing_(format_data)
