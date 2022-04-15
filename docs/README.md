@@ -46,22 +46,6 @@ $ curl -L -X https://requestcounter.herokuapp.com/count/main/
 <...>
 ```
 
-## `/list/` 接口
-
-> 此接口为展示数据库内所有的数据的页面
-
-> 无参数
-
-### 调用示例
-
-```shell
-$ curl -L -X GET https://requestcounter.herokuapp.com/list/
-```
-
-```json
-<...>
-```
-
 # API
 
 * 注意事项
