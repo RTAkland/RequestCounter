@@ -2,14 +2,9 @@
 
 > 虽然说项目很小根本不需要文档
 
-# 灵感来源
-
-[Moe-Counter](https://github.com/journey-ad/Moe-counter)
-
 # 资源来源
 
 * 数据库内的`base64`图片来自`booru`
-* 项目部分代码结构来自`miguelgrinberg`的书: `Falsk Web Development`
 
 # 工作原理
 
