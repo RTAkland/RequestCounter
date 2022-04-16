@@ -5,7 +5,7 @@
     <g>
         {% for value in context %}
         <image x="{{ value.position }}" y="0" width="{{ value.width }}" height="{{ value.height }}"
-               xlink:href="{{ value.base64 }}"></image>
+               xlink:href="{{ value.url }}"></image>
         {% endfor %}
     </g>
 </svg>
