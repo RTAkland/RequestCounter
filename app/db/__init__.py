@@ -12,7 +12,7 @@ import requests
 
 
 def download():
-    res = requests.get('https://filebase.vercel.app/download/data.db')
+    res = requests.get('https://filebase.vercel.app/download/data.sqlite')
     with open('./app/db/data.sqlite', 'wb') as fp:
         fp.write(res.content)
 
