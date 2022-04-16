@@ -42,7 +42,7 @@ class SQLite:
         tables = self.__cursor.fetchall()
         lst = []
         for table in tables:
-            if table[1] != 'ReqCount':
+            if table[1] != 'reqcount':
                 lst.append(table[1])
         del tables
         return lst
@@ -132,7 +132,7 @@ class SQLite:
             lst = []
             for data in tables:
                 lst.append({'index': data[0],
-                            'base64': data[1],
+                            'url': data[1],
                             'width': data[2],
                             'height': data[3]})
             del tables
