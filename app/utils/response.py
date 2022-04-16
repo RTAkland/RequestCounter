@@ -25,43 +25,43 @@ def index_(theme: str, length: int, name: str, count: str) -> str or Tuple[bool,
     context = []
     for i in count:
         if i == '0':
-            context.append({'base64': datas[0]['base64'],
+            context.append({'url': datas[0]['url'],
                             'width': datas[0]['width'],
                             'height': datas[0]['height']})
         elif i == '1':
-            context.append({'base64': datas[1]['base64'],
+            context.append({'url': datas[1]['url'],
                             'width': datas[1]['width'],
                             'height': datas[1]['height']})
         elif i == '2':
-            context.append({'base64': datas[2]['base64'],
+            context.append({'url': datas[2]['url'],
                             'width': datas[2]['width'],
                             'height': datas[2]['height']})
         elif i == '3':
-            context.append({'base64': datas[3]['base64'],
+            context.append({'url': datas[3]['url'],
                             'width': datas[3]['width'],
                             'height': datas[3]['height']})
         elif i == '4':
-            context.append({'base64': datas[4]['base64'],
+            context.append({'url': datas[4]['url'],
                             'width': datas[4]['width'],
                             'height': datas[4]['height']})
         elif i == '5':
-            context.append({'base64': datas[5]['base64'],
+            context.append({'url': datas[5]['url'],
                             'width': datas[5]['width'],
                             'height': datas[5]['height']})
         elif i == '6':
-            context.append({'base64': datas[6]['base64'],
+            context.append({'url': datas[6]['url'],
                             'width': datas[6]['width'],
                             'height': datas[6]['height']})
         elif i == '7':
-            context.append({'base64': datas[7]['base64'],
+            context.append({'url': datas[7]['url'],
                             'width': datas[7]['width'],
                             'height': datas[7]['height']})
         elif i == '8':
-            context.append({'base64': datas[8]['base64'],
+            context.append({'url': datas[8]['url'],
                             'width': datas[8]['width'],
                             'height': datas[8]['height']})
         elif i == '9':
-            context.append({'base64': datas[9]['base64'],
+            context.append({'url': datas[9]['url'],
                             'width': datas[9]['width'],
                             'height': datas[9]['height']})
 
