@@ -63,7 +63,7 @@ $ curl -L -X https://requestcounter.herokuapp.com/count/main/
 ### 调用示例
 
 ```shell
-$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/overall/?limit=20&key=<key>
+$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/overall/?limit=20
 ```
 
 ```json
@@ -98,7 +98,7 @@ $ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/overall/?limit=20&k
 ### 调用示例
 
 ```shell
-$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/query/?name=main&nochange=1&key=<key>
+$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/query/?name=main&nochange=1
 ```
 
 ```json
@@ -121,7 +121,7 @@ $ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/query/?name=main&no
 ### 调用示例
 
 ```shell
-$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/theme/?name=lewd&key=<key>
+$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/theme/?name=lewd
 ```
 
 ```json
@@ -136,7 +136,7 @@ $ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/theme/?name=lewd&ke
       "width": 45,
       "height": 100
     },
-    ...
+     ...
   ]
 }
 ```
@@ -148,7 +148,7 @@ $ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/theme/?name=lewd&ke
 > 无参数
 
 ```shell
-$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/alltables/&key=<key>
+$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/alltables/
 ```
 
 ```json
@@ -170,12 +170,12 @@ $ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/alltables/&key=<key
 ### 调用示例
 
 ```shell
-$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/export/&key=<key>
+$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/export/?key=<key>
 ```
 
 > 该接口请求成功后返回文件
 
-## `/test`接口
+## `/test/`接口
 
 > 此接口仅用于测试 只能增加`test-example`名称的计数次数
 
@@ -184,7 +184,7 @@ $ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/export/&key=<key>
 ### 调用示例
 
 ```shell
-$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/test
+$ curl -L -X GET https://requestcounter.herokuapp.com/api/v1/test/
 ```
 
 ```json
