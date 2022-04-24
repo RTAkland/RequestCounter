@@ -13,9 +13,6 @@ from .main import main as main_blueprint
 from .api import api as api_blueprint
 from .config import config
 from .utils.password import generate_pwd
-from .utils.logger import CreateLogger
-
-logger = CreateLogger().get_logger()
 
 
 def create_app(config_name):
@@ -27,13 +24,11 @@ def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
-    if os.environ.get('SSL_REDIRECT'):
+    if app.config['SSL_REDIRECT']:
         SSLify(app)
 
     app.register_blueprint(main_blueprint)
     app.register_blueprint(api_blueprint, url_prefix='/api/v1/')
-
-    CreateLogger.init_app(app)
 
     if not os.getenv('ACCESS_KEY'):
         access_key = generate_pwd(32)
@@ -41,7 +36,7 @@ def create_app(config_name):
     else:
         access_key = os.getenv('ACCESS_KEY')
 
-    logger.info('Access Key: {}'.format(access_key))
+    app.logger.info('Access Key: {}'.format(access_key))
 
     return app
 
@@ -51,6 +46,5 @@ __all__ = [
     'main',
     'tests',
     'utils',
-    'logger',
     'create_app'
 ]

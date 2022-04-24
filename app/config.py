@@ -7,16 +7,33 @@
 
 
 import os
+import logging
+import platform
+from logging.handlers import *
 
 
 class Config:
     JSON_SORT_KEYS = False
     JSON_AS_ASCII = False
-    SSL_REDIRECT = False if not os.environ.get('DYNO') else True
+    SSL_REDIRECT = False
 
     @staticmethod
     def init_app(app):
-        pass
+        formatter = logging.Formatter(
+            fmt='[%(asctime)s] |%(filename)s[%(funcName)s:%(lineno)d] |%(levelname)-8s |%(message)s',
+            datefmt='%H:%M:%S')
+        handler = logging.handlers.RotatingFileHandler(filename='./app/logs/access.log',
+                                                       maxBytes=10240,
+                                                       backupCount=10)
+        handler.setFormatter(formatter)
+        handler.setLevel(logging.DEBUG)
+
+        if platform.system() == 'Linux':
+            syslog_handler = SysLogHandler()
+            syslog_handler.setLevel(logging.INFO)
+            app.logger.addHandler(syslog_handler)
+
+        app.logger.addHandler(handler)
 
 
 class DevelopmentConfig(Config):
@@ -27,9 +44,19 @@ class ProductionConfig(Config):
     DEBUG = False
 
 
+class HerokuConfig(ProductionConfig):
+    SSL_REDIRECT = False if not os.environ.get('DYNO') else True
+
+
+class ProfessionalConfig(ProductionConfig):
+    SSL_REDIRECT = True
+
+
 config = {
     'development': DevelopmentConfig,
     'production': ProductionConfig,
+    'professional': ProfessionalConfig,
+    'heroku': HerokuConfig,
 
     'default': DevelopmentConfig
 }
