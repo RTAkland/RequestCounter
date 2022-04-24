@@ -15,9 +15,10 @@ from functools import wraps
 def permission_required(func):
     @wraps(func)
     def decorated_func(*args, **kwargs):
-        if request.args.get('key') != os.getenv('ACCESS_KEY'):
+        if request.args.get('key') == os.getenv('ACCESS_KEY'):
+            return func(*args, **kwargs)
+        else:
             abort(403)
-        return func(*args, **kwargs)
 
     return decorated_func
 
