@@ -1,0 +1,16 @@
+# Dirs
+.idea/
+build/
+dist/
+
+
+# Files
+*.pyc
+*.zip
+*.tar
+*.gz
+*.sqlite
+*.log
+*.log.*
+*.sql
+*.gif

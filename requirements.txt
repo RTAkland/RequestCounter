@@ -1,0 +1,10 @@
+flask~=2.1.1
+requests~=2.26.0
+gunicorn~=20.1.0
+Werkzeug~=2.0.3
+itsdangerous~=2.1.0
+flask_sslify~=0.1.5
+gevent~=21.12.0
+psutil~=5.9.0
+click~=8.1.2
+flask_httpauth~=4.6.0
