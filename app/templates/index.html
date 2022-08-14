@@ -8,16 +8,6 @@
     <script type="text/javascript" src="{{ url_for('static', filename='request.js') }}"></script>
 </head>
 <body>
-<div class="head">
-    <h1>
-        应用名: 访问次数计数器
-    </h1>
-    <h3>
-        简介: 可以使用SVG矢量图的形式来显示页面的访问次数
-        <br>
-        或者通过API的方式获取原始计数数据
-    </h3>
-</div>
 <div class="intro">
     <div class="current_deployment_test">
         <i><a href="{{ url_for('main.home', name='test-example') }}">点击查看当但实例调用示例</a></i>
