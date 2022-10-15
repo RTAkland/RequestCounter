@@ -1,3 +1,5 @@
+# 新的项目仓库 https://github.com/MarkusJoe/Counter
+
 <p align="center">
     <a href="https://github.com/MarkusJoe/FlaskRequestCounter">
         <img src="https://img.shields.io/badge/Python-3.10.x-blue.svg" alt="PythonVersion">
